@@ -1,3 +1,3 @@
 # Conhecimentos
 
-- Todos os exercícios / projetos que fiz em diversas linguages de programação.
+- Todos os exercícios / projetos que fiz em diversas linguagens de programação.
