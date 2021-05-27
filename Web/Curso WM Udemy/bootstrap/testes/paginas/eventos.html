@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/estilo.css">
+</head>
+
+<body>
+  <header>
+    <div class="bg-secondary container-fluid">
+      <nav class="navbar navbar-expand navbar-light bg-transparent justify-content-center border-dark" aria-label="">
+          <div class="nav navbar-nav"> <!--MENU DO CABEÇALHO-->
+            <a class="nav-item nav-link text-light mr-5 border" href="cadastro.html">Cadastre-se Grátis</a>
+            <a class="nav-item nav-link text-light mr-5" href="index.html">Home</a>
+            <a class="nav-item nav-link text-light mr-5 d-none d-md-block" href="quemsomos.html">Quem Somos</a>
+            <a class="nav-item nav-link text-light mr-5 d-none d-md-block" href="eventos.html">Eventos</a>
+            <a class="nav-item nav-link text-light mr-5 d-none d-md-block" href="noticias.html">Notícias</a>
+            <a class="nav-item nav-link text-light mr-5 d-none d-md-block" href="contato.html">Fale Conosco</a>
+          </div>
+      </nav>
+    </div>
+
+    <div class="col-12 bg-white">
+      <a href="index.html">
+        <img src="../imgs/logo.jpg" class="img-fluid" alt="Logo">
+      </a>
+    </div>
+    
+    <!-- <div class="w-100"></div> -->
+    
+    <nav class="col-12 navbar navbar-expand-sm navbar-light bg-secondary border border-dark" aria-label=""> <!--MENU E SEARCH-->
+      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" 
+      aria-controls="collapsibleNavId"
+          aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavId">
+        <ul class="navbar-nav mt-2 mt-lg-0 d-block d-md-none mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" 
+            aria-expanded="false">Menu</a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="dropdownId">
+                <a class="dropdown-item text-light" href="index.html">Home</a>
+                <a class="dropdown-item text-light" href="cadastro.html">Cadastre-se</a>
+                <a class="dropdown-item text-light" href="categorias.html">Categorias</a>
+                <a class="dropdown-item text-light" href="quemsomos.html">Quem Somos</a>
+                <a class="dropdown-item text-light" href="eventos.html">Eventos</a>
+                <a class="dropdown-item text-light" href="noticias.html">Notícias</a>
+                <a class="dropdown-item text-light" href="contato.html">Fale Conosco</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-3 my-lg-0 w-100 justify-content-center">
+          <input class="form-control mr-sm-2 w-50" type="text" placeholder="Nome da Loja">
+          <button class="btn btn-outline-dark my-2 my-lg-0 text-light" type="submit">Pesquisar</button>
+        </form>
+      </div>
+    </nav> <!--MENU E SEARCH FIM-->
+
+  </header>
+  
+  <div class="container-fluid h-100"> <!--MAIN CONTAINER-->
+    <div class="row">      
+      <aside class="col-2 d-none d-md-block mt-2 text-center" aria-label=""> <!-- ASIDE-LEFT MENU-->
+        <p class="h5 font-weight-light border">Menu</p>
+        <ul class="nav flex-column text-center border mt-1">
+          <li class="nav-item active">
+              <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categoria.html">Categoria</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link border-bottom border-secondary text-dark" href="categorias.html">Todas as Categorias</a>
+          </li>
+      </ul>
+      </aside>
+      
+      <main class="col-12 col-md-8 container-fluid bg-light mt-2 border-left border-right"> <!-- MAIN CONTENT -->
+        <div class="row"> <!--MAIN ROW-->
+          <div class="container-fluid">  <!--CONTENT-->
+            <div class="row mb-2 justify-content-center"> <!--Linha 3 CLIENTES-->
+              <div class="col-12 container-fluid border-bottom bg-secondary text-light">
+                <p class="h3 text-center">
+                  Próximos Eventos
+                </p>
+              </div>
+              <div class="col-10 bg-light mt-3"> <!--Container dos Clientes-->
+                <div class="container-fluid bg-light border-left border-right border-top my-2"> <!--CLIENTE-->
+                  <a href="info-evento.html" class="nav-link text-dark font-weight-bold h5 text-center border-bottom">Evento</a>
+                  <p class="h6">Data: 01/01/2022</p>
+                  <p class="h6">Horário: 00:00</p>
+                  <a id="" class="col-12 btn btn-secondary" href="info-evento.html" role="button">
+                    Ver Mais
+                  </a>
+                </div>
+                <div class="container-fluid bg-light border-left border-right border-top my-2"> <!--CLIENTE-->
+                  <a href="info-evento.html" class="nav-link text-dark font-weight-bold h5 text-center border-bottom">Evento</a>
+                  <p class="h6">Data: 01/01/2022</p>
+                  <p class="h6">Horário: 00:00</p>
+                  <a id="" class="col-12 btn btn-secondary" href="info-evento.html" role="button">
+                    Ver Mais
+                  </a>
+                </div>
+                <div class="container-fluid bg-light border-left border-right border-top my-2"> <!--CLIENTE-->
+                  <a href="info-evento.html" class="nav-link text-dark font-weight-bold h5 text-center border-bottom">Evento</a>
+                  <p class="h6">Data: 01/01/2022</p>
+                  <p class="h6">Horário: 00:00</p>
+                  <a id="" class="col-12 btn btn-secondary" href="info-evento.html" role="button">
+                    Ver Mais
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div> <!--CONTENT FIM-->
+
+        </div> <!--FIM MAIN ROW-->
+      </main> <!--FIM MAIN CONTENT-->
+
+      <aside class="col-2 d-none d-md-block mt-2" aria-label=""> <!-- ASIDE RIGHT ANÚNCIOS-->
+        <div class="container-fluid text-center border">
+          Anúncios
+        </div>
+      </aside>
+
+      <div class="w-100"></div>
+
+      <footer class="col-12 navbar navbar-expand navbar-light bg-secondary"> <!--FOOTER-->
+        <div class="w-25 d-none d-md-block" ></div>
+        <ul class="nav navbar-nav text-light flex-column flex-md-row ml-5 ml-md-0">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="quemsomos.html">Quem Somos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="contato.html">Contato</a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link text-light" href="categorias.html">Categorias</a>
+         </li>
+        </ul>
+        <div class="w-25 d-none d-md-block"></div>
+        <ul class="nav navbar-nav text-light flex-column ml-5 ml-md-0">
+          <p class="h5">Redes Sociais</p>
+          <li class="nav-item">
+              <a class="nav-link text-light text-center" href="http://facebook.com.br">Facebook</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light text-center" href="http://instagram.com.br">Instagram</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div> <!-- MAIN ROW END -->
+
+  </div>  <!--MAIN CONTAINER END-->
+
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
