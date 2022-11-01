@@ -10,14 +10,10 @@ namespace Library.DataStructures
     {
         public class GraphNode
         {
-            public List<object> Neighbors { get; set; }
+            public List<GraphNode> Neighbors { get; set; }
             public int Data { get; set; } = 0;
-
-            public GraphNode(int data)
-            {
-                Data = data;
-            }
         }
+
         public int NumberOfVertices { get; set; }
         public List<GraphNode> Vertices { get; set; }
 
