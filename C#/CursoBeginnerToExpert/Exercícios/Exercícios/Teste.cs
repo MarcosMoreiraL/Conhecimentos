@@ -6,17 +6,17 @@ namespace CursoUdemyBeginnerToExpert
     {
         static void Main(string[] args)
         {
-            Library.DataStructures.Stack<int> myStack = new Library.DataStructures.Stack<int>();
+            Library.DataStructures.Queue<int> myQueue = new Library.DataStructures.Queue<int>();
 
-            myStack.Push(0);
-            myStack.Push(1);
-            myStack.Push(2);
-            myStack.Push(3);
-            myStack.Push(4);
+            myQueue.Enqueue(0);
+            myQueue.Enqueue(1);
+            myQueue.Enqueue(2);
+            myQueue.Enqueue(3);
+            myQueue.Enqueue(4);
 
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(myStack.Pop());
+                Console.WriteLine(myQueue.Dequeue());
             }
         }
     }
