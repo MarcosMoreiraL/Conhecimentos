@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="DevTest.WPF.Views.RegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DevTest.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Background="Gray" Grid.Row="0">
+            <TextBlock Margin="5" Width="100" Text="Nome"/>
+            <TextBlock Margin="5" Width="100" Text="Grupo"/>
+            <TextBlock Margin="5" Width="100" Text="Código de Barra"/>
+            <TextBlock Margin="5" Width="100" Text="Preço Custo"/>
+            <TextBlock Margin="5" Width="100" Text="Preço Venda"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="1">
+            <TextBox Margin="5" Width="100" HorizontalContentAlignment="Center" Text="{Binding ProdName, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Margin="5" Width="100" ItemsSource="{Binding Path=ListaGrupos}"
+                      DisplayMemberPath="nome"
+                      SelectedValuePath="nome"
+                      SelectedValue="{Binding Path=NomeGrupo}"></ComboBox>
+            <TextBox Margin="5" Width="100" HorizontalContentAlignment="Center" Text="{Binding CodBarra, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="5" Width="100" HorizontalContentAlignment="Center" Text="{Binding PrecoCusto, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="5" Width="100" HorizontalContentAlignment="Center" Text="{Binding PrecoVenda, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Margin="5" Text="Ativo"/>
+            <CheckBox Margin="5" Width="100" IsChecked="{Binding Ativo}"></CheckBox>
+            <Button Margin="10" Width="50" Content="Limpar" Command="{Binding ClearCommand}"/>
+        </WrapPanel>
+        
+        <Button Grid.Row="2" Height="30" Width="300" HorizontalAlignment="Center" Content="Salvar" Command="{Binding GetProdNameCommand}"/>
+        
+        <WrapPanel Grid.Row="3">
+            <TextBox Margin="10" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                     Text="{Binding Cod, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Margin="10" Width="200" Height="30" Content="Alterar Produto" Command="{Binding UpdateCommand}"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>
