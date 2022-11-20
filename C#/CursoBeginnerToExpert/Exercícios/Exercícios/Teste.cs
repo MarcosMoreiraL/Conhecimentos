@@ -16,21 +16,6 @@ namespace CursoUdemyBeginnerToExpert
 
             //Console.WriteLine("Count: " + myList.Count());
             //Console.WriteLine(myList.ToString());
-
-            string[] map = new string[]
-            {
-                "+----------------+",
-                "|A               |",
-                "|XXXXXX          |",
-                "|            XXXX|",
-                "|                |",
-                "|XXXXXX      XXXX|",
-                "|               B|",
-                "+----------------+"
-            };
-
-            Library.Algorithms.AstarPathFinding pathFinding = new Library.Algorithms.AstarPathFinding(map);
-            pathFinding.Execute(1, 1, 16, 6);
         }
     }
 }

@@ -21,9 +21,83 @@ namespace Library.Algorithms
             this.map = map;
         }
 
-        public void SetMap(string[] map)
+        public AstarPathFinding()
         {
-            this.map = map;
+            this.map = new string[]
+            {
+                "+----------------+",
+                "|A               |",
+                "|XXXXXX          |",
+                "|            XXXX|",
+                "|                |",
+                "|XXXXXX      XXXX|",
+                "|               B|",
+                "+----------------+"
+            };
+        }
+
+        public void SetMap(string[] map) => this.map = map;
+        public string[] GetMap() => this.map;
+
+        public void Execute()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+
+            foreach (var line in map)
+                Console.WriteLine(line);
+
+            Location current = null, start = new Location { x = 1, y = 1 }, target = new Location { x = 16, y = 6 };
+            List<Location> openList = new List<Location>();
+            List<Location> closedList = new List<Location>();
+            int spot = 0;
+
+            openList.Add(start);
+
+            while (openList.Count > 0)
+            {
+                int min = openList.Min(i => i.score1);
+                current = openList.First(i => i.score1 == min);
+
+                closedList.Add(current);
+
+                Console.SetCursorPosition(current.x, current.y);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine('.');
+                Console.SetCursorPosition(current.x, current.y);
+
+                System.Threading.Thread.Sleep(200);
+                openList.Remove(current);
+
+                if (closedList.FirstOrDefault(i => i.x == target.x && i.y == target.y) != null)
+                    break;
+
+                List<Location> AdjacentSquares = GetMovableAdjacentSpots(current.x, current.y, map);
+                spot++;
+
+                foreach (Location adjacentSquare in AdjacentSquares)
+                {
+                    if (closedList.FirstOrDefault(i => i.x == adjacentSquare.x && i.y == adjacentSquare.y) != null)
+                        continue;
+
+                    if (closedList.FirstOrDefault(i => i.x == adjacentSquare.x && i.y == adjacentSquare.y) == null)
+                    {
+                        adjacentSquare.score2 = spot;
+                        adjacentSquare.score3 = ComputeSpotHeuristic(adjacentSquare.x, adjacentSquare.y, target.x, target.y);
+                        adjacentSquare.score1 = adjacentSquare.score2 + adjacentSquare.score3;
+                        adjacentSquare.parent = current;
+                        openList.Insert(0, adjacentSquare);
+                    }
+                    else
+                    {
+                        if (spot + adjacentSquare.score3 < adjacentSquare.score1)
+                        {
+                            adjacentSquare.score2 = spot;
+                            adjacentSquare.score1 = adjacentSquare.score2 + adjacentSquare.score3;
+                            adjacentSquare.parent = current;
+                        }
+                    }
+                }
+            }
         }
 
         public void Execute(Location startLocation, Location targetLocation)
@@ -33,7 +107,72 @@ namespace Library.Algorithms
             foreach (var line in map)
                 Console.WriteLine(line);
 
-            Location current = null, start = startLocation;
+            Location current = null, start = new Location { x = startLocation.x, y = startLocation.y }, target = new Location { x = targetLocation.x, y = targetLocation.y };
+            List<Location> openList = new List<Location>();
+            List<Location> closedList = new List<Location>();
+            int spot = 0;
+
+            openList.Add(start);
+
+            while(openList.Count > 0)
+            {
+                int min = openList.Min(i => i.score1);
+                current = openList.First(i => i.score1 == min);
+
+                closedList.Add(current);
+
+                Console.SetCursorPosition(current.x, current.y);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine('.');
+                Console.SetCursorPosition(current.x, current.y);
+
+                System.Threading.Thread.Sleep(200);
+                openList.Remove(current);
+
+                if (closedList.FirstOrDefault(i => i.x == target.x && i.y == target.y) != null)
+                    break;
+
+                List<Location> AdjacentSquares = GetMovableAdjacentSpots(current.x, current.y, map);
+                spot++;
+
+                foreach (Location adjacentSquare in AdjacentSquares)
+                {
+                    if (closedList.FirstOrDefault(i => i.x == adjacentSquare.x && i.y == adjacentSquare.y) != null)
+                        continue;
+                    
+                    if (closedList.FirstOrDefault(i => i.x == adjacentSquare.x && i.y == adjacentSquare.y) == null)
+                    {
+                        adjacentSquare.score2 = spot;
+                        adjacentSquare.score3 = ComputeSpotHeuristic(adjacentSquare.x, adjacentSquare.y, target.x, target.y);
+                        adjacentSquare.score1 = adjacentSquare.score2 + adjacentSquare.score3;
+                        adjacentSquare.parent = current;
+                        openList.Insert(0, adjacentSquare);
+                    }
+                    else
+                    {
+                        if(spot + adjacentSquare.score3 < adjacentSquare.score1)
+                        {
+                            adjacentSquare.score2 = spot;
+                            adjacentSquare.score1 = adjacentSquare.score2 + adjacentSquare.score3;
+                            adjacentSquare.parent = current;
+                        }
+                    }
+                }
+            }
+
+            while(current != null)
+            {
+                Console.SetCursorPosition(current.x, current.y);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine('o');
+                Console.SetCursorPosition(current.x, current.y);
+                current = current.parent;
+
+                System.Threading.Thread.Sleep(200);
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.ReadLine();
         }
 
         public void Execute(int xStart, int yStart, int xTarget, int yTarget)
@@ -109,7 +248,6 @@ namespace Library.Algorithms
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.ReadLine();
-
         }
 
         private List<Location> GetMovableAdjacentSpots(int x, int y, string[] map)
