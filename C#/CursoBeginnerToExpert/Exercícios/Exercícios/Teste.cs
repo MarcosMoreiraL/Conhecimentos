@@ -6,16 +6,31 @@ namespace CursoUdemyBeginnerToExpert
     {
         static void Main(string[] args)
         {
-            Library.DataStructures.DoublyLinkedList<int> myList = new Library.DataStructures.DoublyLinkedList<int>();
+            //Library.DataStructures.DoublyLinkedList<int> myList = new Library.DataStructures.DoublyLinkedList<int>();
 
-            myList.Add(0);
-            myList.Add(1);
-            myList.Add(2);
-            myList.Add(3);
-            myList.Add(4);
+            //myList.Add(0);
+            //myList.Add(1);
+            //myList.Add(2);
+            //myList.Add(3);
+            //myList.Add(4);
 
-            Console.WriteLine("Count: " + myList.Count());
-            Console.WriteLine(myList.ToString());
+            //Console.WriteLine("Count: " + myList.Count());
+            //Console.WriteLine(myList.ToString());
+
+            string[] map = new string[]
+            {
+                "+----------------+",
+                "|A               |",
+                "|XXXXXX          |",
+                "|            XXXX|",
+                "|                |",
+                "|XXXXXX      XXXX|",
+                "|               B|",
+                "+----------------+"
+            };
+
+            Library.Algorithms.AstarPathFinding pathFinding = new Library.Algorithms.AstarPathFinding(map);
+            pathFinding.Execute(1, 1, 16, 6);
         }
     }
 }

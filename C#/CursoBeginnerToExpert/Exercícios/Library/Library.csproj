@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Algorithms\" />
     <Folder Include="DesignPatterns\" />
   </ItemGroup>
 
