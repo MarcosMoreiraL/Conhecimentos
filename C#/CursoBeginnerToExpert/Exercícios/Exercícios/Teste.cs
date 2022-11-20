@@ -6,7 +6,7 @@ namespace CursoUdemyBeginnerToExpert
     {
         static void Main(string[] args)
         {
-            Library.DataStructures.LinkedList<int> myList = new Library.DataStructures.LinkedList<int>();
+            Library.DataStructures.DoublyLinkedList<int> myList = new Library.DataStructures.DoublyLinkedList<int>();
 
             myList.Add(0);
             myList.Add(1);
@@ -15,11 +15,7 @@ namespace CursoUdemyBeginnerToExpert
             myList.Add(4);
 
             Console.WriteLine("Count: " + myList.Count());
-
-            for (int i = 4; i > -1; i--)
-            {
-                Console.WriteLine(myList.GetIndex(i));
-            }
+            Console.WriteLine(myList.ToString());
         }
     }
 }
