@@ -16,6 +16,8 @@ namespace CursoUdemyBeginnerToExpert
 
             //Console.WriteLine("Count: " + myList.Count());
             //Console.WriteLine(myList.ToString());
+
+            Library.DesignPatterns.Factory.CardFactoryTest();
         }
     }
 }
