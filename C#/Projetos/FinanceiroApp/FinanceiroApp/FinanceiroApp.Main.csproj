@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+    <PackageReference Include="MySql.Data" Version="8.0.32" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceiroApp.Entity\FinanceiroApp.Entity.csproj" />
+    <ProjectReference Include="..\FinanceiroApp.Library\FinanceiroApp.Library.csproj" />
+    <ProjectReference Include="..\FinanceiroApp.Windows\FinanceiroApp.WPF.csproj" />
+  </ItemGroup>
+
+</Project>

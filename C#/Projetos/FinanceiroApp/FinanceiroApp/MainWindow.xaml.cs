@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceiroApp.WPF.Views.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,20 @@ namespace FinanceiroApp
             InitializeComponent();
         }
 
+        private void ValidateLogin()
+        {
+
+        }
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            Register registerWindow = new Register();
+            registerWindow.ShowDialog();
         }
     }
 }

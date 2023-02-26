@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using FinanceiroApp.Entity;
 
 namespace FinanceiroApp
 {
@@ -13,5 +15,14 @@ namespace FinanceiroApp
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            Library.Session.InitSession();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+        }
     }
 }

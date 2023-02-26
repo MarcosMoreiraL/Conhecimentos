@@ -7,4 +7,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceiroApp.Entity\FinanceiroApp.Entity.csproj" />
+    <ProjectReference Include="..\FinanceiroApp.Library\FinanceiroApp.Library.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceiroApp.Entity\FinanceiroApp.Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Log\" />
+  </ItemGroup>
+
 </Project>

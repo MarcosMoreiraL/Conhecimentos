@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceiroApp", "FinanceiroApp\FinanceiroApp.csproj", "{C385EC11-5F90-482D-BF63-F3E66BF7B632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.Main", "FinanceiroApp\FinanceiroApp.Main.csproj", "{C385EC11-5F90-482D-BF63-F3E66BF7B632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceiroApp.Library", "FinanceiroApp.Library\FinanceiroApp.Library.csproj", "{53DAE13B-9937-477A-BF77-4092AA862AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.Library", "FinanceiroApp.Library\FinanceiroApp.Library.csproj", "{53DAE13B-9937-477A-BF77-4092AA862AD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceiroApp.Entity", "FinanceiroApp.Entity\FinanceiroApp.Entity.csproj", "{FAE311A5-A4DA-4055-8389-2864A122CAD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.Entity", "FinanceiroApp.Entity\FinanceiroApp.Entity.csproj", "{FAE311A5-A4DA-4055-8389-2864A122CAD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceiroApp.Windows", "FinanceiroApp.Windows\FinanceiroApp.Windows.csproj", "{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.WPF", "FinanceiroApp.Windows\FinanceiroApp.WPF.csproj", "{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
