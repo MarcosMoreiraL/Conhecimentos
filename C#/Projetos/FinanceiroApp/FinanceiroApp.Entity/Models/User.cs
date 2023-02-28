@@ -20,6 +20,9 @@ namespace FinanceiroApp.Entity.Models
         [Column(TypeName = "varchar(20)")]
         public string Password { get; set; }
 
+        public List<Transaction> Transactions { get; set; }
+        public List<TransactionCategory> Categories { get; set; }
+
         public User() { }
 
         public User(int id, string email, string name, string password)
@@ -28,6 +31,14 @@ namespace FinanceiroApp.Entity.Models
             Email = email;
             Name = name;
             Password = password;
+            Transactions = new List<Transaction>();
+            Categories = new List<TransactionCategory>();
+        }
+
+        public User(int id, string email, string name, string password, List<Transaction> transactions, List<TransactionCategory> categories) : this(id, email, name, password)
+        {
+            Transactions = transactions;
+            Categories = categories;
         }
     }
 }
