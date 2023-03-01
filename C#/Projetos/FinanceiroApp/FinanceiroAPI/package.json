@@ -1,0 +1,9 @@
+{
+  "name": "financeiro-api",
+  "version": "0.0.0",
+  "description": "FinanceiroAPI",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  }
+}
