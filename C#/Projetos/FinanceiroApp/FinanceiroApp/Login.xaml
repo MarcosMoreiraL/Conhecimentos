@@ -13,7 +13,7 @@
         <TextBox x:Name="txtUser" KeyDown="txtUser_KeyDown" HorizontalAlignment="Center" Margin="0,95,0,0" Width="380" Height="28" VerticalAlignment="Top"/>
 
         <TextBlock Text="Senha" FontSize="15" Margin="10,128,0,0" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="txtPassword" PasswordChar="*" KeyDown="txtPassword_KeyDown" HorizontalAlignment="Center" Margin="0,160,0,0" Width="380" Height="28" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="txtPassword" KeyDown="txtPassword_KeyDown" HorizontalAlignment="Center" Margin="0,160,0,0" Width="380" Height="28" VerticalAlignment="Top"/>
 
         <Button Name="btnRegister" Content="Registrar" FontSize="15" HorizontalAlignment="Left" Margin="10,332,0,0" Width="66" Click="btnRegister_Click" Height="27" VerticalAlignment="Top" />
         <Button Name="btnLogin" Content="Login" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Height="52" Margin="0,277,0,0" Width="150" Click="btnLogin_Click" />

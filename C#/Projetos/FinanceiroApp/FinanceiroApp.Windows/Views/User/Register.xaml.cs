@@ -11,16 +11,12 @@ namespace FinanceiroApp.WPF.Views.User
     {
         bool UpdatingUser = false;
         public Library.ViewModels.UserViewModel user = new Library.ViewModels.UserViewModel();
+
         public Register()
         {
             InitializeComponent();
             this.DataContext = user;
-
-            txtTItle.Text = "Registrar";
-            tbNewPassword.Text = "Senha";
-
-            tbCurPassword.Visibility = Visibility.Collapsed;
-            txtCurPassword.Visibility = Visibility.Collapsed;
+            LoadWindow();
         }
 
         public Register(Library.ViewModels.UserViewModel user)
@@ -29,9 +25,25 @@ namespace FinanceiroApp.WPF.Views.User
             this.user = user;
             this.DataContext = this.user;
             UpdatingUser = true;
+            LoadWindow();
+        }
 
-            txtTItle.Text = "Editar Perfil";
-            tbNewPassword.Text = "Nova Senha";
+        public void LoadWindow()
+        {
+            if (UpdatingUser)
+            {
+                this.Title = "Editar Perfil";
+                txtTItle.Text = "Editar Perfil";
+                tbNewPassword.Text = "Nova Senha";
+
+                tbCurPassword.Visibility = Visibility.Visible;
+                txtCurPassword.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtTItle.Text = "Registrar";
+                tbNewPassword.Text = "Senha";
+            }
         }
 
         private void ValidateRegister()
@@ -75,6 +87,7 @@ namespace FinanceiroApp.WPF.Views.User
             }
             catch (ValidationException rvex)
             {
+                txtErrors.Visibility = Visibility.Visible;
                 txtErrors.Text = rvex.Message;
             }catch(Exception ex)
             {
