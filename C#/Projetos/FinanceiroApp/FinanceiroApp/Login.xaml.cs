@@ -41,9 +41,14 @@ namespace FinanceiroApp
                     this.Close();
                 }
             }
+            catch (ValidationException rvex)
+            {
+                txtErrors.Visibility = Visibility.Visible;
+                txtErrors.Text = rvex.Message;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao fazer login!", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -53,6 +58,7 @@ namespace FinanceiroApp
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) => UserLogin();
+
         private void txtUser_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Tab)
