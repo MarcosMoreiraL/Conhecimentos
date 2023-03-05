@@ -54,7 +54,7 @@ namespace FinanceiroApp.Library.ViewModels
                 if(password != null)
                 {
                     if (!Library.Tools.PasswordSecurity.DecryptPassword(password, curPassword))
-                        throw new Library.Exceptions.ValidationException("A senha digitada não confere com a senha atual");
+                        throw new Library.Exceptions.FinAppValidationException("A senha digitada não confere com a senha atual");
                 }
             }
         }

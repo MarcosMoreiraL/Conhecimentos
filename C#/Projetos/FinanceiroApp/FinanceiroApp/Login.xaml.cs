@@ -19,10 +19,10 @@ namespace FinanceiroApp
         private void ValidateLoginFields()
         {
             if (string.IsNullOrEmpty(txtUser.Text))
-                throw new ValidationException("Preencha o nome de usuário!");
+                throw new FinAppValidationException("Preencha o nome de usuário!");
 
             if (string.IsNullOrEmpty(txtPassword.Password))
-                throw new ValidationException("Preencha a senha!");
+                throw new FinAppValidationException("Preencha a senha!");
         }
 
         private void UserLogin()
@@ -41,7 +41,7 @@ namespace FinanceiroApp
                     this.Close();
                 }
             }
-            catch (ValidationException rvex)
+            catch (FinAppValidationException rvex)
             {
                 txtErrors.Visibility = Visibility.Visible;
                 txtErrors.Text = rvex.Message;

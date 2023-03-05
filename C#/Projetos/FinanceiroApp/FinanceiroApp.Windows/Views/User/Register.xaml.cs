@@ -49,28 +49,28 @@ namespace FinanceiroApp.WPF.Views.User
         private void ValidateRegister()
         {
             if (string.IsNullOrEmpty(txtUser.Text))
-                throw new ValidationException("Preencha o nome de usuário!");
+                throw new FinAppValidationException("Preencha o nome de usuário!");
 
             if (string.IsNullOrEmpty(txtEmail.Text))
-                throw new ValidationException("Preencha o email!");
+                throw new FinAppValidationException("Preencha o email!");
 
             if (string.IsNullOrEmpty(txtPassword.Password))
-                throw new ValidationException("Preencha a senha!");
+                throw new FinAppValidationException("Preencha a senha!");
             
             if (UpdatingUser)
             {
                 if (string.IsNullOrEmpty(txtCurPassword.Password))
-                    throw new ValidationException("Preencha a senha atual!");
+                    throw new FinAppValidationException("Preencha a senha atual!");
 
                 if (!string.IsNullOrEmpty(txtCurPassword.Password))
                     user.ValidatePassword(txtCurPassword.Password);
             }
 
             if (string.IsNullOrEmpty(txtConfirmPassword.Password))
-                throw new ValidationException("Preencha a confirmação de senha!");
+                throw new FinAppValidationException("Preencha a confirmação de senha!");
 
             if (!txtPassword.Password.Equals(txtConfirmPassword.Password))
-                throw new ValidationException("A senha deve ser igual à confirmação de senha!");
+                throw new FinAppValidationException("A senha deve ser igual à confirmação de senha!");
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -85,7 +85,7 @@ namespace FinanceiroApp.WPF.Views.User
 
                 this.Close();
             }
-            catch (ValidationException rvex)
+            catch (FinAppValidationException rvex)
             {
                 txtErrors.Visibility = Visibility.Visible;
                 txtErrors.Text = rvex.Message;
