@@ -45,6 +45,20 @@ namespace FinanceiroApp.Library.ViewModels
                 return context.Users.Any(i => i.Id == userId);
         }
 
+        public void ValidatePassword(string password)
+        {
+            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+            {
+                string curPassword = context.Users.FirstOrDefault(i => i.Id == this.Id).Password;
+
+                if(password != null)
+                {
+                    if (!Library.Tools.PasswordSecurity.DecryptPassword(password, curPassword))
+                        throw new Library.Exceptions.ValidationException("A senha digitada não confere com a senha atual");
+                }
+            }
+        }
+
         public bool UserExists(string username)
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
@@ -106,7 +120,20 @@ namespace FinanceiroApp.Library.ViewModels
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
-                context.Users.Add(GetUserRegister());
+                if(this.Id == 0)
+                    context.Users.Add(GetUserRegister());
+                else
+                {
+                    Entity.Models.User u = context.Users.FirstOrDefault(i => i.Id == this.Id);
+
+                    if(u != null)
+                    {
+                        u.Email = this.Email;
+                        u.Name = this.Name;
+                        u.Password = Library.Tools.PasswordSecurity.EncryptPassword(this.Password);
+                    }
+                }
+
                 context.SaveChanges();
             }
         }

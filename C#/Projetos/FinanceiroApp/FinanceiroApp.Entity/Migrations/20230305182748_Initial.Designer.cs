@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceiroApp.Entity.Migrations
 {
     [DbContext(typeof(FinanceiroAppDbContext))]
-    [Migration("20230301011219_Initial")]
+    [Migration("20230305182748_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -84,7 +84,7 @@ namespace FinanceiroApp.Entity.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()

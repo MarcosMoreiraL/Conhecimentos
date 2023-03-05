@@ -11,7 +11,7 @@ namespace FinanceiroApp.Entity.Models
     {
         public int Id { get; set; }
 
-        [Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "varchar(50)")]
         public string Email { get; set; }
 
         [Column(TypeName = "varchar(50)")]

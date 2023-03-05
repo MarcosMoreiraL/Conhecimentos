@@ -23,5 +23,11 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
         }
+
+        private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
+        {
+            WPF.Views.User.Register register = new User.Register(Library.Session.User);
+            register.ShowDialog();
+        }
     }
 }

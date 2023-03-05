@@ -9,11 +9,29 @@ namespace FinanceiroApp.WPF.Views.User
     /// </summary>
     public partial class Register : Window
     {
+        bool UpdatingUser = false;
         public Library.ViewModels.UserViewModel user = new Library.ViewModels.UserViewModel();
         public Register()
         {
             InitializeComponent();
             this.DataContext = user;
+
+            txtTItle.Text = "Registrar";
+            tbNewPassword.Text = "Senha";
+
+            tbCurPassword.Visibility = Visibility.Collapsed;
+            txtCurPassword.Visibility = Visibility.Collapsed;
+        }
+
+        public Register(Library.ViewModels.UserViewModel user)
+        {
+            InitializeComponent();
+            this.user = user;
+            this.DataContext = this.user;
+            UpdatingUser = true;
+
+            txtTItle.Text = "Editar Perfil";
+            tbNewPassword.Text = "Nova Senha";
         }
 
         private void ValidateRegister()
@@ -24,31 +42,43 @@ namespace FinanceiroApp.WPF.Views.User
             if (string.IsNullOrEmpty(txtEmail.Text))
                 throw new ValidationException("Preencha o email!");
 
-            if (string.IsNullOrEmpty(txtPassword.Text))
+            if (string.IsNullOrEmpty(txtPassword.Password))
                 throw new ValidationException("Preencha a senha!");
+            
+            if (UpdatingUser)
+            {
+                if (string.IsNullOrEmpty(txtCurPassword.Password))
+                    throw new ValidationException("Preencha a senha atual!");
 
-            if (string.IsNullOrEmpty(txtConfirmPassword.Text))
+                if (!string.IsNullOrEmpty(txtCurPassword.Password))
+                    user.ValidatePassword(txtCurPassword.Password);
+            }
+
+            if (string.IsNullOrEmpty(txtConfirmPassword.Password))
                 throw new ValidationException("Preencha a confirmação de senha!");
 
-            if (!txtPassword.Text.Equals(txtConfirmPassword.Text))
+            if (!txtPassword.Password.Equals(txtConfirmPassword.Password))
                 throw new ValidationException("A senha deve ser igual à confirmação de senha!");
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {              
                 ValidateRegister();
+                user.Password = txtPassword.Password;
                 user.SaveUser();
 
-                MessageBox.Show("Usuário registrado com sucesso!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Usuário salvo com sucesso!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                this.Close();
             }
             catch (ValidationException rvex)
             {
                 txtErrors.Text = rvex.Message;
             }catch(Exception ex)
             {
-                MessageBox.Show("Erro ao registrar o usuário!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao salvar o usuário!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
