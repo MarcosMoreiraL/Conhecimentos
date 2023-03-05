@@ -23,7 +23,7 @@ namespace FinanceiroApp.Entity.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(type: "varchar(20)", nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Password = table.Column<string>(type: "varchar(20)", nullable: false)
+                    Password = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {

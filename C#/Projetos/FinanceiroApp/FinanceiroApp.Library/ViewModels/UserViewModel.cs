@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 
-namespace FinanceiroApp.WPF.ViewModels
+namespace FinanceiroApp.Library.ViewModels
 {
     public class UserViewModel : INotifyPropertyChanged
     {
@@ -38,6 +39,18 @@ namespace FinanceiroApp.WPF.ViewModels
             Password = user.Password;
         }
 
+        public bool UserExists(int userId)
+        {
+            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+                return context.Users.Any(i => i.Id == userId);
+        }
+
+        public bool UserExists(string username)
+        {
+            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+                return context.Users.Any(i => i.Name.Equals(username));
+        }
+
         public UserViewModel GetUser(int id)
         {
             using(Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
@@ -46,6 +59,24 @@ namespace FinanceiroApp.WPF.ViewModels
                     return new UserViewModel(context.Users.FirstOrDefault(i => i.Id == id));
                 else
                     return null;
+            }
+        }
+
+        public static UserViewModel GetUser(string username, string password)
+        {
+            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+            {
+                if (context.Users.Any(i => i.Name.Equals(username)))
+                {
+                    Entity.Models.User user = context.Users.FirstOrDefault(i => i.Name.Equals(username));
+
+                    if (Library.Tools.PasswordSecurity.DecryptPassword(password, user.Password))
+                        return new UserViewModel(user);
+                    else
+                        throw new Exception("Senha incorreta!");
+                }
+                else
+                    throw new Exception("Usuário não encontrado!");
             }
         }
 
@@ -60,11 +91,22 @@ namespace FinanceiroApp.WPF.ViewModels
             };
         }
 
+        public Entity.Models.User GetUserRegister()
+        {
+            return new Entity.Models.User
+            {
+                Id = this.Id,
+                Email = this.Email,
+                Name = this.Name,
+                Password = Library.Tools.PasswordSecurity.EncryptPassword(this.Password)
+            };
+        }
+
         public void SaveUser()
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
-                context.Users.Add(GetUserEntity());
+                context.Users.Add(GetUserRegister());
                 context.SaveChanges();
             }
         }

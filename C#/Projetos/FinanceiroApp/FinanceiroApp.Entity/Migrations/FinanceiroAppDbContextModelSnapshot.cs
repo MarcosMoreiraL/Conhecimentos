@@ -89,7 +89,7 @@ namespace FinanceiroApp.Entity.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -99,7 +99,7 @@ namespace FinanceiroApp.Entity.Migrations
             modelBuilder.Entity("FinanceiroApp.Entity.Models.Transaction", b =>
                 {
                     b.HasOne("FinanceiroApp.Entity.Models.TransactionCategory", "Category")
-                        .WithMany()
+                        .WithMany("Transactions")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -124,6 +124,11 @@ namespace FinanceiroApp.Entity.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FinanceiroApp.Entity.Models.TransactionCategory", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("FinanceiroApp.Entity.Models.User", b =>

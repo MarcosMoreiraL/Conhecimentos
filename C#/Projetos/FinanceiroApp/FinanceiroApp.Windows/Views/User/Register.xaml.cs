@@ -9,41 +9,41 @@ namespace FinanceiroApp.WPF.Views.User
     /// </summary>
     public partial class Register : Window
     {
-        public ViewModels.UserViewModel user = new ViewModels.UserViewModel();
+        public Library.ViewModels.UserViewModel user = new Library.ViewModels.UserViewModel();
         public Register()
         {
             InitializeComponent();
             this.DataContext = user;
         }
 
-        private void ValidatePassword()
+        private void ValidateRegister()
         {
             if (string.IsNullOrEmpty(txtUser.Text))
-                throw new RegisterValidationException("Preencha o nome de usuário!");
+                throw new ValidationException("Preencha o nome de usuário!");
 
             if (string.IsNullOrEmpty(txtEmail.Text))
-                throw new RegisterValidationException("Preencha o email!");
+                throw new ValidationException("Preencha o email!");
 
             if (string.IsNullOrEmpty(txtPassword.Text))
-                throw new RegisterValidationException("Preencha a senha!");
+                throw new ValidationException("Preencha a senha!");
 
             if (string.IsNullOrEmpty(txtConfirmPassword.Text))
-                throw new RegisterValidationException("Preencha a confirmação de senha!");
+                throw new ValidationException("Preencha a confirmação de senha!");
 
             if (!txtPassword.Text.Equals(txtConfirmPassword.Text))
-                throw new RegisterValidationException("A senha deve ser igual à confirmação de senha!");
+                throw new ValidationException("A senha deve ser igual à confirmação de senha!");
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                ValidatePassword();
+                ValidateRegister();
                 user.SaveUser();
 
                 MessageBox.Show("Usuário registrado com sucesso!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (RegisterValidationException rvex)
+            catch (ValidationException rvex)
             {
                 txtErrors.Text = rvex.Message;
             }catch(Exception ex)

@@ -17,7 +17,7 @@ namespace FinanceiroApp.Entity.Models
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
 
-        [Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "varchar(100)")]
         public string Password { get; set; }
 
         public List<Transaction> Transactions { get; set; }
