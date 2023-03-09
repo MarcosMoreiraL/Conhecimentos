@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using FinanceiroApp.Entity.Models;
 
 namespace FinanceiroApp.Library.ViewModels
 {
@@ -12,6 +13,8 @@ namespace FinanceiroApp.Library.ViewModels
         public string Password { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        //TODO: COLOCAR OS OBJETOS DE TRANSACTIONS E CATEGORIES
 
         public UserViewModel() { }
 
@@ -94,9 +97,9 @@ namespace FinanceiroApp.Library.ViewModels
             }
         }
 
-        public Entity.Models.User GetUserEntity()
+        public User GetUserEntity()
         {
-            return new Entity.Models.User
+            return new User
             {
                 Id = this.Id,
                 Email = this.Email,
@@ -105,9 +108,9 @@ namespace FinanceiroApp.Library.ViewModels
             };
         }
 
-        public Entity.Models.User GetUserRegister()
+        public User GetUserRegister()
         {
-            return new Entity.Models.User
+            return new User
             {
                 Id = this.Id,
                 Email = this.Email,
@@ -124,7 +127,7 @@ namespace FinanceiroApp.Library.ViewModels
                     context.Users.Add(GetUserRegister());
                 else
                 {
-                    Entity.Models.User u = context.Users.FirstOrDefault(i => i.Id == this.Id);
+                    User u = context.Users.FirstOrDefault(i => i.Id == this.Id);
 
                     if(u != null)
                     {

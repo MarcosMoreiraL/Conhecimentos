@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Registrar" Height="542" Width="400">
     <Grid>
-        <TextBlock x:Name="txtTItle" Text="Registrar" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top"/>
+        <TextBlock x:Name="txtTitle" Text="Registrar" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top"/>
         <StackPanel Orientation="Vertical" Margin="0,63,0,188">
             <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="27" VerticalAlignment="Top" Width="380"/>
             <TextBlock Text="Nome de Usuário" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>

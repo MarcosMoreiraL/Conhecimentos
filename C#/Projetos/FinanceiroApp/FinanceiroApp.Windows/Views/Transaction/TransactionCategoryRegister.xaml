@@ -1,0 +1,19 @@
+﻿<Window x:Class="FinanceiroApp.WPF.Views.Transaction.TransactionCategoryRegister"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transaction"
+        mc:Ignorable="d"
+        Title="TransactionCategoryRegister" Height="250" Width="400">
+    <Grid>
+        <TextBlock x:Name="txtTitle" Text="Nova Categoria de Movimentação" FontWeight="Bold" FontSize="23" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top" Width="380"/>
+        <StackPanel Orientation="Vertical" Margin="0,63,0,81">
+            <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="27" VerticalAlignment="Top" Width="380"/>
+
+            <TextBlock Text="Descrição" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtDescription" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+        </StackPanel>
+        <Button x:Name="btnSaveCategory" Content="Salvar" FontSize="15" HorizontalAlignment="Center" Width="150" Click="btnSaveCategory_Click" Margin="0,172,0,0" Height="52" VerticalAlignment="Top" />
+    </Grid>
+</Window>

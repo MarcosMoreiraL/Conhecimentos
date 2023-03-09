@@ -32,7 +32,7 @@ namespace FinanceiroApp.Entity.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TransactionCategory",
+                name: "TransactionCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,9 +42,9 @@ namespace FinanceiroApp.Entity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionCategory", x => x.Id);
+                    table.PrimaryKey("PK_TransactionCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TransactionCategory_Users_UserId",
+                        name: "FK_TransactionCategories_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -53,7 +53,7 @@ namespace FinanceiroApp.Entity.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Transaction",
+                name: "Transactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -67,15 +67,15 @@ namespace FinanceiroApp.Entity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transaction", x => x.Id);
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transaction_TransactionCategory_CategoryId",
+                        name: "FK_Transactions_TransactionCategories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "TransactionCategory",
+                        principalTable: "TransactionCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transaction_Users_UserId",
+                        name: "FK_Transactions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -84,18 +84,18 @@ namespace FinanceiroApp.Entity.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transaction_CategoryId",
-                table: "Transaction",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transaction_UserId",
-                table: "Transaction",
+                name: "IX_TransactionCategories_UserId",
+                table: "TransactionCategories",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionCategory_UserId",
-                table: "TransactionCategory",
+                name: "IX_Transactions_CategoryId",
+                table: "Transactions",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_UserId",
+                table: "Transactions",
                 column: "UserId");
         }
 
@@ -103,10 +103,10 @@ namespace FinanceiroApp.Entity.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Transaction");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "TransactionCategory");
+                name: "TransactionCategories");
 
             migrationBuilder.DropTable(
                 name: "Users");

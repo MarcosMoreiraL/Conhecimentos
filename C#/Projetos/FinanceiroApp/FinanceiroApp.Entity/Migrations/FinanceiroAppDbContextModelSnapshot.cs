@@ -50,7 +50,7 @@ namespace FinanceiroApp.Entity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("FinanceiroApp.Entity.Models.TransactionCategory", b =>
@@ -70,7 +70,7 @@ namespace FinanceiroApp.Entity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TransactionCategory");
+                    b.ToTable("TransactionCategories");
                 });
 
             modelBuilder.Entity("FinanceiroApp.Entity.Models.User", b =>
@@ -118,7 +118,7 @@ namespace FinanceiroApp.Entity.Migrations
             modelBuilder.Entity("FinanceiroApp.Entity.Models.TransactionCategory", b =>
                 {
                     b.HasOne("FinanceiroApp.Entity.Models.User", "User")
-                        .WithMany("Categories")
+                        .WithMany("TransactionCategories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -133,7 +133,7 @@ namespace FinanceiroApp.Entity.Migrations
 
             modelBuilder.Entity("FinanceiroApp.Entity.Models.User", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("TransactionCategories");
 
                     b.Navigation("Transactions");
                 });

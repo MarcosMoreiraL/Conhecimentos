@@ -33,7 +33,7 @@ namespace FinanceiroApp.WPF.Views.User
             if (UpdatingUser)
             {
                 this.Title = "Editar Perfil";
-                txtTItle.Text = "Editar Perfil";
+                txtTitle.Text = "Editar Perfil";
                 tbNewPassword.Text = "Nova Senha";
 
                 tbCurPassword.Visibility = Visibility.Visible;
@@ -41,7 +41,7 @@ namespace FinanceiroApp.WPF.Views.User
             }
             else
             {
-                txtTItle.Text = "Registrar";
+                txtTitle.Text = "Registrar";
                 tbNewPassword.Text = "Senha";
             }
         }
