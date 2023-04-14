@@ -4,7 +4,7 @@ using System.Linq;
 using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Helpers;
 
-namespace FinanceiroApp.Library.ViewModels
+namespace FinanceiroApp.WPF.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {

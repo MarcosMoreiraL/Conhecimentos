@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using FinanceiroApp.Library.Exceptions;
 
-namespace FinanceiroApp
+namespace FinanceiroApp.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -31,11 +31,11 @@ namespace FinanceiroApp
             {
                 ValidateLoginFields();
 
-                Library.ViewModels.LoginViewModel user = Library.ViewModels.LoginViewModel.GetUser(txtUser.Text, txtPassword.Password);
+                FinanceiroApp.WPF.ViewModels.LoginViewModel loginVM = FinanceiroApp.WPF.ViewModels.LoginViewModel.GetUser(txtUser.Text, txtPassword.Password);
 
-                if (user != null)
+                if (loginVM != null)
                 {
-                    Library.Session.User = user;
+                    Library.Session.User = loginVM.User;
                     WPF.Views.Main.Dashboard dashBoard = new WPF.Views.Main.Dashboard();
                     dashBoard.Show();
                     this.Close();

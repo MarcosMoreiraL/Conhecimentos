@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using FinanceiroApp.Library.ViewModels;
 
 namespace FinanceiroApp.WPF.Views.Transaction
 {
@@ -20,7 +19,7 @@ namespace FinanceiroApp.WPF.Views.Transaction
     /// </summary>
     public partial class TransactionCategoryRegister : Window
     {
-        private TransactionCategoryViewModel TransactionCategory { get; set; }
+        private ViewModels.TransactionCategoryViewModel TransactionCategory { get; set; }
 
         public TransactionCategoryRegister()
         {
@@ -28,7 +27,7 @@ namespace FinanceiroApp.WPF.Views.Transaction
             this.DataContext = TransactionCategory;
         }
 
-        public TransactionCategoryRegister(TransactionCategoryViewModel transactionCategory)
+        public TransactionCategoryRegister(ViewModels.TransactionCategoryViewModel transactionCategory)
         {
             InitializeComponent();
             this.TransactionCategory = transactionCategory;

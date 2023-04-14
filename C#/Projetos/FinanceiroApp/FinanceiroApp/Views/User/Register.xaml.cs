@@ -10,7 +10,7 @@ namespace FinanceiroApp.WPF.Views.User
     public partial class Register : Window
     {
         bool UpdatingUser = false;
-        public Library.ViewModels.UserViewModel user = new Library.ViewModels.UserViewModel();
+        public ViewModels.LoginViewModel user = new ViewModels.LoginViewModel();
 
         public Register()
         {
@@ -19,10 +19,10 @@ namespace FinanceiroApp.WPF.Views.User
             LoadWindow();
         }
 
-        public Register(Library.ViewModels.UserViewModel user)
+        public Register(Entity.Models.User user)
         {
             InitializeComponent();
-            this.user = user;
+            this.user = new ViewModels.LoginViewModel(user);
             this.DataContext = this.user;
             UpdatingUser = true;
             LoadWindow();

@@ -1,9 +1,9 @@
-﻿<Window x:Class="FinanceiroApp.Login"
+﻿<Window x:Class="FinanceiroApp.WPF.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FinanceiroApp"
+        xmlns:local="clr-namespace:FinanceiroApp.WPF"
         mc:Ignorable="d"
         Title="Login" Height="400" Width="400" d:Height="400" d:Width="400" ResizeMode="NoResize">
     <Grid>
