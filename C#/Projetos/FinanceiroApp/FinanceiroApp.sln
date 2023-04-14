@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.Library", "Fi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.Entity", "FinanceiroApp.Entity\FinanceiroApp.Entity.csproj", "{FAE311A5-A4DA-4055-8389-2864A122CAD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceiroApp.WPF", "FinanceiroApp.Windows\FinanceiroApp.WPF.csproj", "{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{FAE311A5-A4DA-4055-8389-2864A122CAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAE311A5-A4DA-4055-8389-2864A122CAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAE311A5-A4DA-4055-8389-2864A122CAD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B8A31BD-F91A-40A6-9EEC-E4E15E4AD098}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

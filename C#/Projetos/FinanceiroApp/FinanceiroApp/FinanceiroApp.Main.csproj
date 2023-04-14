@@ -16,7 +16,19 @@
   <ItemGroup>
     <ProjectReference Include="..\FinanceiroApp.Entity\FinanceiroApp.Entity.csproj" />
     <ProjectReference Include="..\FinanceiroApp.Library\FinanceiroApp.Library.csproj" />
-    <ProjectReference Include="..\FinanceiroApp.Windows\FinanceiroApp.WPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModel\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Main\Dashboard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Transaction\TransactionCategoryRegister.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,16 @@
+﻿<Window x:Class="FinanceiroApp.WPF.Views.Main.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="450" Width="800">
+    <Grid>
+        <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button x:Name="btnNewTransaction" Content="Nova Movimentação" Click="btnNewTransaction_Click" HorizontalAlignment="Left" Margin="657,159,0,236"/>
+        <Button x:Name="btnNewTransactionCategory" Content="Nova Categoria" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="685,98,0,297"/>
+        <Button x:Name="btnUpdateUser" Content="Editar Perfil" Click="btnUpdateUser_Click" HorizontalAlignment="Left" Margin="707,10,0,385"/>
+        <Button x:Name="btnLogout" Content="Sair" HorizontalAlignment="Left" Margin="707,54,0,341"/>
+    </Grid>
+</Window>
