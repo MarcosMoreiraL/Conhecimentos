@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using FinanceiroApp.Entity;
 
-namespace FinanceiroApp
+namespace FinanceiroApp.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml

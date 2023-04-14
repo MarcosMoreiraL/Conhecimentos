@@ -1,8 +1,8 @@
-﻿<Application x:Class="FinanceiroApp.App"
+﻿<Application x:Class="FinanceiroApp.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FinanceiroApp"
-             StartupUri="Login.xaml">
+             xmlns:local="clr-namespace:FinanceiroApp.WPF"
+             StartupUri="Views/Main/Login.xaml">
     <Application.Resources>
          
     </Application.Resources>
