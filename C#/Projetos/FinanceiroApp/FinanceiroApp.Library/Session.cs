@@ -12,7 +12,7 @@ namespace FinanceiroApp.Library
     {
         private static FinanceiroAppDbContextFactory _dbcontextFactory;
         public static FinanceiroAppDbContextFactory DbContextFactory => _dbcontextFactory;
-        public static Library.ViewModels.UserViewModel User { get; set; } = null;
+        public static ViewModels.UserViewModel User { get; set; } = null;
         public static void InitSession()
         {
             string connectionString = "Server=localhost;Port=3306;Database=financeiroApp;Uid=root;Pwd=123456;";

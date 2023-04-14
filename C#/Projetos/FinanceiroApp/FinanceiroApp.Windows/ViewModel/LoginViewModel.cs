@@ -2,12 +2,14 @@
 using System.ComponentModel;
 using System.Linq;
 using FinanceiroApp.Entity.Models;
+using FinanceiroApp.Library.Helpers;
 
 namespace FinanceiroApp.Library.ViewModels
 {
-    public class UserViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        private User user;
+        public User User { get { return user; } }
         public string Email { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
@@ -16,30 +18,40 @@ namespace FinanceiroApp.Library.ViewModels
 
         //TODO: COLOCAR OS OBJETOS DE TRANSACTIONS E CATEGORIES
 
-        public UserViewModel() { }
+        public LoginViewModel() { }
 
-        public UserViewModel(int id, string email, string name, string password)
+        public LoginViewModel(int id, string email, string name, string password)
         {
-            Id = id;
-            Email = email;
-            Name = name;
-            Password = password;
+            User.Id = id;
+            User.Email = email;
+            User.Name = name;
+            User.Password = password;
         }
 
-        public UserViewModel(string email, string name, string password)
+        public LoginViewModel(string email, string name, string password)
         {
-            Id = 0;
-            Email = email;
-            Name = name;
-            Password = password;
+            User.Id = 0;
+            User.Email = email;
+            User.Name = name;
+            User.Password = password;
         }
 
-        public UserViewModel(Entity.Models.User user)
+        public LoginViewModel(Entity.Models.User user)
         {
-            Id = user.Id;
-            Email = user.Email;
-            Name = user.Name;
-            Password = user.Password;
+            User.Id = user.Id;
+            User.Email = user.Email;
+            User.Name = user.Name;
+            User.Password = user.Password;
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsValid()
+        {
+            return true;
         }
 
         public bool UserExists(int userId)
@@ -52,11 +64,11 @@ namespace FinanceiroApp.Library.ViewModels
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
-                string curPassword = context.Users.FirstOrDefault(i => i.Id == this.Id).Password;
+                string curPassword = context.Users.FirstOrDefault(i => i.Id == this.User.Id).Password;
 
                 if(password != null)
                 {
-                    if (!Library.Tools.PasswordSecurity.DecryptPassword(password, curPassword))
+                    if (!PasswordHelper.DecryptPassword(password, curPassword))
                         throw new Library.Exceptions.FinAppValidationException("A senha digitada não confere com a senha atual");
                 }
             }
@@ -68,18 +80,18 @@ namespace FinanceiroApp.Library.ViewModels
                 return context.Users.Any(i => i.Name.Equals(username));
         }
 
-        public UserViewModel GetUser(int id)
+        public LoginViewModel GetUser(int id)
         {
             using(Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
                 if (context.Users.Any(i => i.Id == id))
-                    return new UserViewModel(context.Users.FirstOrDefault(i => i.Id == id));
+                    return new LoginViewModel(context.Users.FirstOrDefault(i => i.Id == id));
                 else
                     return null;
             }
         }
 
-        public static UserViewModel GetUser(string username, string password)
+        public static LoginViewModel GetUser(string username, string password)
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
@@ -87,8 +99,8 @@ namespace FinanceiroApp.Library.ViewModels
                 {
                     Entity.Models.User user = context.Users.FirstOrDefault(i => i.Name.Equals(username));
 
-                    if (Library.Tools.PasswordSecurity.DecryptPassword(password, user.Password))
-                        return new UserViewModel(user);
+                    if (PasswordHelper.DecryptPassword(password, user.Password))
+                        return new LoginViewModel(user);
                     else
                         throw new Exception("Senha incorreta!");
                 }
@@ -97,25 +109,15 @@ namespace FinanceiroApp.Library.ViewModels
             }
         }
 
-        public User GetUserEntity()
-        {
-            return new User
-            {
-                Id = this.Id,
-                Email = this.Email,
-                Name = this.Name,
-                Password = this.Password
-            };
-        }
-
+        //USADO POR QUE AQUI O PROGRAMA GERA A SENHA CRIPTOGRAFADA
         public User GetUserRegister()
         {
             return new User
             {
-                Id = this.Id,
+                Id = this.User.Id,
                 Email = this.Email,
                 Name = this.Name,
-                Password = Library.Tools.PasswordSecurity.EncryptPassword(this.Password)
+                Password = PasswordHelper.EncryptPassword(this.Password)
             };
         }
 
@@ -123,17 +125,17 @@ namespace FinanceiroApp.Library.ViewModels
         {
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
-                if(this.Id == 0)
-                    context.Users.Add(GetUserRegister());
+                if(this.User.Id == 0)
+                    context.Users.Add(GetUserRegister()); //AQUI EU USO O MÉTODO POR CAUSA DA SENHA CRIPTOGRAFADA, PARA NÃO TER QUE GERAR NO this.User O TEMPO TODO
                 else
                 {
-                    User u = context.Users.FirstOrDefault(i => i.Id == this.Id);
+                    User u = context.Users.FirstOrDefault(i => i.Id == this.User.Id);
 
                     if(u != null)
                     {
-                        u.Email = this.Email;
-                        u.Name = this.Name;
-                        u.Password = Library.Tools.PasswordSecurity.EncryptPassword(this.Password);
+                        u.Email = this.User.Email;
+                        u.Name = this.User.Name;
+                        u.Password = PasswordHelper.EncryptPassword(this.User.Password);
                     }
                 }
 

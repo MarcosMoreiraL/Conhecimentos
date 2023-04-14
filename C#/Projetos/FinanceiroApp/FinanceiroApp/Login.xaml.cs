@@ -31,7 +31,7 @@ namespace FinanceiroApp
             {
                 ValidateLoginFields();
 
-                Library.ViewModels.UserViewModel user = Library.ViewModels.UserViewModel.GetUser(txtUser.Text, txtPassword.Password);
+                Library.ViewModels.LoginViewModel user = Library.ViewModels.LoginViewModel.GetUser(txtUser.Text, txtPassword.Password);
 
                 if (user != null)
                 {

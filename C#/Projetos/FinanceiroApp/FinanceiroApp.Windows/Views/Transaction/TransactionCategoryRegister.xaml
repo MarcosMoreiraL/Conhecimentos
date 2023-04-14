@@ -12,7 +12,7 @@
             <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="27" VerticalAlignment="Top" Width="380"/>
 
             <TextBlock Text="Descrição" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtDescription" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtDescription" Text="{Binding Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
         </StackPanel>
         <Button x:Name="btnSaveCategory" Content="Salvar" FontSize="15" HorizontalAlignment="Center" Width="150" Click="btnSaveCategory_Click" Margin="0,172,0,0" Height="52" VerticalAlignment="Top" />
     </Grid>

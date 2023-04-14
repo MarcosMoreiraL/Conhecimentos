@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinanceiroApp.Library.Tools
+namespace FinanceiroApp.Library.Helpers
 {
-    public static class PasswordSecurity
+    public static class PasswordHelper
     {
         public static string EncryptPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
 

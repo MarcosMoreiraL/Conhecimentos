@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,16 @@ namespace FinanceiroApp.Entity.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "O email é obrigatório!")]
+        [EmailAddress(ErrorMessage = "O email informado é inválido!")]
         [Column(TypeName = "varchar(50)")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "O nome de usuário é obrigatório!")]
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "A senha é obrigatória!")]
         [Column(TypeName = "varchar(100)")]
         public string Password { get; set; }
 
@@ -40,5 +45,7 @@ namespace FinanceiroApp.Entity.Models
             Transactions = transactions;
             TransactionCategories = transactionCategories;
         }
+
+        public bool IsValid() => Validator.TryValidateObject(this, new ValidationContext(this), null, true);
     }
 }
