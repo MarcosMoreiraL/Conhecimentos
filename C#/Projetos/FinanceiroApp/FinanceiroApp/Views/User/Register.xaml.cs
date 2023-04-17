@@ -10,20 +10,20 @@ namespace FinanceiroApp.WPF.Views.User
     public partial class Register : Window
     {
         bool UpdatingUser = false;
-        public ViewModels.LoginViewModel user = new ViewModels.LoginViewModel();
+        public ViewModels.LoginViewModel loginVM = new ViewModels.LoginViewModel();
 
         public Register()
         {
             InitializeComponent();
-            this.DataContext = user;
+            this.DataContext = loginVM;
             LoadWindow();
         }
 
         public Register(Entity.Models.User user)
         {
             InitializeComponent();
-            this.user = new ViewModels.LoginViewModel(user);
-            this.DataContext = this.user;
+            this.loginVM = new ViewModels.LoginViewModel(user);
+            this.DataContext = this.loginVM;
             UpdatingUser = true;
             LoadWindow();
         }
@@ -63,7 +63,7 @@ namespace FinanceiroApp.WPF.Views.User
                     throw new FinAppValidationException("Preencha a senha atual!");
 
                 if (!string.IsNullOrEmpty(txtCurPassword.Password))
-                    user.ValidatePassword(txtCurPassword.Password);
+                    loginVM.ValidatePassword(txtCurPassword.Password);
             }
 
             if (string.IsNullOrEmpty(txtConfirmPassword.Password))
@@ -78,8 +78,8 @@ namespace FinanceiroApp.WPF.Views.User
             try
             {              
                 ValidateRegister();
-                user.Password = txtPassword.Password;
-                user.SaveUser();
+                loginVM.User.Password = txtPassword.Password;
+                loginVM.SaveUser();
 
                 MessageBox.Show("Usuário salvo com sucesso!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Information);
 

@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Views\Main\Dashboard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using FinanceiroApp.Entity.Models;
+using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.Library.Helpers;
+using FinanceiroApp.WPF.Converter;
+using FinanceiroApp.WPF.ViewModel.Commands;
 
 namespace FinanceiroApp.WPF.ViewModels
 {
@@ -10,16 +14,65 @@ namespace FinanceiroApp.WPF.ViewModels
     {
         #region Props
         private User user;
-        public User User { get { return user; } }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
+        public User User 
+        {
+            get => user;
+
+            set
+            {
+                if(value is User)
+                {
+                    user = value;
+                    OnPropertyChanged(nameof(User));
+                }
+            }
+        }
+
+        public string ConfirmPassword { get; set; }
+        public bool ShowingLogin { get; set; }
+
+        private bool login;
+        public bool Login
+        {
+            get => login;
+
+            set
+            {
+                login = value;
+                OnPropertyChanged(nameof(Login));
+            }
+        }
+        private bool register;
+        public bool Register
+        {
+            get => register;
+
+            set
+            {
+                register = value;
+                OnPropertyChanged(nameof(Register));
+            }
+        }
+        //TODO: Colocar bool para diferenciar edição de usuário novo
+
+        public SwitchLoginViewCommand SwitchViewCommand { get; set; }
+        public LoginCommand LoginCommand { get; set; }
+        public RegisterCommand RegisterCommand { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         #endregion
 
         #region Constructors
-        public LoginViewModel() { }
+        public LoginViewModel()
+        {
+            //TODO: agrupar num método a inicialização das props da tela
+            ShowingLogin = true;
+            Login = true;
+            Register = false;
+            SwitchViewCommand = new SwitchLoginViewCommand(this);
+            LoginCommand = new LoginCommand(this);
+            RegisterCommand = new RegisterCommand(this);
+        }
 
         public LoginViewModel(int id, string email, string name, string password)
         {
@@ -27,6 +80,13 @@ namespace FinanceiroApp.WPF.ViewModels
             User.Email = email;
             User.Name = name;
             User.Password = password;
+
+            ShowingLogin = true;
+            Login = true;
+            Register = false;
+            SwitchViewCommand = new SwitchLoginViewCommand(this);
+            LoginCommand = new LoginCommand(this);
+            RegisterCommand = new RegisterCommand(this);
         }
 
         public LoginViewModel(string email, string name, string password)
@@ -35,6 +95,13 @@ namespace FinanceiroApp.WPF.ViewModels
             User.Email = email;
             User.Name = name;
             User.Password = password;
+
+            ShowingLogin = true;
+            Login = true;
+            Register = false;
+            SwitchViewCommand = new SwitchLoginViewCommand(this);
+            LoginCommand = new LoginCommand(this);
+            RegisterCommand = new RegisterCommand(this);
         }
 
         public LoginViewModel(Entity.Models.User user)
@@ -43,6 +110,13 @@ namespace FinanceiroApp.WPF.ViewModels
             User.Email = user.Email;
             User.Name = user.Name;
             User.Password = user.Password;
+
+            ShowingLogin = true;
+            Login = true;
+            Register = false;
+            SwitchViewCommand = new SwitchLoginViewCommand(this);
+            LoginCommand = new LoginCommand(this);
+            RegisterCommand = new RegisterCommand(this);
         }
         #endregion
         private void OnPropertyChanged(string propertyName)
@@ -50,8 +124,49 @@ namespace FinanceiroApp.WPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public bool IsValid()
+        #region View Methods
+        public void SwitchViews()
         {
+            ShowingLogin = !ShowingLogin;
+
+            if (ShowingLogin)
+            {
+                this.Login = true; 
+                this.Register = false;
+            }
+            else
+            {
+                this.Login = false;
+                this.Register = true;
+            }
+        }
+
+        #endregion
+
+        #region UserMethods
+        public bool IsValid(bool register = false)
+        {
+            if (string.IsNullOrEmpty(User.Name))
+                throw new Library.Exceptions.FinAppValidationException("O nome de usuário é obrigatório.");
+
+            if (string.IsNullOrEmpty(User.Email))
+                throw new Library.Exceptions.FinAppValidationException("O email é obrigatório.");
+
+            if (!ValidationHelper.IsValidEmail(User.Email))
+                throw new Library.Exceptions.FinAppValidationException("Email inválido.");
+
+            if (string.IsNullOrEmpty(User.Password))
+                throw new Library.Exceptions.FinAppValidationException("A senha é obrigatória.");
+
+            if (ValidationHelper.HasRequiredLength(User.Password, 6))
+                throw new Library.Exceptions.FinAppValidationException("A senha deve ter no mínimo 6 dígitos.");
+
+            if (string.IsNullOrEmpty(ConfirmPassword))
+                throw new Library.Exceptions.FinAppValidationException("A confirmação de senha é obrigatória.");
+
+            if(!User.Password.Equals(ConfirmPassword))
+                throw new Library.Exceptions.FinAppValidationException("A confirmação de senha deve ser igual à senha.");
+
             return true;
         }
 
@@ -87,8 +202,8 @@ namespace FinanceiroApp.WPF.ViewModels
             {
                 if (context.Users.Any(i => i.Id == id))
                     return new LoginViewModel(context.Users.FirstOrDefault(i => i.Id == id));
-                else
-                    return null;
+                
+                return null;
             }
         }
 
@@ -102,11 +217,11 @@ namespace FinanceiroApp.WPF.ViewModels
 
                     if (PasswordHelper.DecryptPassword(password, user.Password))
                         return new LoginViewModel(user);
-                    else
-                        throw new Exception("Senha incorreta!");
+                    
+                    throw new Exception("Senha incorreta!");
                 }
-                else
-                    throw new Exception("Usuário não encontrado!");
+                
+                throw new Exception("Usuário não encontrado!");
             }
         }
 
@@ -115,15 +230,15 @@ namespace FinanceiroApp.WPF.ViewModels
             return new User
             {
                 Id = this.User.Id,
-                Email = this.Email,
-                Name = this.Name,
-                Password = PasswordHelper.EncryptPassword(this.Password)
+                Email = this.User.Email,
+                Name = this.User.Name,
+                Password = PasswordHelper.EncryptPassword(this.User.Password)
             };
         }
 
         public void SaveUser()
         {
-            //TODO: Validar o usuário antes de salvar
+            IsValid();
 
             using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
             {
@@ -144,5 +259,25 @@ namespace FinanceiroApp.WPF.ViewModels
                 context.SaveChanges();
             }
         }
+
+        public void UserLogin()
+        {
+            try
+            {
+                IsValid();
+
+                
+            }
+            catch (FinAppValidationException rvex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: Incluir o log
+                MessageBox.Show("Erro ao fazer login!", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        #endregion
     }
 }
