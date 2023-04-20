@@ -10,7 +10,7 @@ namespace FinanceiroApp.WPF.Views.User
     public partial class Register : Window
     {
         bool UpdatingUser = false;
-        public ViewModels.LoginViewModel loginVM = new ViewModels.LoginViewModel();
+        public ViewModel.LoginViewModel loginVM = new ViewModel.LoginViewModel();
 
         public Register()
         {
@@ -22,7 +22,7 @@ namespace FinanceiroApp.WPF.Views.User
         public Register(Entity.Models.User user)
         {
             InitializeComponent();
-            this.loginVM = new ViewModels.LoginViewModel(user);
+            this.loginVM = new ViewModel.LoginViewModel(user);
             this.DataContext = this.loginVM;
             UpdatingUser = true;
             LoadWindow();
@@ -79,7 +79,7 @@ namespace FinanceiroApp.WPF.Views.User
             {              
                 ValidateRegister();
                 loginVM.User.Password = txtPassword.Password;
-                loginVM.SaveUser();
+                loginVM.Save();
 
                 MessageBox.Show("Usuário salvo com sucesso!", "Registro de Usuário", MessageBoxButton.OK, MessageBoxImage.Information);
 

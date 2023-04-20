@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModels"
+        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
         xmlns:local="clr-namespace:FinanceiroApp.WPF"
         mc:Ignorable="d"
@@ -26,7 +26,7 @@
                 <TextBox x:Name="txtUser" Text="{Binding User.Name}" KeyDown="txtUser_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock Text="Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtPassword" KeyDown="txtPassword_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged" KeyDown="txtPassword_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
             </StackPanel>
 
             <Button Name="btnRegisterMode" Command="{Binding SwitchViewCommand}" Content="Registrar" FontSize="15" HorizontalAlignment="Center" Margin="0,347,0,0" Width="66" Height="27" VerticalAlignment="Top" />
@@ -46,12 +46,12 @@
                 <TextBlock x:Name="tbCurPassword" Text="Senha Atual" FontSize="15" Visibility="Collapsed" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
                 <TextBlock x:Name="tbNewPassword" Text="Senha" FontSize="15" Height="27"/>
                 <PasswordBox x:Name="txtCurPassword" HorizontalAlignment="Center" Visibility="Collapsed" Width="380" Height="28" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtNewPassword" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock Text="Confirmação de Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtConfirmPassword" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtConfirmPassword" PasswordChanged="txtConfirmPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
             </StackPanel>
-            <Button x:Name="btnRegister" Command="{Binding RegisterCommand}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,302,0,0" Height="52" VerticalAlignment="Top" />
+            <Button x:Name="btnRegister" Command="{Binding SaveCommand}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,302,0,0" Height="52" VerticalAlignment="Top" />
         </Grid>
     </Grid>
 </Window>

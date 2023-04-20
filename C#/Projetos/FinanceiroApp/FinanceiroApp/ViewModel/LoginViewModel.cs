@@ -5,12 +5,11 @@ using System.Windows;
 using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.Library.Helpers;
-using FinanceiroApp.WPF.Converter;
-using FinanceiroApp.WPF.ViewModel.Commands;
+using FinanceiroApp.WPF.ViewModel.Command;
 
-namespace FinanceiroApp.WPF.ViewModels
+namespace FinanceiroApp.WPF.ViewModel
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : ViewModel.Base.FinAppBaseViewModel
     {
         #region Props
         private User user;
@@ -28,6 +27,7 @@ namespace FinanceiroApp.WPF.ViewModels
             }
         }
 
+        public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
         public bool ShowingLogin { get; set; }
 
@@ -42,6 +42,7 @@ namespace FinanceiroApp.WPF.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
+
         private bool register;
         public bool Register
         {
@@ -53,25 +54,16 @@ namespace FinanceiroApp.WPF.ViewModels
                 OnPropertyChanged(nameof(Register));
             }
         }
-        //TODO: Colocar bool para diferenciar edição de usuário novo
-
         public SwitchLoginViewCommand SwitchViewCommand { get; set; }
         public LoginCommand LoginCommand { get; set; }
-        public RegisterCommand RegisterCommand { get; set; }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public SaveCommand SaveCommand { get; set; }
         #endregion
 
         #region Constructors
         public LoginViewModel()
         {
-            //TODO: agrupar num método a inicialização das props da tela
-            ShowingLogin = true;
-            Login = true;
-            Register = false;
-            SwitchViewCommand = new SwitchLoginViewCommand(this);
-            LoginCommand = new LoginCommand(this);
-            RegisterCommand = new RegisterCommand(this);
+            User = new User();
+            SetViewProps();
         }
 
         public LoginViewModel(int id, string email, string name, string password)
@@ -81,12 +73,7 @@ namespace FinanceiroApp.WPF.ViewModels
             User.Name = name;
             User.Password = password;
 
-            ShowingLogin = true;
-            Login = true;
-            Register = false;
-            SwitchViewCommand = new SwitchLoginViewCommand(this);
-            LoginCommand = new LoginCommand(this);
-            RegisterCommand = new RegisterCommand(this);
+            SetViewProps();
         }
 
         public LoginViewModel(string email, string name, string password)
@@ -96,35 +83,31 @@ namespace FinanceiroApp.WPF.ViewModels
             User.Name = name;
             User.Password = password;
 
-            ShowingLogin = true;
-            Login = true;
-            Register = false;
-            SwitchViewCommand = new SwitchLoginViewCommand(this);
-            LoginCommand = new LoginCommand(this);
-            RegisterCommand = new RegisterCommand(this);
+            SetViewProps();
         }
 
-        public LoginViewModel(Entity.Models.User user)
+        public LoginViewModel(User user)
         {
             User.Id = user.Id;
             User.Email = user.Email;
             User.Name = user.Name;
             User.Password = user.Password;
 
+            SetViewProps();
+        }
+        #endregion
+
+        #region View Methods
+        public void SetViewProps()
+        {
             ShowingLogin = true;
             Login = true;
             Register = false;
             SwitchViewCommand = new SwitchLoginViewCommand(this);
             LoginCommand = new LoginCommand(this);
-            RegisterCommand = new RegisterCommand(this);
-        }
-        #endregion
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            SaveCommand = new SaveCommand(this);
         }
 
-        #region View Methods
         public void SwitchViews()
         {
             ShowingLogin = !ShowingLogin;
@@ -155,20 +138,22 @@ namespace FinanceiroApp.WPF.ViewModels
             if (!ValidationHelper.IsValidEmail(User.Email))
                 throw new Library.Exceptions.FinAppValidationException("Email inválido.");
 
-            if (string.IsNullOrEmpty(User.Password))
+            if (string.IsNullOrEmpty(NewPassword))
                 throw new Library.Exceptions.FinAppValidationException("A senha é obrigatória.");
 
-            if (ValidationHelper.HasRequiredLength(User.Password, 6))
+            if (ValidationHelper.HasRequiredLength(NewPassword, 6))
                 throw new Library.Exceptions.FinAppValidationException("A senha deve ter no mínimo 6 dígitos.");
 
             if (string.IsNullOrEmpty(ConfirmPassword))
                 throw new Library.Exceptions.FinAppValidationException("A confirmação de senha é obrigatória.");
 
-            if(!User.Password.Equals(ConfirmPassword))
+            if(!NewPassword.Equals(ConfirmPassword))
                 throw new Library.Exceptions.FinAppValidationException("A confirmação de senha deve ser igual à senha.");
 
             return true;
         }
+
+        public void SetUserPassword(string password) => User.Password = password;
 
         public bool UserExists(int userId)
         {
@@ -213,7 +198,7 @@ namespace FinanceiroApp.WPF.ViewModels
             {
                 if (context.Users.Any(i => i.Name.Equals(username)))
                 {
-                    Entity.Models.User user = context.Users.FirstOrDefault(i => i.Name.Equals(username));
+                    Entity.Models.User user = context.Users.FirstOrDefault(i => i.Name.Equals(username)); //TODO: Talvez não seja tão seguro trazer o usuário todo para validação
 
                     if (PasswordHelper.DecryptPassword(password, user.Password))
                         return new LoginViewModel(user);
@@ -232,32 +217,47 @@ namespace FinanceiroApp.WPF.ViewModels
                 Id = this.User.Id,
                 Email = this.User.Email,
                 Name = this.User.Name,
-                Password = PasswordHelper.EncryptPassword(this.User.Password)
+                Password = PasswordHelper.EncryptPassword(this.NewPassword)
             };
         }
 
-        public void SaveUser()
+        public override void Save()
         {
-            IsValid();
-
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+            try
             {
-                if(this.User.Id == 0)
-                    context.Users.Add(GetUserRegister()); //AQUI EU USO O MÉTODO POR CAUSA DA SENHA CRIPTOGRAFADA, PARA NÃO TER QUE GERAR NO this.User O TEMPO TODO
-                else
-                {
-                    User u = context.Users.FirstOrDefault(i => i.Id == this.User.Id);
+                base.Save();
 
-                    if(u != null)
+                IsValid();
+
+                using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+                {
+                    if (this.User.Id == 0)
+                        context.Users.Add(GetUserRegister()); //AQUI EU USO O MÉTODO POR CAUSA DA SENHA CRIPTOGRAFADA, PARA NÃO TER QUE GERAR NO this.User O TEMPO TODO
+                    else
                     {
-                        u.Email = this.User.Email;
-                        u.Name = this.User.Name;
-                        u.Password = PasswordHelper.EncryptPassword(this.User.Password);
+                        User u = context.Users.FirstOrDefault(i => i.Id == this.User.Id);
+
+                        if (u != null)
+                        {
+                            u.Email = this.User.Email;
+                            u.Name = this.User.Name;
+                            u.Password = PasswordHelper.EncryptPassword(this.User.Password);
+                        }
                     }
+
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
+                MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            catch (FinAppValidationException rvex)
+            {
+                MessageBox.Show(rvex.Message, "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao fazer login!", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
+            }   
         }
 
         public void UserLogin()
@@ -265,12 +265,11 @@ namespace FinanceiroApp.WPF.ViewModels
             try
             {
                 IsValid();
-
-                
+                //TODO: Implemetnar o Login
             }
             catch (FinAppValidationException rvex)
             {
-
+                MessageBox.Show(rvex.Message, "Login", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {

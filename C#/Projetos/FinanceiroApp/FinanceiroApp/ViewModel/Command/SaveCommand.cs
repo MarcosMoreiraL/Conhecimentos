@@ -1,4 +1,4 @@
-﻿using FinanceiroApp.WPF.ViewModels;
+﻿using FinanceiroApp.WPF.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FinanceiroApp.WPF.Converter
+namespace FinanceiroApp.WPF.ViewModel.Command
 {
-    public class RegisterCommand : ICommand
+    public class SaveCommand : ICommand
     {
-        public LoginViewModel LoginViewModel { get; set; }
+        public Base.FinAppBaseViewModel ViewModel { get; set; }
         public event EventHandler? CanExecuteChanged;
 
-        public RegisterCommand(LoginViewModel loginViewModel)
+        public SaveCommand(FinAppBaseViewModel viewModel)
         {
-            LoginViewModel = loginViewModel;
+            ViewModel = viewModel;
         }
 
         public bool CanExecute(object? parameter)
@@ -25,7 +25,7 @@ namespace FinanceiroApp.WPF.Converter
 
         public void Execute(object? parameter)
         {
-            LoginViewModel.SaveUser();
+            ViewModel.Save();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace FinanceiroApp.WPF.Views.Transaction
     /// </summary>
     public partial class TransactionCategoryRegister : Window
     {
-        private ViewModels.TransactionCategoryViewModel TransactionCategory { get; set; }
+        private ViewModel.TransactionCategoryViewModel TransactionCategory { get; set; }
 
         public TransactionCategoryRegister()
         {
@@ -27,7 +27,7 @@ namespace FinanceiroApp.WPF.Views.Transaction
             this.DataContext = TransactionCategory;
         }
 
-        public TransactionCategoryRegister(ViewModels.TransactionCategoryViewModel transactionCategory)
+        public TransactionCategoryRegister(ViewModel.TransactionCategoryViewModel transactionCategory)
         {
             InitializeComponent();
             this.TransactionCategory = transactionCategory;

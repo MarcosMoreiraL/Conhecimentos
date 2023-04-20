@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FinanceiroApp.Library.Exceptions;
-using FinanceiroApp.WPF.ViewModels;
+using FinanceiroApp.WPF.ViewModel;
 
 namespace FinanceiroApp.WPF
 {
@@ -21,18 +22,6 @@ namespace FinanceiroApp.WPF
             ViewModel = Resources["vm"] != null ? Resources["vm"] as LoginViewModel : new LoginViewModel();
         }
 
-        private void ValidateLoginFields()
-        {
-            //TODO: passar tudo pra binding
-
-            if (string.IsNullOrEmpty(txtUser.Text))
-                throw new FinAppValidationException("Preencha o nome de usuário!");
-
-            if (string.IsNullOrEmpty(txtPassword.Password))
-                throw new FinAppValidationException("Preencha a senha!");
-        }
-
-        //TODO: Colocar esse método no ViewModel
         #region Window Events
         private void txtUser_KeyDown(object sender, KeyEventArgs e)
         {
@@ -45,5 +34,9 @@ namespace FinanceiroApp.WPF
             //TODO: Login com o Enter
         }
         #endregion
+
+        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.NewPassword = (sender as PasswordBox).Password;
+
+        private void txtConfirmPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.ConfirmPassword = txtConfirmPassword.Password;
     }
 }

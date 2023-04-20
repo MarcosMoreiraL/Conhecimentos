@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FinanceiroApp.Entity.Models;
 
-namespace FinanceiroApp.WPF.ViewModels
+namespace FinanceiroApp.WPF.ViewModel
 {
     public class TransactionCategoryViewModel : INotifyPropertyChanged
     {
