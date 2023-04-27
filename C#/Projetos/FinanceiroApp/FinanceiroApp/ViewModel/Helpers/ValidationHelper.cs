@@ -12,7 +12,7 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
     {
         public static bool StringExists(string s) => string.IsNullOrEmpty(s);
         public static bool StringEquals(string s1, string s2) => s1.Equals(s2);
-        public static bool HasRequiredLength(string s, int length) => s.Length > length;
+        public static bool HasRequiredLength(string s, int length) => s.Length >= length;
         public static bool IsValidPassword(string password) => true;
         public static bool IsValidEmail(string email)
         {

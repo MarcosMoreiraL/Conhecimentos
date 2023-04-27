@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceiroApp.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace FinanceiroApp.WPF.Views.Main
     /// </summary>
     public partial class Dashboard : Window
     {
+        public DashboardViewModel ViewModel { get; set; }
+
         public Dashboard()
         {
             InitializeComponent();
@@ -27,7 +30,8 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
-
+            Login login = new Login(App.User);
+            login.ShowDialog();
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)

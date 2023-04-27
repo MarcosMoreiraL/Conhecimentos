@@ -20,13 +20,29 @@ namespace FinanceiroApp.WPF
             InitializeComponent();
             txtEmail.Focus();
 
-           // Resources["vm"] = vm;
-            ViewModel = Resources["vm"] != null ? Resources["vm"] as LoginViewModel : new LoginViewModel();
+            ViewModel = Resources["vm"] as LoginViewModel;
 
             ViewModel.Authenticated += this.Authenticated;
 
             if(!string.IsNullOrEmpty(ViewModel.GetLastEmail()))
                 txtEmail.Text = ViewModel.GetLastEmail();
+        }
+
+        public Login(Entity.Models.User user)
+        {
+            InitializeComponent();
+            txtEmail.Focus();
+
+            ViewModel = Resources["vm"] as LoginViewModel;
+            ViewModel.UpdateUser(user); //PRECISO PARA INICIALIZAR O USER DO VM, CASO CONTRÁRIO VEM EM BRANCO
+
+            ViewModel.Updated += this.Updated;
+            ViewModel.SwitchViews();
+
+            tbNewPassword.Text = "Senha Atual";
+            tbConfirmPassword.Text = "Nova Senha";
+
+            btnRegister.Content = "Salvar";
         }
 
         #region Window Events
@@ -49,5 +65,6 @@ namespace FinanceiroApp.WPF
             this.Close();
         }
 
+        private void Updated(object sender, EventArgs e) => this.Close();
     }
 }

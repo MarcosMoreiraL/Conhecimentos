@@ -7,7 +7,7 @@
         xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
         xmlns:local="clr-namespace:FinanceiroApp.WPF"
         mc:Ignorable="d"
-        Title="Login" Height="431" Width="400" d:Height="400" d:Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Login" Height="430" Width="400" d:Height="430" d:Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <vm:LoginViewModel x:Key="vm"/>
@@ -16,8 +16,10 @@
     <Grid DataContext="{StaticResource vm}">
         <Grid.Resources>
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converter:BoolToEnabledConverter x:Key="BoolToEnabledConverter" />
         </Grid.Resources>
         <Grid x:Name="gridLogin" Visibility="{Binding Login, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
+        <!--<Grid x:Name="gridLogin" Visibility="Collapsed">-->
             <TextBlock Text="Login" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top"/>
             <StackPanel Orientation="Vertical" Margin="0,48,0,124">
                 <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="34" Width="380"/>
@@ -38,6 +40,7 @@
         </Grid>
 
         <Grid x:Name="gridRegister" Visibility="{Binding Register, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
+        <!--<Grid x:Name="gridRegister" Visibility="Visible">-->
             <Button x:Name="btnVoltar" Command="{Binding SwitchViewCommand}" Content="Voltar" FontSize="15" Margin="10,10,328,349"/>
             <TextBlock x:Name="txtTitle" Text="Registrar" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top"/>
             <StackPanel Orientation="Vertical" Margin="0,63,0,87">
@@ -52,10 +55,12 @@
                 <PasswordBox x:Name="txtCurPassword" HorizontalAlignment="Center" Visibility="Collapsed" Width="380" Height="28" VerticalAlignment="Top"/>
                 <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtNewPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
 
-                <TextBlock Text="Confirmação de Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtConfirmPassword" PasswordChanged="txtConfirmPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <CheckBox x:Name="cbxUpdatePassword" Content="Alterar Senha" FontSize="15" IsChecked="{Binding UpdatePassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="{Binding Update, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock x:Name="tbConfirmPassword" Text="Confirmação de Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtConfirmPassword" PasswordChanged="txtConfirmPassword_PasswordChanged" IsEnabled="{Binding UpdatePassword, Converter= {StaticResource BoolToEnabledConverter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
             </StackPanel>
-            <Button x:Name="btnRegister" Command="{Binding SaveCommand}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,302,0,0" Height="52" VerticalAlignment="Top" />
+            <Button x:Name="btnRegister" Command="{Binding SaveCommand}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
         </Grid>
     </Grid>
 </Window>
