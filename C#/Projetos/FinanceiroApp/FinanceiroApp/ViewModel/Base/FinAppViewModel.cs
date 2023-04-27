@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinanceiroApp.WPF.ViewModel.Base
 {
-    public class FinAppBaseViewModel : INotifyPropertyChanged
+    public class FinAppViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

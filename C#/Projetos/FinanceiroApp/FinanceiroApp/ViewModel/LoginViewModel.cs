@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
-using FinanceiroApp.Library.Helpers;
 using FinanceiroApp.WPF.ViewModel.Command;
+using FinanceiroApp.WPF.ViewModel.Helpers;
 
 namespace FinanceiroApp.WPF.ViewModel
 {
-    public class LoginViewModel : ViewModel.Base.FinAppBaseViewModel
+    public class LoginViewModel : ViewModel.Base.FinAppViewModel
     {
         #region Props
         private User user;
@@ -57,6 +58,8 @@ namespace FinanceiroApp.WPF.ViewModel
         public SwitchLoginViewCommand SwitchViewCommand { get; set; }
         public LoginCommand LoginCommand { get; set; }
         public SaveCommand SaveCommand { get; set; }
+
+        public EventHandler Authenticated;
         #endregion
 
         #region Constructors
@@ -127,7 +130,16 @@ namespace FinanceiroApp.WPF.ViewModel
         #endregion
 
         #region UserMethods
-        public bool IsValid(bool register = false)
+
+        public string GetLastEmail() => FinanceiroApp.WPF.Properties.Settings.Default.lastEmail;
+        public void SetLastEmail(string lastEmail)
+        {
+            FinanceiroApp.WPF.Properties.Settings.Default.lastEmail = lastEmail;
+            FinanceiroApp.WPF.Properties.Settings.Default.Save();
+        }
+
+        //TODO: Usar um Validation Helper?? SEPARAR OS 3 CASOS DE VALIDAÇÃO - LOGIN, CADASTRO E EDIÇÃO
+        public async Task<bool> IsValid(bool register = false)
         {
             if (string.IsNullOrEmpty(User.Name))
                 throw new Library.Exceptions.FinAppValidationException("O nome de usuário é obrigatório.");
@@ -150,105 +162,42 @@ namespace FinanceiroApp.WPF.ViewModel
             if(!NewPassword.Equals(ConfirmPassword))
                 throw new Library.Exceptions.FinAppValidationException("A confirmação de senha deve ser igual à senha.");
 
+            if (!register)
+            {
+                //TODO: FAZER O CASO DE EDIÇÃO DO USUÁRIO
+                if(!await UserDataBaseHelper.ValidatePassword(this.User.Id, NewPassword))
+                    throw new Library.Exceptions.FinAppValidationException("A senha atual é inválida.");
+            }
+
             return true;
         }
 
         public void SetUserPassword(string password) => User.Password = password;
 
-        public bool UserExists(int userId)
-        {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-                return context.Users.Any(i => i.Id == userId);
-        }
-
-        public void ValidatePassword(string password)
-        {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-            {
-                string curPassword = context.Users.FirstOrDefault(i => i.Id == this.User.Id).Password;
-
-                if(password != null)
-                {
-                    if (!PasswordHelper.DecryptPassword(password, curPassword))
-                        throw new Library.Exceptions.FinAppValidationException("A senha digitada não confere com a senha atual");
-                }
-            }
-        }
-
-        public bool UserExists(string username)
-        {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-                return context.Users.Any(i => i.Name.Equals(username));
-        }
-
-        public LoginViewModel GetUser(int id)
-        {
-            using(Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-            {
-                if (context.Users.Any(i => i.Id == id))
-                    return new LoginViewModel(context.Users.FirstOrDefault(i => i.Id == id));
-                
-                return null;
-            }
-        }
-
-        public static LoginViewModel GetUser(string username, string password)
-        {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-            {
-                if (context.Users.Any(i => i.Name.Equals(username)))
-                {
-                    Entity.Models.User user = context.Users.FirstOrDefault(i => i.Name.Equals(username)); //TODO: Talvez não seja tão seguro trazer o usuário todo para validação
-
-                    if (PasswordHelper.DecryptPassword(password, user.Password))
-                        return new LoginViewModel(user);
-                    
-                    throw new Exception("Senha incorreta!");
-                }
-                
-                throw new Exception("Usuário não encontrado!");
-            }
-        }
-
-        public User GetUserRegister()
+        public User GetUserEntity(bool login = true)
         {
             return new User
             {
                 Id = this.User.Id,
                 Email = this.User.Email,
                 Name = this.User.Name,
-                Password = PasswordHelper.EncryptPassword(this.NewPassword)
+                Password = login ? this.NewPassword : PasswordHelper.EncryptPassword(this.NewPassword)
             };
         }
 
-        public override void Save()
+        public override async void Save()
         {
             try
             {
                 base.Save();
 
-                IsValid();
+                await IsValid(true);
 
-                using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
-                {
-                    if (this.User.Id == 0)
-                        context.Users.Add(GetUserRegister()); //AQUI EU USO O MÉTODO POR CAUSA DA SENHA CRIPTOGRAFADA, PARA NÃO TER QUE GERAR NO this.User O TEMPO TODO
-                    else
-                    {
-                        User u = context.Users.FirstOrDefault(i => i.Id == this.User.Id);
-
-                        if (u != null)
-                        {
-                            u.Email = this.User.Email;
-                            u.Name = this.User.Name;
-                            u.Password = PasswordHelper.EncryptPassword(this.User.Password);
-                        }
-                    }
-
-                    context.SaveChanges();
-                }
+                await UserDataBaseHelper.CreateAsync(GetUserEntity(false));
 
                 MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                SwitchViews();
             }
             catch (FinAppValidationException rvex)
             {
@@ -256,16 +205,21 @@ namespace FinanceiroApp.WPF.ViewModel
             }
             catch (Exception ex)
             {
+                Logger.Log(ex);
                 MessageBox.Show("Erro ao fazer login!", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
             }   
         }
 
-        public void UserLogin()
+        public async void UserLogin()
         {
             try
             {
-                IsValid();
-                //TODO: Implemetnar o Login
+                //await IsValid();
+                User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
+                App.User = user;
+
+                SetLastEmail(user.Email);
+                Authenticated.Invoke(this, new EventArgs());
             }
             catch (FinAppValidationException rvex)
             {
@@ -273,7 +227,7 @@ namespace FinanceiroApp.WPF.ViewModel
             }
             catch (Exception ex)
             {
-                //TODO: Incluir o log
+                Logger.Log(ex);
                 MessageBox.Show("Erro ao fazer login!", "Login", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

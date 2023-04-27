@@ -1,4 +1,4 @@
-﻿namespace FinanceiroApp.Library.Helpers
+﻿namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
     public static class PasswordHelper
     {

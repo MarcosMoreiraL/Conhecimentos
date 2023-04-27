@@ -23,7 +23,7 @@ namespace FinanceiroApp.WPF.ViewModel.Command
             return true;
         }
 
-        public void Execute(object? parameter)
+        public void Execute(object? parameter = null)
         {
             LoginViewModel.UserLogin();
         }

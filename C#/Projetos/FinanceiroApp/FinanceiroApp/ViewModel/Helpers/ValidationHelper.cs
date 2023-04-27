@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace FinanceiroApp.Library.Helpers
+namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
     public class ValidationHelper
     {

@@ -46,13 +46,13 @@ namespace FinanceiroApp.WPF.ViewModel
 
         public List<Transaction> GetTransactions()
         {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
                 return context.Transactions.Where(i => i.CategoryId == Id).ToList();
         }
 
         public void SaveCategory()
         {
-            using (Entity.FinanceiroAppDbContext context = Library.Session.DbContextFactory.Create())
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
             {
                 if (this.Id == 0)
                     context.TransactionCategories.Add(GetEntity());

@@ -2,7 +2,7 @@
 
 namespace FinanceiroApp.Entity.Models
 {
-    public class Transaction
+    public class Transaction : IEntity
     {
         public enum TransactionType
         {

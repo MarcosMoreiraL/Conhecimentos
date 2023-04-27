@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinanceiroApp.Entity.Models
 {
-    public class TransactionCategory
+    public class TransactionCategory : IEntity
     {
         public int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace FinanceiroApp.Entity.Models
         public int UserId { get; set; }
 
         [Column(TypeName = "varchar(20)")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public User User { get; set; }
         public ICollection<Transaction> Transactions { get; set; }

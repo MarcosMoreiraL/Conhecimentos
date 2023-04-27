@@ -7,7 +7,7 @@
         xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
         xmlns:local="clr-namespace:FinanceiroApp.WPF"
         mc:Ignorable="d"
-        Title="Login" Height="431" Width="400" d:Height="400" d:Width="400" ResizeMode="NoResize">
+        Title="Login" Height="431" Width="400" d:Height="400" d:Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <vm:LoginViewModel x:Key="vm"/>
@@ -22,11 +22,15 @@
             <StackPanel Orientation="Vertical" Margin="0,48,0,124">
                 <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="34" Width="380"/>
 
-                <TextBlock Text="Nome de Usuário" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtUser" Text="{Binding User.Name}" KeyDown="txtUser_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <TextBlock Text="Email" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEmail" Text="{Binding User.Email}" KeyDown="txtEmail_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock Text="Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged" KeyDown="txtPassword_KeyDown" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top">
+                    <PasswordBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding LoginCommand}"/>
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
             </StackPanel>
 
             <Button Name="btnRegisterMode" Command="{Binding SwitchViewCommand}" Content="Registrar" FontSize="15" HorizontalAlignment="Center" Margin="0,347,0,0" Width="66" Height="27" VerticalAlignment="Top" />
@@ -41,12 +45,12 @@
                 <TextBox x:Name="txtUsername" Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock Text="Email" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtEmail" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEmailRegister" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock x:Name="tbCurPassword" Text="Senha Atual" FontSize="15" Visibility="Collapsed" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
                 <TextBlock x:Name="tbNewPassword" Text="Senha" FontSize="15" Height="27"/>
                 <PasswordBox x:Name="txtCurPassword" HorizontalAlignment="Center" Visibility="Collapsed" Width="380" Height="28" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtNewPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
 
                 <TextBlock Text="Confirmação de Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
                 <PasswordBox x:Name="txtConfirmPassword" PasswordChanged="txtConfirmPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>

@@ -10,10 +10,10 @@ namespace FinanceiroApp.WPF.ViewModel.Command
 {
     public class SaveCommand : ICommand
     {
-        public Base.FinAppBaseViewModel ViewModel { get; set; }
+        public Base.FinAppViewModel ViewModel { get; set; }
         public event EventHandler? CanExecuteChanged;
 
-        public SaveCommand(FinAppBaseViewModel viewModel)
+        public SaveCommand(FinAppViewModel viewModel)
         {
             ViewModel = viewModel;
         }

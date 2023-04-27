@@ -22,13 +22,12 @@ namespace FinanceiroApp.WPF.Views.Main
         public Dashboard()
         {
             InitializeComponent();
-            txtTitle.Text = "Bem-vindo " + Library.Session.User.Name;
+            txtTitle.Text = "Bem-vindo " + App.User.Name;
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
-            WPF.Views.User.Register register = new User.Register(Library.Session.User);
-            register.ShowDialog();
+
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)

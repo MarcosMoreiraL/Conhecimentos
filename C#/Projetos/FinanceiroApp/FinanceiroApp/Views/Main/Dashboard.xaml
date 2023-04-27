@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         mc:Ignorable="d"
-        Title="Dashboard" Height="450" Width="800">
+        Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Button x:Name="btnNewTransaction" Content="Nova Movimentação" Click="btnNewTransaction_Click" HorizontalAlignment="Left" Margin="657,159,0,236"/>

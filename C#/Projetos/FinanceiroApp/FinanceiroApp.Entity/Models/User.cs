@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FinanceiroApp.Entity.Models
 {
-    public class User
+    public class User : IEntity
     {
         public int Id { get; set; }
 
