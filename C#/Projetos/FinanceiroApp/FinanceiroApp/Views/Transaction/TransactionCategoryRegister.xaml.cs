@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceiroApp.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,32 +20,13 @@ namespace FinanceiroApp.WPF.Views.Transaction
     /// </summary>
     public partial class TransactionCategoryRegister : Window
     {
-        private ViewModel.TransactionCategoryViewModel TransactionCategory { get; set; }
+        private ViewModel.TransactionCategoryViewModel ViewModel { get; set; }
+        
 
         public TransactionCategoryRegister()
         {
             InitializeComponent();
-            this.DataContext = TransactionCategory;
-        }
-
-        public TransactionCategoryRegister(ViewModel.TransactionCategoryViewModel transactionCategory)
-        {
-            InitializeComponent();
-            this.TransactionCategory = transactionCategory;
-            this.DataContext = TransactionCategory;
-        }
-
-        private void btnSaveCategory_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            ViewModel = Resources["vm"] as TransactionCategoryViewModel;
         }
     }
 }
