@@ -9,7 +9,7 @@
     <Grid>
         <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Button x:Name="btnNewTransaction" Content="Nova Movimentação" Click="btnNewTransaction_Click" HorizontalAlignment="Left" Margin="657,159,0,236"/>
-        <Button x:Name="btnNewTransactionCategory" Content="Nova Categoria" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="685,98,0,297"/>
+        <Button x:Name="btnViewTransactionCategories" Content="Categorias" Click="btnViewTransactionCategories_Click" HorizontalAlignment="Left" Margin="685,98,0,297"/>
         <Button x:Name="btnUpdateUser" Content="Editar Perfil" Click="btnUpdateUser_Click" HorizontalAlignment="Left" Margin="707,10,0,385"/>
         <Button x:Name="btnLogout" Content="Sair" HorizontalAlignment="Left" Margin="707,54,0,341"/>
     </Grid>

@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FinanceiroApp.WPF.Views.Transaction
+namespace FinanceiroApp.WPF.Views.Categories
 {
     /// <summary>
     /// Interaction logic for TransactionCategoryRegister.xaml

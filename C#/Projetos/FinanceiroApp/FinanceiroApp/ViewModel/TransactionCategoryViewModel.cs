@@ -54,6 +54,11 @@ namespace FinanceiroApp.WPF.ViewModel
             };
         }
 
+        public List<TransactionCategory> GetCategories()
+        {
+            return new List<TransactionCategory>();
+        }
+
         public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O VIEWMODEL DAS TRANSACTIONS
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())

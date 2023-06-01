@@ -39,10 +39,10 @@ namespace FinanceiroApp.WPF.Views.Main
 
         }
 
-        private void btnNewTransactionCategory_Click(object sender, RoutedEventArgs e)
+        private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
         {
-            Transaction.TransactionCategoryRegister categoryRegister = new Transaction.TransactionCategoryRegister();
-            categoryRegister.Show();
+            Categories.TransactionCategories categories = new Categories.TransactionCategories();
+            categories.Show();
         }
     }
 }

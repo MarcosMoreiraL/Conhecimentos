@@ -27,7 +27,7 @@
     <Compile Update="Views\Main\Dashboard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Transaction\TransactionCategoryRegister.xaml.cs">
+    <Compile Update="Views\Categories\TransactionCategoryRegister.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -37,6 +37,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Transaction\" />
   </ItemGroup>
 
 </Project>
