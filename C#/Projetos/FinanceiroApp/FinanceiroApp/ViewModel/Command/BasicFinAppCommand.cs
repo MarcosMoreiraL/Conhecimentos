@@ -8,12 +8,15 @@ using System.Windows.Input;
 
 namespace FinanceiroApp.WPF.ViewModel.Command
 {
-    public class BaseFinAppCommand : ICommand
+    /// <summary>
+    /// Basic Command for simple ViewModels
+    /// </summary>
+    public class BasicFinAppCommand : ICommand
     {
         public FinAppViewModel ViewModel { get; set; }
         public event EventHandler? CanExecuteChanged;
 
-        public BaseFinAppCommand(FinAppViewModel viewModel)
+        public BasicFinAppCommand(FinAppViewModel viewModel)
         {
             ViewModel = viewModel;
         }
