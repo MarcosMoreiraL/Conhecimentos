@@ -16,7 +16,7 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
         public int UserId { get; set; }
         public string Description { get; set; }
 
-        public User user { get; set; }
+        public Entity.Models.User user { get; set; }
         public SaveCommand SaveCommand { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -63,9 +63,9 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
                 return context.Transactions.Where(i => i.CategoryId == Id).ToList();
         }
 
-        public override void Save()
+        public override void Action()
         {
-            base.Save();
+            base.Action();
 
             try
             {

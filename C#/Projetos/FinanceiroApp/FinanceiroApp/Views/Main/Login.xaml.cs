@@ -18,53 +18,53 @@ namespace FinanceiroApp.WPF
         public Login()
         {
             InitializeComponent();
-            txtEmail.Focus();
+            //txtEmail.Focus();
 
-            ViewModel = Resources["vm"] as LoginViewModel;
+            //ViewModel = Resources["vm"] as LoginViewModel;
 
-            ViewModel.Authenticated += this.Authenticated;
+            //ViewModel.Authenticated += this.Authenticated;
 
-            if(!string.IsNullOrEmpty(ViewModel.GetLastEmail()))
-                txtEmail.Text = ViewModel.GetLastEmail();
+            //if (!string.IsNullOrEmpty(ViewModel.GetLastEmail()))
+            //    txtEmail.Text = ViewModel.GetLastEmail();
         }
 
         public Login(Entity.Models.User user)
         {
             InitializeComponent();
-            txtEmail.Focus();
+            //txtEmail.Focus();
 
-            ViewModel = Resources["vm"] as LoginViewModel;
-            ViewModel.UpdateUser(user); //PRECISO PARA INICIALIZAR O USER DO VM, CASO CONTRÁRIO VEM EM BRANCO
+            //ViewModel = Resources["vm"] as LoginViewModel;
+            //ViewModel.UpdateUser(user); //PRECISO PARA INICIALIZAR O USER DO VM, CASO CONTRÁRIO VEM EM BRANCO
 
-            ViewModel.Updated += this.Updated;
-            ViewModel.SwitchViews();
+            //ViewModel.Updated += this.Updated;
+            //ViewModel.SwitchViews();
 
-            tbNewPassword.Text = "Senha Atual";
-            tbConfirmPassword.Text = "Nova Senha";
+            //tbNewPassword.Text = "Senha Atual";
+            //tbConfirmPassword.Text = "Nova Senha";
 
-            btnRegister.Content = "Salvar";
+            //btnRegister.Content = "Salvar";
         }
 
-        #region Window Events
-        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
-                txtPassword.Focus();
-        }
-        #endregion
+        //#region Window Events
+        //private void txtEmail_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter || e.Key == Key.Tab)
+        //        txtPassword.Focus();
+        //}
+        //#endregion
 
-        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetUserPassword((sender as PasswordBox).Password);
-        private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.NewPassword = txtNewPassword.Password;
-        private void txtConfirmPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.ConfirmPassword = txtConfirmPassword.Password;
+        //private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetUserPassword((sender as PasswordBox).Password);
+        //private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.NewPassword = txtNewPassword.Password;
+        //private void txtConfirmPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.ConfirmPassword = txtConfirmPassword.Password;
 
-        private void Authenticated(object sender, EventArgs e)
-        {
-            Dashboard dashboard = new Dashboard();
-            dashboard.Show();
+        //private void Authenticated(object sender, EventArgs e)
+        //{
+        //    Dashboard dashboard = new Dashboard();
+        //    dashboard.Show();
 
-            this.Close();
-        }
+        //    this.Close();
+        //}
 
-        private void Updated(object sender, EventArgs e) => this.Close();
+        //private void Updated(object sender, EventArgs e) => this.Close();
     }
 }

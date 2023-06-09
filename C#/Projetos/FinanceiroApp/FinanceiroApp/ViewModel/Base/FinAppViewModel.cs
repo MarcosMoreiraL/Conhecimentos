@@ -16,6 +16,6 @@ namespace FinanceiroApp.WPF.ViewModel.Base
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual void Save() { }
+        public virtual void Action() { }
     }
 }

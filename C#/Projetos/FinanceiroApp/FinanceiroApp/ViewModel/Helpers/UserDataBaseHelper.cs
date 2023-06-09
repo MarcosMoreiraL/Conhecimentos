@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
-    public class UserDataBaseHelper : FinAppDataBaseHelper<User>
+    public class UserDataBaseHelper : FinAppDataBaseHelper<Entity.Models.User>
     {
         public static async Task<bool> UsernameExists(string username)
         {
@@ -21,7 +21,7 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
             {
-                User user = await context.Users.FirstOrDefaultAsync(i => i.Id == userId);
+                Entity.Models.User user = await context.Users.FirstOrDefaultAsync(i => i.Id == userId);
 
                 if(user != null)
                 {

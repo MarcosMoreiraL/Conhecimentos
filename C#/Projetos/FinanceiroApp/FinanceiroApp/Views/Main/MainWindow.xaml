@@ -1,0 +1,19 @@
+﻿<Window x:Class="FinanceiroApp.WPF.Views.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userControls="clr-namespace:FinanceiroApp.WPF.Controls.User"
+        xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
+        xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
+        mc:Ignorable="d"
+        Title="Login" Height="440" Width="410" d:Height="440" d:Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Resources>
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        </Grid.Resources>
+        <userControls:LoginControl x:Name="loginControl" Visibility="Visible"/>
+        <userControls:RegisterUserControl x:Name="registerControl" Visibility="Collapsed"/>
+        <userControls:UpdateUserControl Visibility="Collapsed"/>
+    </Grid>
+</Window>

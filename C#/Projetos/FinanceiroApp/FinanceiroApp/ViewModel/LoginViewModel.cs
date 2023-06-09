@@ -14,14 +14,14 @@ namespace FinanceiroApp.WPF.ViewModel
     public class LoginViewModel : ViewModel.Base.FinAppViewModel
     {
         #region Props
-        private User user;
-        public User User 
+        private Entity.Models.User user;
+        public Entity.Models.User User 
         {
             get => user;
 
             set
             {
-                if(value is User)
+                if(value is Entity.Models.User)
                 {
                     user = value;
                     OnPropertyChanged(nameof(User));
@@ -92,7 +92,7 @@ namespace FinanceiroApp.WPF.ViewModel
         #region Constructors
         public LoginViewModel()
         {
-            User = new User();
+            User = new Entity.Models.User();
             SetViewProps();
         }
 
@@ -116,7 +116,7 @@ namespace FinanceiroApp.WPF.ViewModel
             SetViewProps();
         }
 
-        public LoginViewModel(User user)
+        public LoginViewModel(Entity.Models.User user)
         {
             this.User = user;
             SetViewProps();
@@ -163,7 +163,7 @@ namespace FinanceiroApp.WPF.ViewModel
 
         public void SetUserPassword(string password) => User.Password = password;
 
-        public void UpdateUser(User user)
+        public void UpdateUser(Entity.Models.User user)
         {
             this.User = user;
             SetViewProps();
@@ -236,9 +236,9 @@ namespace FinanceiroApp.WPF.ViewModel
             return true;
         }
 
-        public User GetUserEntity(bool login = true)
+        public Entity.Models.User GetUserEntity(bool login = true)
         {
-            return new User
+            return new Entity.Models.User
             {
                 Id = this.User.Id,
                 Email = this.User.Email,
@@ -248,7 +248,7 @@ namespace FinanceiroApp.WPF.ViewModel
         }
 
         //SENHA DO ADMIN = admin@
-        public override async void Save()
+        public override async void Action()
         {
             try
             {
@@ -285,7 +285,7 @@ namespace FinanceiroApp.WPF.ViewModel
             try
             {
                 await IsValid();
-                User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
+                Entity.Models.User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
                 App.User = user;
 
                 SetLastEmail(user.Email);
