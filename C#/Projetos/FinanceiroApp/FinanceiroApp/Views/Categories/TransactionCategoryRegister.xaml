@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
+        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Categories"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Categories"
         mc:Ignorable="d"
         Title="TransactionCategoryRegister" Height="250" Width="400">
     <Window.Resources>
         <ResourceDictionary>
-            <vm:TransactionCategoryViewModel x:Key="vm"/>
+            <vm:TransactionCategoryRegisterViewModel x:Key="vm"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">

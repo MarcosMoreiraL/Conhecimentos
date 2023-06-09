@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Categories"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Categories"
         mc:Ignorable="d"
         Title="Categories" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <vm:TransactionCategoryRegisterViewModel x:Key="vm"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
         <Button x:Name="btnNewTransactionCategory" Content="Categorias" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="730,10,0,385"/>
+        <DataGrid x:Name="dgCategories" ItemsSource="{Binding }"/>
     </Grid>
 </Window>

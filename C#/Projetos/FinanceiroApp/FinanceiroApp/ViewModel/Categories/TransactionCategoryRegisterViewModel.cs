@@ -2,32 +2,30 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
 
-namespace FinanceiroApp.WPF.ViewModel
+namespace FinanceiroApp.WPF.ViewModel.Categories
 {
-    public class TransactionCategoryViewModel : FinAppViewModel, INotifyPropertyChanged
+    public class TransactionCategoryRegisterViewModel : FinAppViewModel, INotifyPropertyChanged
     {
         public int Id { get; set; }
-        public int UserId { get;set; }
+        public int UserId { get; set; }
         public string Description { get; set; }
-        
+
         public User user { get; set; }
         public SaveCommand SaveCommand { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public TransactionCategoryViewModel()
+        public TransactionCategoryRegisterViewModel()
         {
             SaveCommand = new SaveCommand(this);
         }
 
-        public TransactionCategoryViewModel(int id, int userId, string description)
+        public TransactionCategoryRegisterViewModel(int id, int userId, string description)
         {
             Id = id;
             UserId = userId;
@@ -35,12 +33,12 @@ namespace FinanceiroApp.WPF.ViewModel
             SaveCommand = new SaveCommand(this);
         }
 
-        public TransactionCategoryViewModel(TransactionCategory transactionCategory)
+        public TransactionCategoryRegisterViewModel(TransactionCategory transactionCategory)
         {
-            this.Id = transactionCategory.Id;
-            this.UserId = transactionCategory.UserId;
-            this.Description = transactionCategory.Description;
-            this.user = transactionCategory.User;
+            Id = transactionCategory.Id;
+            UserId = transactionCategory.UserId;
+            Description = transactionCategory.Description;
+            user = transactionCategory.User;
             SaveCommand = new SaveCommand(this);
         }
 
@@ -73,11 +71,11 @@ namespace FinanceiroApp.WPF.ViewModel
             {
                 using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
                 {
-                    if (this.Id == 0)
+                    if (Id == 0)
                         context.TransactionCategories.Add(GetEntity());
                     else
                     {
-                        TransactionCategory transactionCategory = context.TransactionCategories.FirstOrDefault(i => i.Id == this.Id);
+                        TransactionCategory transactionCategory = context.TransactionCategories.FirstOrDefault(i => i.Id == Id);
 
                         if (transactionCategory != null)
                         {

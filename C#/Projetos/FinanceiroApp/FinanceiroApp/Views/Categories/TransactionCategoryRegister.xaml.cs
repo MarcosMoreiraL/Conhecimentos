@@ -1,4 +1,4 @@
-﻿using FinanceiroApp.WPF.ViewModel;
+﻿using FinanceiroApp.WPF.ViewModel.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +20,13 @@ namespace FinanceiroApp.WPF.Views.Categories
     /// </summary>
     public partial class TransactionCategoryRegister : Window
     {
-        private ViewModel.TransactionCategoryViewModel ViewModel { get; set; }
+        private TransactionCategoryRegisterViewModel ViewModel { get; set; }
         
 
         public TransactionCategoryRegister()
         {
             InitializeComponent();
-            ViewModel = Resources["vm"] as TransactionCategoryViewModel;
+            ViewModel = Resources["vm"] as TransactionCategoryRegisterViewModel;
         }
     }
 }
