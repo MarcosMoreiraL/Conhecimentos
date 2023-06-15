@@ -34,7 +34,7 @@ namespace FinanceiroApp.WPF.ViewModel.Base
         #endregion
 
         public virtual void SetUserPassword(string password) => User.Password = password;
-        public virtual async Task<bool> IsValid(bool register = false) => throw new NotImplementedException();
-        public virtual Entity.Models.User GetUserEntity(bool login = true) => throw new NotImplementedException();
+        public virtual async Task<bool> IsValid() => throw new NotImplementedException();
+        public virtual Entity.Models.User GetUserEntity() => throw new NotImplementedException();
     }
 }

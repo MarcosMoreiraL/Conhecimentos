@@ -11,6 +11,12 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
     public class UserDataBaseHelper : FinAppDataBaseHelper<Entity.Models.User>
     {
+        public static async Task<bool> EmailExists(string email)
+        {
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
+                return await context.Users.AnyAsync(i => i.Email.Equals(email));
+        }
+
         public static async Task<bool> UsernameExists(string username)
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
