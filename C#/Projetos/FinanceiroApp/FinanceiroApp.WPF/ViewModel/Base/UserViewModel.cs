@@ -29,8 +29,6 @@ namespace FinanceiroApp.WPF.ViewModel.Base
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
 
-        protected Helpers.UserControlType type;
-        public Helpers.UserControlType Type { get => type; set => type = value; } //TODO: SETAR O TIPO DE CADA UM NO CONSTRUTOR
         #endregion
 
         public virtual void SetUserPassword(string password) => User.Password = password;

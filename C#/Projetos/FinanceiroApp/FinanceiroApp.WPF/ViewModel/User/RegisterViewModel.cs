@@ -39,6 +39,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             };
         }
 
+        //TODO: DEIXAR A FUNÇÃO DE VALIDAÇÃO MAIS GENÉRICA E REUTILIZÁVEL USANDO O HELPER
         public override async Task<bool> IsValid()
         {
             if (string.IsNullOrEmpty(User.Name))

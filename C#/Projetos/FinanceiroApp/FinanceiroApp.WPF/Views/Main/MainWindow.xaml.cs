@@ -22,6 +22,7 @@ namespace FinanceiroApp.WPF.Views.Main
         public MainWindow()
         {
             InitializeComponent();
+            //TODO: MOVER OS EVENTOS PARA O VIEWMODEL?
             loginControl.ViewModel.Authenticated += Authenticated;
             loginControl.SwitchToRegister += SwitchToRegister;
 
@@ -29,7 +30,6 @@ namespace FinanceiroApp.WPF.Views.Main
             registerControl.SwitchToLogin += SwitchToLogin;
         }
 
-        //TODO: CRIAR OS EVENTOS DE SWITCH DE TELAS E AUTHENTICATED/SAVE PARA VOLTAR AQUI DEPOIS DE EXECUTAR AS AÇÕES DENTRO DO CONTROL
         private void Authenticated(object sender, EventArgs e)
         {
             Dashboard dashboard = new Dashboard();

@@ -171,8 +171,6 @@ namespace FinanceiroApp.WPF.ViewModel
             UpdatePassword = false;
         }
 
-        //TODO: Usar um Validation Helper?? SEPARAR OS 3 CASOS DE VALIDAÇÃO - LOGIN, CADASTRO E EDIÇÃO (USAR ENUM PARA DIFERENCIAR AS SITUAÇÕES?)
-        //VALIDATION HELPER COM VÁRIOS MÉTODOS DE VALIDAÇÃO, DO MAIS GENÉRICO PARA O MAIS ESPECÍFICO, OS ESPECÍFICOS CONTENDO O GENÉRICO
         public async Task<bool> IsValid(bool register = false)
         {
             if (login)
@@ -262,7 +260,7 @@ namespace FinanceiroApp.WPF.ViewModel
                 else
                 {
                     await UserDataBaseHelper.UpdateAsync(GetUserEntity(false));
-                    MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information); //TODO: unificar a mensagem
+                    MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                     Updated.Invoke(this, new EventArgs());
 
                     App.User = user;
