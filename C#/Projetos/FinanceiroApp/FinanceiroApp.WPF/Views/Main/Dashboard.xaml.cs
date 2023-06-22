@@ -32,6 +32,7 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
             updateUserWindow.ShowDialog();
+            txtTitle.Text = "Bem-vindo " + App.User.Name;
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)

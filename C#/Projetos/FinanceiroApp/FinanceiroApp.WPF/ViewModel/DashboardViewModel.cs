@@ -8,5 +8,6 @@ namespace FinanceiroApp.WPF.ViewModel
 {
     public class DashboardViewModel
     {
+
     }
 }

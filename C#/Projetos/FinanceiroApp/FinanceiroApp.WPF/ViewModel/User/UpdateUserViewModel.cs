@@ -14,7 +14,17 @@ namespace FinanceiroApp.WPF.ViewModel.User
 {
     public class UpdateUserViewModel : UserViewModel
     {
-        public bool UpdateUserInfo { get; set; } = false;
+        private bool _updateUserInfo = false;
+        public bool UpdateUserInfo
+        {
+            get => _updateUserInfo;
+
+            set
+            {
+                _updateUserInfo = value;
+                OnPropertyChanged(nameof(UpdateUserInfo));
+            }
+        }
         public string OldPassword { get; set; }
         public BasicFinAppCommand Command { get; set; }
         public EventHandler Updated;
@@ -51,19 +61,19 @@ namespace FinanceiroApp.WPF.ViewModel.User
                 if (!ValidationHelper.IsValidEmail(User.Email))
                     throw new Library.Exceptions.FinAppValidationException("Email inválido.");
 
-                if (string.IsNullOrEmpty(NewPassword))
+                if (string.IsNullOrEmpty(OldPassword))
                     throw new Library.Exceptions.FinAppValidationException("A senha atual é obrigatória.");
 
-                if (!await UserDataBaseHelper.ValidatePassword(this.User.Id, NewPassword))
+                if (!await UserDataBaseHelper.ValidatePassword(this.User.Id, OldPassword))
                     throw new Library.Exceptions.FinAppValidationException("A senha atual é inválida.");
 
-                if (string.IsNullOrEmpty(ConfirmPassword))
+                if (string.IsNullOrEmpty(this.User.Password))
                     throw new Library.Exceptions.FinAppValidationException("A nova senha é obrigatória.");
 
-                if (!ValidationHelper.HasRequiredLength(ConfirmPassword, 6))
+                if (!ValidationHelper.HasRequiredLength(this.User.Password, 6))
                     throw new Library.Exceptions.FinAppValidationException("A nova senha deve ter no mínimo 6 dígitos.");
 
-                if (await UserDataBaseHelper.ValidatePassword(this.User.Id, ConfirmPassword))
+                if (await UserDataBaseHelper.ValidatePassword(this.User.Id, this.User.Password))
                     throw new Library.Exceptions.FinAppValidationException("A nova senha deve ser diferente da atual.");
             }
 
@@ -72,12 +82,24 @@ namespace FinanceiroApp.WPF.ViewModel.User
 
         public override Entity.Models.User GetUserEntity()
         {
-            return new Entity.Models.User()
+            return UpdateUserInfo ?
+
+            new Entity.Models.User()
             {
                 Id = this.User.Id,
                 Email = this.User.Email,
                 Name = this.User.Name,
                 Password = PasswordHelper.EncryptPassword(this.User.Password)
+            }
+
+            :
+
+            new Entity.Models.User()
+            {
+                Id = App.User.Id,
+                Email = App.User.Email,
+                Name = this.User.Name,
+                Password = App.User.Password
             };
         }
 
