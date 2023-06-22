@@ -1,12 +1,16 @@
-﻿<UserControl x:Class="FinanceiroApp.WPF.Controls.User.UpdateUserControl"
+﻿<Window x:Class="FinanceiroApp.WPF.Controls.User.UpdateUserWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Controls.User"
+             xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.User"
              mc:Ignorable="d" 
              Height="430" Width="400" d:Height="430" d:Width="400">
-    <Grid x:Name="gridEdit">
+    <Window.Resources>
+        <vm:UpdateUserViewModel x:Key="vm"/>
+    </Window.Resources>
+    <Grid x:Name="gridEdit" DataContext="{StaticResource vm}">
         <Button x:Name="btnVoltar" Content="Voltar" FontSize="15" Margin="10,10,328,0" Height="48" VerticalAlignment="Top"/>
         <TextBlock x:Name="txtTitle" Text="Editar Usuário" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top"/>
         <StackPanel Orientation="Vertical" Margin="0,63,0,87">
@@ -16,9 +20,14 @@
             <TextBlock Text="Email" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
             <TextBox x:Name="txtEmailRegister" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
 
-            <TextBlock x:Name="tbCurPassword" Text="Senha Atual" FontSize="15" Visibility="Collapsed" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBlock x:Name="tbNewPassword" Text="Senha" FontSize="15" Height="27"/>
+            <CheckBox x:Name="cbxChangePassword" Content="Alterar Senha"/>
+            <Grid x:Name="gridPassword">
+                <TextBlock x:Name="tbCurPassword" Text="Senha Atual" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="txtCurPassword" Margin="10,27,10,-27" PasswordChanged="txtCurPassword_PasswordChanged"/>
+                <TextBlock x:Name="tbNewPassword" Text="Nova Senha" FontSize="15" Height="27" Margin="0,65,0,-65"/>
+                <PasswordBox x:Name="txtNewPassword" Margin="10,97,10,-97" PasswordChanged="txtNewPassword_PasswordChanged"/>
+            </Grid>
         </StackPanel>
-        <Button x:Name="btnRegister" Command="{Binding SaveCommand}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
+        <Button x:Name="btnRegister" Command="{Binding Command}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
     </Grid>
-</UserControl>
+</Window>

@@ -27,7 +27,7 @@ namespace FinanceiroApp.WPF.Controls.User
         public LoginControl()
         {
             InitializeComponent();
-            ViewModel = Resources["vm"] as LoginViewModel;
+            ViewModel = Resources["vm"] as LoginViewModel ?? new LoginViewModel();
         }
 
         private void txtEmail_KeyDown(object sender, KeyEventArgs e)

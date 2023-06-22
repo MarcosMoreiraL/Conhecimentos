@@ -18,6 +18,5 @@
         </Grid.Resources>
         <userControls:LoginControl x:Name="loginControl" Visibility="Visible"/>
         <userControls:RegisterUserControl x:Name="registerControl" Visibility="Collapsed"/>
-        <userControls:UpdateUserControl Visibility="Collapsed"/>
     </Grid>
 </Window>

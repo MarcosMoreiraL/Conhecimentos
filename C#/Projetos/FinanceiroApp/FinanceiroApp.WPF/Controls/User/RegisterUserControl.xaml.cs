@@ -27,7 +27,7 @@ namespace FinanceiroApp.WPF.Controls.User
         public RegisterUserControl()
         {
             InitializeComponent();
-            ViewModel = Resources["vm"] as RegisterViewModel;
+            ViewModel = Resources["vm"] as RegisterViewModel ?? new RegisterViewModel();
         }
 
         private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetUserPassword((sender as PasswordBox).Password);

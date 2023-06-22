@@ -30,8 +30,8 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
-            Login login = new Login(App.User);
-            login.ShowDialog();
+            Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
+            updateUserWindow.ShowDialog();
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
