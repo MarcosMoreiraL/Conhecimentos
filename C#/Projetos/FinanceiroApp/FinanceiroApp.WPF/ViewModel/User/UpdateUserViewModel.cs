@@ -20,7 +20,6 @@ namespace FinanceiroApp.WPF.ViewModel.User
             this.OldPassword = string.Empty;
             this.Command = new BasicFinAppCommand(this);
             this.User = App.User ?? new Entity.Models.User();
-            this.User = App.User ?? new Entity.Models.User();
         }
 
         public override void SetUserPassword(string password)
