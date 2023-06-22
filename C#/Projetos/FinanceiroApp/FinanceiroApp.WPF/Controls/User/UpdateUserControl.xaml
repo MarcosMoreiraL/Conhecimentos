@@ -16,16 +16,16 @@
         <StackPanel Orientation="Vertical" Margin="0,63,0,87">
             <TextBlock Text="Nome de Usuário" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
             <TextBox x:Name="txtUsername" Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cbxChangePassword" Content="Alterar Email e Senha"/>
+            <CheckBox x:Name="cbxChangePassword" Content="Alterar Email e Senha" IsChecked="{Binding UpdateUserInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <StackPanel x:Name="panelUserInfo">
-                <TextBlock x:Name="tbEmail" Text="Email" FontSize="15" Height="27"/>
-                <TextBox x:Name="txtEmail" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.ColumnSpan="2"/>
+                <TextBlock x:Name="tbEmail" Text="Email" FontSize="15" Height="27" />
+                <TextBox x:Name="txtEmail" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
                 <TextBlock x:Name="tbCurPassword" Text="Senha Atual" FontSize="15" Height="27" />
-                <PasswordBox x:Name="txtCurPassword" PasswordChanged="txtNewPassword_PasswordChanged" Grid.ColumnSpan="2"/>
+                <PasswordBox x:Name="txtCurPassword" PasswordChanged="txtNewPassword_PasswordChanged" />
 
                 <TextBlock x:Name="tbNewPassword" Text="Nova Senha" FontSize="15" Height="27" />
-                <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtNewPassword_PasswordChanged" Grid.ColumnSpan="2"/>
+                <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtNewPassword_PasswordChanged" />
             </StackPanel>
         </StackPanel>
         <Button x:Name="btnRegister" Command="{Binding Command}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
