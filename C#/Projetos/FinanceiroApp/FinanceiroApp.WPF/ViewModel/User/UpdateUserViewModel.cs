@@ -27,12 +27,14 @@ namespace FinanceiroApp.WPF.ViewModel.User
         }
         public string OldPassword { get; set; }
         public BasicFinAppCommand Command { get; set; }
+        public UndoChangesCommand UndoChangesCommand { get; set; }
         public EventHandler Updated;
 
         public UpdateUserViewModel()
         {
             this.OldPassword = string.Empty;
             this.Command = new BasicFinAppCommand(this);
+            this.UndoChangesCommand = new UndoChangesCommand(this);
             this.User = App.CloneUser() ?? new Entity.Models.User();
         }
 
@@ -50,7 +52,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
 
         public override async Task<bool> IsValid()
         {
-            if (string.IsNullOrEmpty(User.Name)) //TODO: BOTÃO DE DESFAZER ALTERAÇÕES
+            if (string.IsNullOrEmpty(User.Name))
                 throw new Library.Exceptions.FinAppValidationException("O nome de usuário é obrigatório.");
 
             if (UpdateUserInfo)
@@ -87,7 +89,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             new Entity.Models.User()
             {
                 Id = this.User.Id,
-                Email = this.User.Email,
+                Email = App.User.Email,
                 Name = this.User.Name,
                 Password = PasswordHelper.EncryptPassword(this.User.Password)
             }

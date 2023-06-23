@@ -33,7 +33,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             FinanceiroApp.WPF.Properties.Settings.Default.Save();
         }
 
-        public override async Task<bool> IsValid() //TODO: ver um jeito de tirar o async daqui porque não tem necessidade no login
+        public bool Validation()
         {
             if (string.IsNullOrEmpty(User.Email))
                 throw new Library.Exceptions.FinAppValidationException("O email é obrigatório.");
@@ -51,7 +51,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
         {
             try
             {
-                await IsValid();
+                Validation();
                 Entity.Models.User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
                 App.User = user;
 

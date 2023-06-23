@@ -35,5 +35,11 @@ namespace FinanceiroApp.WPF.Controls.User
         private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetUserPassword((sender as PasswordBox).Password);
 
         private void Updated(object sender, EventArgs e) => this.Close();
+
+        private void btnUndoChanges_Click(object sender, RoutedEventArgs e)
+        {
+            txtCurPassword.Password = string.Empty;
+            txtNewPassword.Password = string.Empty;
+        }
     }
 }

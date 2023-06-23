@@ -22,7 +22,6 @@ namespace FinanceiroApp.WPF.Views.Main
         public MainWindow()
         {
             InitializeComponent();
-            //TODO: MOVER OS EVENTOS PARA O VIEWMODEL?
             loginControl.ViewModel.Authenticated += Authenticated;
             loginControl.SwitchToRegister += SwitchToRegister;
 

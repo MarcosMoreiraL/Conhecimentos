@@ -20,7 +20,7 @@
             <TextBlock Text="Nome de Usuário" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
             <TextBox x:Name="txtUsername" Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
             <CheckBox x:Name="cbxChangePassword" Content="Alterar Email e Senha" IsChecked="{Binding UpdateUserInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            
+
             <StackPanel x:Name="panelUserInfo" Visibility="{Binding Path=UpdateUserInfo, Converter={StaticResource boolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
                 <TextBlock x:Name="tbEmail" Text="Email" FontSize="15" Height="27" />
                 <TextBox x:Name="txtEmail" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -32,6 +32,7 @@
                 <PasswordBox x:Name="txtNewPassword" PasswordChanged="txtNewPassword_PasswordChanged" />
             </StackPanel>
         </StackPanel>
-        <Button x:Name="btnRegister" Command="{Binding Command}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
+        <Button x:Name="btnUndoChanges" Click="btnUndoChanges_Click" Content="Desfazer" Command="{Binding UndoChangesCommand}" Margin="10,0,0,10" HorizontalAlignment="Left" Width="67" Height="36" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnRegister" Content="Cadastrar" Command="{Binding Command}" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
     </Grid>
 </Window>
