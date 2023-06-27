@@ -22,9 +22,11 @@
             <ListView x:Name="lvWallets" MinWidth="150" ItemsSource="{Binding User.Wallets, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid MinHeight="50" MinWidth="150" Background="LightBlue">
-                            <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" MinHeight="50" MinWidth="150" Background="LightBlue">
+                            <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Width="110"/>
+                            <Button Content="Editar" Width="20"/>
+                            <Button Content="Excluir" Width="20"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
