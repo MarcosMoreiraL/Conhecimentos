@@ -23,18 +23,30 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
     /// </summary>
     public partial class WalletItem : UserControl
     {
-        public static readonly DependencyProperty ItemProperty =
-        DependencyProperty.Register("Wallet", typeof(Wallet), typeof(WalletItem));
-
-        public Wallet Wallet
+        public static readonly DependencyProperty WalletId = DependencyProperty.Register("Id", typeof(int), typeof(WalletItem));
+        public int Id
         {
-            get { return (Wallet)GetValue(ItemProperty); }
-            set { SetValue(ItemProperty, value); }
+            get { return (int)GetValue(WalletId); }
+            set { SetValue(WalletId, value); }
         }
 
-        static WalletItem()
+        public static readonly DependencyProperty WalletDescription = DependencyProperty.Register("Description", typeof(string), typeof(WalletItem));
+        public string Description
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(WalletItem), new FrameworkPropertyMetadata(typeof(WalletItem)));
+            get { return (string)GetValue(WalletDescription); }
+            set { SetValue(WalletDescription, value); }
+        }
+
+        public static readonly DependencyProperty WalletObject = DependencyProperty.Register("Wallet", typeof(Wallet), typeof(WalletItem));
+        public Wallet Wallet
+        {
+            get { return (Wallet)GetValue(WalletObject); }
+            set { SetValue(WalletObject, value); }
+        }
+
+        public WalletItem()
+        {
+            InitializeComponent();
         }
     }
 }

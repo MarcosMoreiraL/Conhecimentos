@@ -8,8 +8,6 @@
              mc:Ignorable="d" 
              MinHeight="50" MinWidth="150">
     <Grid>
-        <Border BorderThickness="1" BorderBrush="Blue">
-            <!--<TextBlock TextAlignment="Center" Text="{Binding Path=Wallet.Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-        </Border>
+        <TextBlock TextAlignment="Center" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

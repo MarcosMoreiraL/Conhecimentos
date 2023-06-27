@@ -11,7 +11,7 @@
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <DockPanel DataContext="{StaticResource vm}">
+    <DockPanel x:Name="dp" DataContext="{StaticResource vm}">
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
             <MenuItem x:Name="categoryMenuItem" Header="Categorias"/>
@@ -22,11 +22,7 @@
             <ListView x:Name="lvWallets" MinWidth="150" ItemsSource="{Binding User.Wallets, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" MinHeight="50" MinWidth="150" Background="LightBlue">
-                            <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Width="110"/>
-                            <Button Content="Editar" Width="20"/>
-                            <Button Content="Excluir" Width="20"/>
-                        </StackPanel>
+                        <controls:WalletItem Wallet="{Binding}" Id="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Description="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
