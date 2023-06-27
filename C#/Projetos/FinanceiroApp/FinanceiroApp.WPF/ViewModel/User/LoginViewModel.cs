@@ -53,7 +53,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             {
                 Validation();
                 Entity.Models.User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
-                App.User = user;
+                App.SetUser(user);
 
                 SetLastEmail(user.Email);
                 Authenticated.Invoke(this, new EventArgs());

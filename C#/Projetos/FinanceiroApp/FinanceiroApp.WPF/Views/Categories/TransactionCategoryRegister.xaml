@@ -20,6 +20,6 @@
             <TextBlock Text="Descrição" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
             <TextBox x:Name="txtDescription" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
         </StackPanel>
-        <Button x:Name="btnSaveCategory" Command="{Binding SaveCommand}" Content="Salvar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,172,0,0" Height="52" VerticalAlignment="Top" />
+        <Button x:Name="btnSaveCategory" Command="{Binding Command}" Content="Salvar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,172,0,0" Height="52" VerticalAlignment="Top" />
     </Grid>
 </Window>

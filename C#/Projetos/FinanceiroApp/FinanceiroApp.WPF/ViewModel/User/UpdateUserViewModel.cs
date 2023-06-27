@@ -114,7 +114,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
                 MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                 Updated.Invoke(this, new EventArgs());
 
-                App.User = user;
+                App.SetUser(this.User);
                 SetLastEmail(user.Email);
 
                 Updated.Invoke(this, new EventArgs());

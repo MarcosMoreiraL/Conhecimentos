@@ -17,12 +17,12 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
         public string Description { get; set; }
 
         public Entity.Models.User user { get; set; }
-        public SaveCommand SaveCommand { get; set; }
+        public BasicFinAppCommand Command { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public TransactionCategoryRegisterViewModel()
         {
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(int id, int userId, string description)
@@ -30,7 +30,7 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             Id = id;
             UserId = userId;
             Description = description;
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(TransactionCategory transactionCategory)
@@ -39,7 +39,7 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             UserId = transactionCategory.UserId;
             Description = transactionCategory.Description;
             user = transactionCategory.User;
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         private TransactionCategory GetEntity()
@@ -65,8 +65,6 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
 
         public override void Action()
         {
-            base.Action();
-
             try
             {
                 using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())

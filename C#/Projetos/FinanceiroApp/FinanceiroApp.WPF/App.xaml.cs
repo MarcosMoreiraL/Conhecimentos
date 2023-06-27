@@ -23,10 +23,15 @@ namespace FinanceiroApp.WPF
         {
             get => _user;
 
-            set
+            private set
             {
                 _user = value;
             }
+        }
+
+        public static void SetUser(Entity.Models.User user)
+        {
+            User = user;
         }
 
         public static Entity.Models.User CloneUser()

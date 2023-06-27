@@ -1,4 +1,5 @@
 ﻿using FinanceiroApp.WPF.ViewModel.Categories;
+using FinanceiroApp.WPF.ViewModel.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FinanceiroApp.WPF.Views.Categories
+namespace FinanceiroApp.WPF.Views.Wallet
 {
     /// <summary>
-    /// Interaction logic for TransactionCategoryRegister.xaml
+    /// Interaction logic for WalletRegister.xaml
     /// </summary>
-    public partial class TransactionCategoryRegister : Window
+    public partial class WalletRegister : Window
     {
-        private TransactionCategoryRegisterViewModel ViewModel { get; set; }
+        private WalletRegisterViewModel ViewModel { get; set; }
 
-        public TransactionCategoryRegister()
+        public WalletRegister()
         {
             InitializeComponent();
-            ViewModel = Resources["vm"] as TransactionCategoryRegisterViewModel;
+            ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
         }
     }
 }

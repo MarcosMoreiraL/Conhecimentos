@@ -49,7 +49,7 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
             {
                 if (await context.Users.AnyAsync(i => i.Email.Equals(email)))
                 {
-                    Entity.Models.User user = await context.Users.FirstOrDefaultAsync(i => i.Email.Equals(email));
+                    Entity.Models.User user = await context.Users.Include(u => u.Wallets).Include(u => u.TransactionCategories).Include(u => u.Transactions).FirstOrDefaultAsync(i => i.Email.Equals(email));
                     if (user != null)
                     {
                         if(PasswordHelper.DecryptPassword(password, user.Password))
