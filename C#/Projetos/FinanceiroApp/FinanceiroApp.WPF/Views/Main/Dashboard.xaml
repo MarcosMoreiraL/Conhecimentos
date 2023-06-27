@@ -15,21 +15,20 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
             <MenuItem x:Name="categoryMenuItem" Header="Categorias"/>
-            <MenuItem x:Name="newWalletMenuItem" Header="Nova Carteira" Click="newWalletMenuItem_Click"/>
             <MenuItem x:Name="newTransactionMenuItem" Header="Nova Movimentação"/>
         </Menu>
-        <Grid x:Name="walletGrid" DockPanel.Dock="Left">
+        <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">
+            <Button x:Name="btnNewWallet" Content="Nova Carteira" Click="btnNewWallet_Click" Background="LightGreen"/>
             <ListView x:Name="lvWallets" MinWidth="150" ItemsSource="{Binding User.Wallets, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid MinHeight="50" MinWidth="150">
-                            <Border BorderBrush="Blue" BorderThickness="1"/>
+                        <Grid MinHeight="50" MinWidth="150" Background="LightBlue">
                             <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            </Grid>
+            </StackPanel>
             <Grid DockPanel.Dock="Right">
             <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>

@@ -48,7 +48,7 @@ namespace FinanceiroApp.WPF.Views.Main
             categories.Show();
         }
 
-        private void newWalletMenuItem_Click(object sender, RoutedEventArgs e)
+        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
         {
             Wallet.WalletRegister wr = new Wallet.WalletRegister();
             wr.ShowDialog();
