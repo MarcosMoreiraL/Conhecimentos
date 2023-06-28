@@ -13,6 +13,7 @@ namespace FinanceiroApp.WPF.ViewModel.Command
     /// </summary>
     public class BasicFinAppCommand : ICommand
     {
+        //TODO: CRIAR UMA PASTA PARA COMMANDS BASICOS, ESSE BASIC E COMMANDS GENERICOS DE CRUD
         public FinAppViewModel ViewModel { get; set; }
         public event EventHandler? CanExecuteChanged;
 

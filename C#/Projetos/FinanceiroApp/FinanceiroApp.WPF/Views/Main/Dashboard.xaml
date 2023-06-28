@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:FinanceiroApp.WPF.Controls.Dashboard"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        x:Name="window" Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
@@ -19,7 +19,7 @@
         </Menu>
         <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">
             <Button x:Name="btnNewWallet" Content="Nova Carteira" Click="btnNewWallet_Click" Background="LightGreen"/>
-            <ListView x:Name="lvWallets" MinWidth="150" ItemsSource="{Binding User.Wallets, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="lvWallets" MinWidth="150" Height="{Binding Height, ElementName=window, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding User.Wallets, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <controls:WalletItem Wallet="{Binding}" Id="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Description="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>

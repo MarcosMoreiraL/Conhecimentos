@@ -44,9 +44,37 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
             set { SetValue(WalletObject, value); }
         }
 
+        public WalletItemViewModel ViewModel { get; set; }
+
         public WalletItem()
         {
             InitializeComponent();
+            ViewModel = Resources["vm"] as WalletItemViewModel ?? new WalletItemViewModel();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SetWallet(Wallet);
+        }
+
+        /* TODO: AULA DE BACON
+         EMPIRISTA
+        CONHECIMENTO EH PODER
+        PRECARIEDADE DO INTELECTO
+        METODO INDUTIVO
+        FATOS PARTICULARES
+        LUTA CONTRA IDOLATRIA(VIES)
+        TABELAS DE HISTORIA NATURAL(COLETA)
+        PROGRESSO
+
+        DOUTRINA DOS IDOLOS
+
+        1 - TRIBO -> DEFICIENCIAS UNIVERSAIS
+        2 - CAVERNA
+        3 - FORO/MERCADO -> LINGUAGEM
+        4 - TEATRO -> "FABULAS DOS SISTEMAS"
+
+        HATER DA MATEMATICA E DO PITAGORAS
+         */
     }
 }

@@ -5,6 +5,9 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
 {
     public class WalletItemViewModel : FinAppViewModel
     {
+        public int WalletId { get; set; }
+        public string WalletDescription { get; set; }
+
         public Wallet Wallet { get; set; }
 
         public WalletItemViewModel()
@@ -14,6 +17,12 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         public WalletItemViewModel(Wallet wallet)
         {
             Wallet = wallet;
+        }
+
+        public void SetWallet(Wallet wallet)
+        {
+            this.Wallet = wallet;
+            OnPropertyChanged(nameof(Wallet));
         }
     }
 }

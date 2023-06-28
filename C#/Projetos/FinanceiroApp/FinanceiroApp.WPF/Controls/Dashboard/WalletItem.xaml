@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Controls.Dashboard"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Wallets"
              mc:Ignorable="d" 
-             MinHeight="50" MinWidth="150">
-    <Grid>
-        <TextBlock TextAlignment="Center" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
+             MinHeight="50" MinWidth="150" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <vm:WalletItemViewModel x:Key="vm"/>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal">
+        <TextBlock TextAlignment="Center" Width="100" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="btnEditWallet" Content="Editar"/>
+        <Button x:Name="btnDeleteWallet" Content="Excluir"/>
+    </StackPanel>
 </UserControl>
