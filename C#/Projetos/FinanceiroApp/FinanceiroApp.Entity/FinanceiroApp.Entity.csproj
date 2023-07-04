@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Relationships\**" />
+    <EmbeddedResource Remove="Relationships\**" />
+    <None Remove="Relationships\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
@@ -18,10 +24,6 @@
     </PackageReference>
     <PackageReference Include="MySql.Data" Version="8.0.32" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Relationships\" />
   </ItemGroup>
 
 </Project>
