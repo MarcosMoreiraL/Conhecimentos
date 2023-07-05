@@ -1,6 +1,7 @@
 ﻿using FinanceiroApp.Entity.Models;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.ViewModel.Wallets;
+using FinanceiroApp.WPF.Views.Wallet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,12 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.SetWallet(Wallet);
+        }
+
+        private void btnEditWallet_Click(object sender, RoutedEventArgs e)
+        {
+            WalletRegister wr = new WalletRegister(Updated, Wallet);
+            wr.ShowDialog();
         }
     }
 }

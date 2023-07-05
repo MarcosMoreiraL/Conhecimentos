@@ -12,7 +12,7 @@
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
         <TextBlock TextAlignment="Center" Width="100" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button x:Name="btnEditWallet" Content="Editar"/>
+        <Button x:Name="btnEditWallet" Content="Editar" Click="btnEditWallet_Click"/>
         <Button x:Name="btnDeleteWallet" Content="Excluir" Command="{Binding ViewModel.DeleteCommand}"/>
     </StackPanel>
 </UserControl>

@@ -19,8 +19,8 @@ namespace FinanceiroApp.WPF.ViewModel
         public DashboardViewModel()
         {
             this.User = App.User;
-            UpdateWallets();
             Updated += UpdateView;
+            UpdateWallets();
         }
 
         public void UpdateWallets()

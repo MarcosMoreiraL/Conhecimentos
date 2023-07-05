@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.ViewModel.Categories;
+﻿using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.ViewModel.Wallets;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,16 @@ namespace FinanceiroApp.WPF.Views.Wallet
     public partial class WalletRegister : Window
     {
         private WalletRegisterViewModel ViewModel { get; set; }
+
+        public WalletRegister(EventHandler updated, Entity.Models.Wallet wallet)
+        {
+            InitializeComponent();
+            ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
+            
+            ViewModel.SetWallet(wallet);
+            ViewModel.Saved += Saved;
+            ViewModel.Saved += updated;
+        }
 
         public WalletRegister(EventHandler updated)
         {

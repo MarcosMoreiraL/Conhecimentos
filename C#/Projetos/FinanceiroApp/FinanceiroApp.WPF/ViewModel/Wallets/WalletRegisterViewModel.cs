@@ -30,6 +30,12 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
             Command = command;
         }
 
+        public void SetWallet(Wallet wallet)
+        {
+            this.Wallet = wallet;
+            OnPropertyChanged(nameof(Wallet));
+        }
+
         public Wallet GetEntity()
         {
             return new Wallet()
