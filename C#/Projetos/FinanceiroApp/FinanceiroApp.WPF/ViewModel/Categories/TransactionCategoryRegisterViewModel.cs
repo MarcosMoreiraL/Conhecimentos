@@ -7,6 +7,7 @@ using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 
 namespace FinanceiroApp.WPF.ViewModel.Categories
 {
@@ -52,38 +53,25 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             };
         }
 
-        public List<TransactionCategory> GetCategories()
+        public List<TransactionCategory> GetCategories() //TODO: USAR O DATABASE HELPER
         {
             return new List<TransactionCategory>();
         }
 
-        public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O VIEWMODEL DAS TRANSACTIONS
+        public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O DATABASE HELPER DAS TRANSACTIONS
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
                 return context.Transactions.Where(i => i.CategoryId == Id).ToList();
         }
 
-        public override void Action()
+        public override async void Action()
         {
             try
             {
-                using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
-                {
-                    if (Id == 0)
-                        context.TransactionCategories.Add(GetEntity());
-                    else
-                    {
-                        TransactionCategory transactionCategory = context.TransactionCategories.FirstOrDefault(i => i.Id == Id);
-
-                        if (transactionCategory != null)
-                        {
-                            transactionCategory.Description = Description;
-                            transactionCategory.UserId = App.User.Id;
-                        }
-                    }
-
-                    context.SaveChanges();
-                }
+                if (Id == 0)
+                    await TransactionCategoryDatabaseHelper.CreateAsync(GetEntity());
+                else
+                    await TransactionCategoryDatabaseHelper.UpdateAsync(GetEntity());
 
                 MessageBox.Show("Categoria salva com sucesso!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
             }

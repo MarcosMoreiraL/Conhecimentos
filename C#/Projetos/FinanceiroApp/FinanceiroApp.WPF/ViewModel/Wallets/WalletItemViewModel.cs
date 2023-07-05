@@ -37,6 +37,8 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
             {
                 if(MessageBox.Show($"Tem certeza de que deseja exluir a carteira {Wallet.Description}?", "Excluir Carteira", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
+                    //TODO: VERIFICAR SE EXISTEM TRANSAÇÕES UTILIZANDO ESSA CARTEIRA
+
                     await WalletDatabaseHelper.DeleteAsync(Wallet.Id);
                     MessageBox.Show("Carteira excluída com sucesso!", "Excluir Carteira", MessageBoxButton.OK, MessageBoxImage.Information);
                     Updated.Invoke(this, new EventArgs());
