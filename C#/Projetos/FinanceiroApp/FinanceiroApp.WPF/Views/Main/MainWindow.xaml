@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControls="clr-namespace:FinanceiroApp.WPF.Controls.User"
         xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
+        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         mc:Ignorable="d"
         Title="Login" Height="440" Width="410" d:Height="440" d:Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Resources>
+        <vm:MainWindowViewModel x:Key="vm"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
         <Grid.Resources>
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </Grid.Resources>
         <userControls:LoginControl x:Name="loginControl" Visibility="Visible"/>
         <userControls:RegisterUserControl x:Name="registerControl" Visibility="Collapsed"/>
-        <userControls:UpdateUserControl Visibility="Collapsed"/>
     </Grid>
 </Window>

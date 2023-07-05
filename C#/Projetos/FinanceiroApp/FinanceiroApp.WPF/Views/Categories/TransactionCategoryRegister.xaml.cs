@@ -21,7 +21,6 @@ namespace FinanceiroApp.WPF.Views.Categories
     public partial class TransactionCategoryRegister : Window
     {
         private TransactionCategoryRegisterViewModel ViewModel { get; set; }
-        
 
         public TransactionCategoryRegister()
         {

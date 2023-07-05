@@ -1,4 +1,5 @@
 ﻿using FinanceiroApp.WPF.ViewModel;
+using FinanceiroApp.WPF.ViewModel.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,17 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
             txtTitle.Text = "Bem-vindo " + App.User.Name;
+            ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
+            lvWallets.ItemsSource = ViewModel.Wallets;
         }
+
+        public void UpdateTransactions(object sender, EventArgs e) => ViewModel.UpdateUser();
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
-            Login login = new Login(App.User);
-            login.ShowDialog();
+            Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
+            updateUserWindow.ShowDialog();
+            txtTitle.Text = "Bem-vindo " + App.User.Name;
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
@@ -43,6 +49,12 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
             categories.Show();
+        }
+
+        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
+        {
+            Wallet.WalletRegister wr = new Wallet.WalletRegister(ViewModel.Updated);
+            wr.ShowDialog();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceiroApp.WPF.ViewModel.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,23 @@ namespace FinanceiroApp.WPF.Controls.User
     /// </summary>
     public partial class RegisterUserControl : UserControl
     {
+        public RegisterViewModel ViewModel { get; set; }
+        public EventHandler SwitchToLogin;
+
         public RegisterUserControl()
         {
             InitializeComponent();
+            ViewModel = Resources["vm"] as RegisterViewModel ?? new RegisterViewModel();
+        }
+
+        private void txtNewPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetUserPassword((sender as PasswordBox).Password);
+
+        private void txtConfirmPassword_PasswordChanged(object sender, RoutedEventArgs e) => ViewModel.SetConfirmPassword((sender as PasswordBox).Password);
+
+        private void btnVoltar_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ResetUser();
+            SwitchToLogin.Invoke(sender, new EventArgs());
         }
     }
 }

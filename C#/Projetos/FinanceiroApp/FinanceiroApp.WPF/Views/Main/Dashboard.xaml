@@ -4,13 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
+        xmlns:controls="clr-namespace:FinanceiroApp.WPF.Controls.Dashboard"
+        xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button x:Name="btnNewTransaction" Content="Nova Movimentação" Click="btnNewTransaction_Click" HorizontalAlignment="Left" Margin="657,159,0,236"/>
-        <Button x:Name="btnViewTransactionCategories" Content="Categorias" Click="btnViewTransactionCategories_Click" HorizontalAlignment="Left" Margin="685,98,0,297"/>
-        <Button x:Name="btnUpdateUser" Content="Editar Perfil" Click="btnUpdateUser_Click" HorizontalAlignment="Left" Margin="707,10,0,385"/>
-        <Button x:Name="btnLogout" Content="Sair" HorizontalAlignment="Left" Margin="707,54,0,341"/>
-    </Grid>
+        x:Name="window" Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <vm:DashboardViewModel x:Key="vm"/>
+    </Window.Resources>
+    <DockPanel x:Name="dp" DataContext="{StaticResource vm}">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
+            <MenuItem x:Name="categoryMenuItem" Header="Categorias"/>
+            <MenuItem x:Name="newTransactionMenuItem" Header="Nova Movimentação"/>
+        </Menu>
+        <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">
+            <Button x:Name="btnNewWallet" Content="Nova Carteira" Click="btnNewWallet_Click" Background="LightGreen"/>
+            <ListView x:Name="lvWallets" MinWidth="150" Height="{Binding Height, ElementName=window, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </StackPanel>
+            <Grid DockPanel.Dock="Right">
+            <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+    </DockPanel>
 </Window>

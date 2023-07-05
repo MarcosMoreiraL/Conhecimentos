@@ -24,10 +24,14 @@ namespace FinanceiroApp.Entity.Models
         [ForeignKey("TransactionCategory")]
         public int CategoryId { get; set; }
 
+        [ForeignKey("Wallet")]
+        public int WalletId { get; set; }
+
         public DateTime DateTime { get; set; }
         public TransactionType Type { get; set; }
         public User User { get; set; }
         public TransactionCategory Category { get; set; }
+        public Wallet Wallet { get; set; }
 
         public Transaction() { }
 
@@ -42,12 +46,14 @@ namespace FinanceiroApp.Entity.Models
             Type = type;
             User = new User();
             Category = new TransactionCategory();
+            Wallet = new Wallet();
         }
 
-        public Transaction(int id, int userId, decimal value, string description, int categoryId, DateTime dateTime, TransactionType type, User user, TransactionCategory category) : this(id, userId, value, description, categoryId, dateTime, type)
+        public Transaction(int id, int userId, decimal value, string description, int categoryId, DateTime dateTime, TransactionType type, User user, TransactionCategory category, Wallet wallet) : this(id, userId, value, description, categoryId, dateTime, type)
         {
             User = user;
             Category = category;
+            Wallet = wallet;
         }
     }
 }

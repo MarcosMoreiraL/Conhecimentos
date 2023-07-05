@@ -1,4 +1,4 @@
-﻿using FinanceiroApp.WPF.ViewModel.Base;
+﻿using FinanceiroApp.WPF.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +8,12 @@ using System.Windows.Input;
 
 namespace FinanceiroApp.WPF.ViewModel.Command
 {
-    public class SaveCommand : ICommand
+    public class UndoChangesCommand : ICommand
     {
-        public Base.FinAppViewModel ViewModel { get; set; }
+        public User.UpdateUserViewModel ViewModel { get; set; }
         public event EventHandler? CanExecuteChanged;
 
-        public SaveCommand(FinAppViewModel viewModel)
+        public UndoChangesCommand(UpdateUserViewModel viewModel)
         {
             ViewModel = viewModel;
         }
@@ -25,7 +25,7 @@ namespace FinanceiroApp.WPF.ViewModel.Command
 
         public void Execute(object? parameter)
         {
-            ViewModel.Action();
+            ViewModel.ResetUser();
         }
     }
 }

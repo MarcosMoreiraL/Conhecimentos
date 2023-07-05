@@ -22,8 +22,33 @@ namespace FinanceiroApp.WPF.Views.Main
         public MainWindow()
         {
             InitializeComponent();
+            loginControl.ViewModel.Authenticated += Authenticated;
+            loginControl.SwitchToRegister += SwitchToRegister;
+
+            registerControl.ViewModel.Saved += Saved;
+            registerControl.SwitchToLogin += SwitchToLogin;
         }
 
-        //TODO: CRIAR OS EVENTOS DE SWITCH DE TELAS E AUTHENTICATED/SAVE PARA VOLTAR AQUI DEPOIS DE EXECUTAR AS AÇÕES DENTRO DO CONTROL
+        private void Authenticated(object sender, EventArgs e)
+        {
+            Dashboard dashboard = new Dashboard();
+            dashboard.Show();
+
+            this.Close();
+        }
+
+        private void SwitchToRegister(object sender, EventArgs e)
+        {
+            loginControl.Visibility = Visibility.Collapsed;
+            registerControl.Visibility = Visibility.Visible;
+        }
+
+        private void SwitchToLogin(object sender, EventArgs e)
+        {
+            registerControl.Visibility = Visibility.Collapsed;
+            loginControl.Visibility = Visibility.Visible;
+        }
+
+        private void Saved(object sender, EventArgs e) => SwitchToLogin(sender, e);
     }
 }

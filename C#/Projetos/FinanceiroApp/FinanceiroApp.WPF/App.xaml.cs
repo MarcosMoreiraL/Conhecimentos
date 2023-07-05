@@ -23,10 +23,28 @@ namespace FinanceiroApp.WPF
         {
             get => _user;
 
-            set
+            private set
             {
                 _user = value;
             }
+        }
+
+        public static void SetUser(Entity.Models.User user)
+        {
+            User = user;
+        }
+
+        public static Entity.Models.User CloneUser()
+        {
+            return new Entity.Models.User()
+            {
+                Id = _user.Id,
+                Name = _user.Name,
+                Email = _user.Email,
+                Password = _user.Password,
+                TransactionCategories = _user.TransactionCategories,
+                Transactions = _user.Transactions
+            };
         }
 
         public App()

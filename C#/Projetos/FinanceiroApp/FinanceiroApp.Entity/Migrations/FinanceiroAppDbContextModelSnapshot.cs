@@ -44,11 +44,16 @@ namespace FinanceiroApp.Entity.Migrations
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<int>("WalletId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("WalletId");
 
                     b.ToTable("Transactions");
                 });
@@ -96,6 +101,26 @@ namespace FinanceiroApp.Entity.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FinanceiroApp.Entity.Models.Wallet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wallets");
+                });
+
             modelBuilder.Entity("FinanceiroApp.Entity.Models.Transaction", b =>
                 {
                     b.HasOne("FinanceiroApp.Entity.Models.TransactionCategory", "Category")
@@ -110,15 +135,34 @@ namespace FinanceiroApp.Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FinanceiroApp.Entity.Models.Wallet", "Wallet")
+                        .WithMany("Transactions")
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("User");
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("FinanceiroApp.Entity.Models.TransactionCategory", b =>
                 {
                     b.HasOne("FinanceiroApp.Entity.Models.User", "User")
                         .WithMany("TransactionCategories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FinanceiroApp.Entity.Models.Wallet", b =>
+                {
+                    b.HasOne("FinanceiroApp.Entity.Models.User", "User")
+                        .WithMany("Wallets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -135,6 +179,13 @@ namespace FinanceiroApp.Entity.Migrations
                 {
                     b.Navigation("TransactionCategories");
 
+                    b.Navigation("Transactions");
+
+                    b.Navigation("Wallets");
+                });
+
+            modelBuilder.Entity("FinanceiroApp.Entity.Models.Wallet", b =>
+                {
                     b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618

@@ -1,6 +1,9 @@
 ﻿using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
+using FinanceiroApp.WPF.ViewModel.Command;
 using FinanceiroApp.WPF.ViewModel.Helpers;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
+using Microsoft.Win32;
 using Mysqlx.Session;
 using System;
 using System.Collections.Generic;
@@ -13,40 +16,45 @@ namespace FinanceiroApp.WPF.ViewModel.User
 {
     public class LoginViewModel : UserViewModel
     {
-        public string ConfirmPassword { get; set; }
         public EventHandler Authenticated;
+        public Command.BasicFinAppCommand Command { get; set; }
+
+        public LoginViewModel()
+        {
+            User = new Entity.Models.User();
+            Command = new BasicFinAppCommand(this);
+            User.Email = GetLastEmail();
+        }
 
         public string GetLastEmail() => FinanceiroApp.WPF.Properties.Settings.Default.lastEmail;
+
         public void SetLastEmail(string lastEmail)
         {
             FinanceiroApp.WPF.Properties.Settings.Default.lastEmail = lastEmail;
             FinanceiroApp.WPF.Properties.Settings.Default.Save();
         }
 
-        public override void SetUserPassword(string password) => User.Password = password;
-        public override async Task<bool> IsValid(bool register = false)
+        public bool Validation()
         {
-            return false;
-        }
+            if (string.IsNullOrEmpty(User.Email))
+                throw new Library.Exceptions.FinAppValidationException("O email é obrigatório.");
 
-        public override Entity.Models.User GetUserEntity(bool login = true)
-        {
-            return new Entity.Models.User
-            {
-                Id = this.User.Id,
-                Email = this.User.Email,
-                Name = this.User.Name,
-                Password = this.NewPassword
-            };
+            if (!ValidationHelper.IsValidEmail(User.Email))
+                throw new Library.Exceptions.FinAppValidationException("Email inválido.");
+
+            if (string.IsNullOrEmpty(this.User.Password))
+                throw new Library.Exceptions.FinAppValidationException("A senha é obrigatória.");
+
+            return true;
         }
 
         public override async void Action()
         {
             try
             {
-                await IsValid();
-                Entity.Models.User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
-                App.User = user;
+                Validation();
+                Entity.Models.User user = await UserDatabaseHelper.Login(this.User.Email, this.User.Password);
+                App.SetUser(user);
 
                 SetLastEmail(user.Email);
                 Authenticated.Invoke(this, new EventArgs());

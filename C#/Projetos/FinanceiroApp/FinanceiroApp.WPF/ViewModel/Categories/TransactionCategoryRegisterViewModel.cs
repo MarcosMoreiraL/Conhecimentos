@@ -7,6 +7,7 @@ using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 
 namespace FinanceiroApp.WPF.ViewModel.Categories
 {
@@ -17,12 +18,12 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
         public string Description { get; set; }
 
         public Entity.Models.User user { get; set; }
-        public SaveCommand SaveCommand { get; set; }
+        public BasicFinAppCommand Command { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public TransactionCategoryRegisterViewModel()
         {
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(int id, int userId, string description)
@@ -30,7 +31,7 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             Id = id;
             UserId = userId;
             Description = description;
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(TransactionCategory transactionCategory)
@@ -39,7 +40,7 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             UserId = transactionCategory.UserId;
             Description = transactionCategory.Description;
             user = transactionCategory.User;
-            SaveCommand = new SaveCommand(this);
+            Command = new BasicFinAppCommand(this);
         }
 
         private TransactionCategory GetEntity()
@@ -52,40 +53,25 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
             };
         }
 
-        public List<TransactionCategory> GetCategories()
+        public List<TransactionCategory> GetCategories() //TODO: USAR O DATABASE HELPER
         {
             return new List<TransactionCategory>();
         }
 
-        public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O VIEWMODEL DAS TRANSACTIONS
+        public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O DATABASE HELPER DAS TRANSACTIONS
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
                 return context.Transactions.Where(i => i.CategoryId == Id).ToList();
         }
 
-        public override void Action()
+        public override async void Action()
         {
-            base.Action();
-
             try
             {
-                using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
-                {
-                    if (Id == 0)
-                        context.TransactionCategories.Add(GetEntity());
-                    else
-                    {
-                        TransactionCategory transactionCategory = context.TransactionCategories.FirstOrDefault(i => i.Id == Id);
-
-                        if (transactionCategory != null)
-                        {
-                            transactionCategory.Description = Description;
-                            transactionCategory.UserId = App.User.Id;
-                        }
-                    }
-
-                    context.SaveChanges();
-                }
+                if (Id == 0)
+                    await TransactionCategoryDatabaseHelper.CreateAsync(GetEntity());
+                else
+                    await TransactionCategoryDatabaseHelper.UpdateAsync(GetEntity());
 
                 MessageBox.Show("Categoria salva com sucesso!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace FinanceiroApp.Entity.Models
 
         public List<Transaction> Transactions { get; set; }
         public List<TransactionCategory> TransactionCategories { get; set; }
+        public ObservableCollection<Wallet> Wallets { get; set; }
 
         public User() { }
 
@@ -37,12 +39,14 @@ namespace FinanceiroApp.Entity.Models
             Password = password;
             Transactions = new List<Transaction>();
             TransactionCategories = new List<TransactionCategory>();
+            Wallets = new ObservableCollection<Wallet>();
         }
 
-        public User(int id, string email, string name, string password, List<Transaction> transactions, List<TransactionCategory> transactionCategories) : this(id, email, name, password)
+        public User(int id, string email, string name, string password, List<Transaction> transactions, List<TransactionCategory> transactionCategories, ObservableCollection<Wallet> wallets) : this(id, email, name, password)
         {
             Transactions = transactions;
             TransactionCategories = transactionCategories;
+            Wallets = wallets; 
         }
     }
 }

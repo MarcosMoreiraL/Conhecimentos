@@ -29,12 +29,10 @@ namespace FinanceiroApp.WPF.ViewModel.Base
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
 
-        protected Helpers.UserControlType type;
-        public Helpers.UserControlType Type { get => type; set => type = value; } //TODO: SETAR O TIPO DE CADA UM NO CONSTRUTOR
         #endregion
 
         public virtual void SetUserPassword(string password) => User.Password = password;
-        public virtual async Task<bool> IsValid(bool register = false) => throw new NotImplementedException();
-        public virtual Entity.Models.User GetUserEntity(bool login = true) => throw new NotImplementedException();
+        public virtual async Task<bool> IsValid() => throw new NotImplementedException();
+        public virtual Entity.Models.User GetUserEntity() => throw new NotImplementedException();
     }
 }
