@@ -57,6 +57,7 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.SetWallet(Wallet);
+            ViewModel.Updated = Updated;
         }
 
         private void btnEditWallet_Click(object sender, RoutedEventArgs e)

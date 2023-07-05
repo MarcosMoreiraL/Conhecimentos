@@ -2,6 +2,7 @@
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         {
             return new Wallet()
             {
+                Id = Wallet.Id,
                 Description = Wallet.Description,
                 UserId = App.User.Id
             };
@@ -49,23 +51,10 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         {
             try
             {
-                using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
-                {
-                    if (Wallet.Id == 0)
-                        await context.Wallets.AddAsync(GetEntity());
-                    else
-                    {
-                        Wallet w = await context.Wallets.FirstOrDefaultAsync(i => i.Id == Wallet.Id);
-
-                        if (w != null)
-                        {
-                            w.Description = Wallet.Description;
-                            w.UserId = App.User.Id;
-                        }
-                    }
-
-                    await context.SaveChangesAsync();
-                }
+                if (Wallet.Id == 0)
+                    await WalletDatabaseHelper.CreateAsync(GetEntity());
+                else
+                    await WalletDatabaseHelper.UpdateAsync(GetEntity());
 
                 MessageBox.Show("Carteira salva com sucesso!", "Cadastro de Carteira", MessageBoxButton.OK, MessageBoxImage.Information);
                 Saved.Invoke(this, new EventArgs());

@@ -11,12 +11,6 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
     public class FinAppDataBaseHelper<TEntity> where TEntity : class, IEntity
     {
-        public static IQueryable<TEntity> GetAllAsync()
-        {
-            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
-                return context.Set<TEntity>().AsNoTracking();
-        }
-
         public static async Task CreateAsync(TEntity entity)
         {
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
@@ -24,6 +18,12 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
                 await context.Set<TEntity>().AddAsync(entity);
                 await context.SaveChangesAsync();
             }
+        }
+
+        public static IQueryable<TEntity> GetAllAsync()
+        {
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
+                return context.Set<TEntity>().AsNoTracking();
         }
 
         public static async Task<bool> ExistsIdAsync(int id)

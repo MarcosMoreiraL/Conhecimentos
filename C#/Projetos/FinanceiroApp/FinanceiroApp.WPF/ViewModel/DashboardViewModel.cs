@@ -31,8 +31,8 @@ namespace FinanceiroApp.WPF.ViewModel
             {
                 Wallets.Add(new WalletItem()
                 {
-                    Wallet = wallet,
                     Id = wallet.Id,
+                    Wallet = wallet,
                     Description = wallet.Description,
                     Updated = Updated
                 });
