@@ -2,6 +2,7 @@
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
 using FinanceiroApp.WPF.ViewModel.Helpers;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using Microsoft.Win32;
 using Mysqlx.Session;
 using System;
@@ -52,7 +53,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             try
             {
                 Validation();
-                Entity.Models.User user = await UserDataBaseHelper.Login(this.User.Email, this.User.Password);
+                Entity.Models.User user = await UserDatabaseHelper.Login(this.User.Email, this.User.Password);
                 App.SetUser(user);
 
                 SetLastEmail(user.Email);

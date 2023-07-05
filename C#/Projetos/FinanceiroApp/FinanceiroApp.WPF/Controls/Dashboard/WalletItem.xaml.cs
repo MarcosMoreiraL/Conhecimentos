@@ -45,6 +45,7 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
         }
 
         public WalletItemViewModel ViewModel { get; set; }
+        public EventHandler Updated;
 
         public WalletItem()
         {

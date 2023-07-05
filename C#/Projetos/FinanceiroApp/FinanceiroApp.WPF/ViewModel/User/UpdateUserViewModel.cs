@@ -2,6 +2,7 @@
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
 using FinanceiroApp.WPF.ViewModel.Helpers;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
                 if (string.IsNullOrEmpty(OldPassword))
                     throw new Library.Exceptions.FinAppValidationException("A senha atual é obrigatória.");
 
-                if (!await UserDataBaseHelper.ValidatePassword(this.User.Id, OldPassword))
+                if (!await UserDatabaseHelper.ValidatePassword(this.User.Id, OldPassword))
                     throw new Library.Exceptions.FinAppValidationException("A senha atual é inválida.");
 
                 if (string.IsNullOrEmpty(this.User.Password))
@@ -75,7 +76,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
                 if (!ValidationHelper.HasRequiredLength(this.User.Password, 6))
                     throw new Library.Exceptions.FinAppValidationException("A nova senha deve ter no mínimo 6 dígitos.");
 
-                if (await UserDataBaseHelper.ValidatePassword(this.User.Id, this.User.Password))
+                if (await UserDatabaseHelper.ValidatePassword(this.User.Id, this.User.Password))
                     throw new Library.Exceptions.FinAppValidationException("A nova senha deve ser diferente da atual.");
             }
 
@@ -110,7 +111,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             try
             {
                 await IsValid();
-                await UserDataBaseHelper.UpdateAsync(GetUserEntity());
+                await UserDatabaseHelper.UpdateAsync(GetUserEntity());
                 MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                 Updated.Invoke(this, new EventArgs());
 

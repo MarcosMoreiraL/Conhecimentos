@@ -16,6 +16,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
     {
         public Wallet Wallet { get; set; }
         public BasicFinAppCommand Command { get; set; }
+        public EventHandler Saved;
 
         public WalletRegisterViewModel()
         {
@@ -61,6 +62,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
                 }
 
                 MessageBox.Show("Carteira salva com sucesso!", "Cadastro de Carteira", MessageBoxButton.OK, MessageBoxImage.Information);
+                Saved.Invoke(this, new EventArgs());
             }
             catch (FinAppValidationException rvex)
             {

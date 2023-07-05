@@ -3,6 +3,7 @@ using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Command;
 using FinanceiroApp.WPF.ViewModel.Helpers;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             if (!ValidationHelper.IsValidEmail(User.Email))
                 throw new Library.Exceptions.FinAppValidationException("Email inválido.");
 
-            if (await UserDataBaseHelper.EmailExists(User.Email))
+            if (await UserDatabaseHelper.EmailExists(User.Email))
                 throw new Library.Exceptions.FinAppValidationException("Email já cadastrado.");
 
             if (string.IsNullOrEmpty(User.Password))
@@ -73,7 +74,7 @@ namespace FinanceiroApp.WPF.ViewModel.User
             try
             {
                 await IsValid();
-                await UserDataBaseHelper.CreateAsync(GetUserEntity());
+                await UserDatabaseHelper.CreateAsync(GetUserEntity());
                 MessageBox.Show("Usuário salvo com sucesso!", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                 ResetUser();
                 Saved.Invoke(this, new EventArgs());

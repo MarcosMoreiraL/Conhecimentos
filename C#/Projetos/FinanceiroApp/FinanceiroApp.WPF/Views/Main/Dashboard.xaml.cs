@@ -28,7 +28,10 @@ namespace FinanceiroApp.WPF.Views.Main
             InitializeComponent();
             txtTitle.Text = "Bem-vindo " + App.User.Name;
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
+            lvWallets.ItemsSource = ViewModel.Wallets;
         }
+
+        public void UpdateTransactions(object sender, EventArgs e) => ViewModel.UpdateUser();
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
@@ -50,7 +53,7 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void btnNewWallet_Click(object sender, RoutedEventArgs e)
         {
-            Wallet.WalletRegister wr = new Wallet.WalletRegister();
+            Wallet.WalletRegister wr = new Wallet.WalletRegister(ViewModel.Updated);
             wr.ShowDialog();
         }
     }

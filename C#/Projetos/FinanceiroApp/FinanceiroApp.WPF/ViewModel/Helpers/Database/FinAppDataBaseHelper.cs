@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinanceiroApp.WPF.ViewModel.Base
+namespace FinanceiroApp.WPF.ViewModel.Helpers
 {
     public class FinAppDataBaseHelper<TEntity> where TEntity : class, IEntity
     {
