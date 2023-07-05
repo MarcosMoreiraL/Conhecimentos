@@ -10,8 +10,6 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
 {
     public class WalletItemViewModel : FinAppViewModel
     {
-        //public int WalletId { get; set; }
-        //public string WalletDescription { get; set; }
         public DeleteWalletCommand DeleteCommand { get; set; }
         public EventHandler Updated;
 
