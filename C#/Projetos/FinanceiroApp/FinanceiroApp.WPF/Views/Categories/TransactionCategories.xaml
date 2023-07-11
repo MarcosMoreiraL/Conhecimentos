@@ -6,12 +6,25 @@
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Categories"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Categories"
         mc:Ignorable="d"
-        Title="Categories" Height="450" Width="800">
+        Title="Categories" Height="450" Width="400" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <vm:TransactionCategoryRegisterViewModel x:Key="vm"/>
+        <vm:TransactionCategoriesViewModel x:Key="vm"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">
-        <Button x:Name="btnNewTransactionCategory" Content="Categorias" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="730,10,0,385"/>
-        <DataGrid x:Name="dgCategories" ItemsSource="{Binding }"/>
+        <Grid.Resources>
+            <DataTemplate x:Key="ColumnOptions">
+                <StackPanel Orientation="Horizontal" Width="120">
+                    <Button Name="btnEdit" Content="Editar" Click="btnEdit_Click" Width="60"/>
+                    <Button Name="btnDelete" Content="Excluir" Click="btnDelete_Click" Width="60"/>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+        <Button x:Name="btnNewTransactionCategory" Content="Nova Categoria" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="10,10,0,385" Width="108"/>
+        <DataGrid x:Name="dgCategories" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,54,10,10" MouseDoubleClick="dgCategories_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Width="120" CellTemplate="{StaticResource ColumnOptions}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

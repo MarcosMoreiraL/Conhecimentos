@@ -25,8 +25,8 @@ namespace FinanceiroApp.Entity.Models
         [Column(TypeName = "varchar(100)")]
         public string Password { get; set; }
 
-        public List<Transaction> Transactions { get; set; }
-        public List<TransactionCategory> TransactionCategories { get; set; }
+        public ObservableCollection<Transaction> Transactions { get; set; }
+        public ObservableCollection<TransactionCategory> TransactionCategories { get; set; }
         public ObservableCollection<Wallet> Wallets { get; set; }
 
         public User() { }
@@ -37,12 +37,12 @@ namespace FinanceiroApp.Entity.Models
             Email = email;
             Name = name;
             Password = password;
-            Transactions = new List<Transaction>();
-            TransactionCategories = new List<TransactionCategory>();
+            Transactions = new ObservableCollection<Transaction>();
+            TransactionCategories = new ObservableCollection<TransactionCategory>();
             Wallets = new ObservableCollection<Wallet>();
         }
 
-        public User(int id, string email, string name, string password, List<Transaction> transactions, List<TransactionCategory> transactionCategories, ObservableCollection<Wallet> wallets) : this(id, email, name, password)
+        public User(int id, string email, string name, string password, ObservableCollection<Transaction> transactions, ObservableCollection<TransactionCategory> transactionCategories, ObservableCollection<Wallet> wallets) : this(id, email, name, password)
         {
             Transactions = transactions;
             TransactionCategories = transactionCategories;

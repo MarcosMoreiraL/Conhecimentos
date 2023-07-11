@@ -14,7 +14,7 @@
     <DockPanel x:Name="dp" DataContext="{StaticResource vm}">
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
-            <MenuItem x:Name="categoryMenuItem" Header="Categorias"/>
+            <MenuItem x:Name="categoryMenuItem" Header="Categorias" Click="categoryMenuItem_Click"/>
             <MenuItem x:Name="newTransactionMenuItem" Header="Nova Movimentação"/>
         </Menu>
         <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">

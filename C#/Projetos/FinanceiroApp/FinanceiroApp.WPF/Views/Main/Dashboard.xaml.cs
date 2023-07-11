@@ -56,5 +56,11 @@ namespace FinanceiroApp.WPF.Views.Main
             Wallet.WalletRegister wr = new Wallet.WalletRegister(ViewModel.Updated);
             wr.ShowDialog();
         }
+
+        private void categoryMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Categories.TransactionCategories tc = new Categories.TransactionCategories();
+            tc.ShowDialog();
+        }
     }
 }
