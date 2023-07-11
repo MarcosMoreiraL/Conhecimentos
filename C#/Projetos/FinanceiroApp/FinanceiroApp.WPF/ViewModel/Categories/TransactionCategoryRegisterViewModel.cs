@@ -11,36 +11,43 @@ using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 
 namespace FinanceiroApp.WPF.ViewModel.Categories
 {
-    public class TransactionCategoryRegisterViewModel : FinAppViewModel, INotifyPropertyChanged
+    public class TransactionCategoryRegisterViewModel : FinAppViewModel
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Description { get; set; }
-
-        public Entity.Models.User user { get; set; }
+        public string Description { get; set; } =  string.Empty;
+        public Entity.Models.User User { get; set; }
+        
         public BasicFinAppCommand Command { get; set; }
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public EventHandler Updated;
 
         public TransactionCategoryRegisterViewModel()
         {
+            this.User = App.User;
             Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(int id, int userId, string description)
         {
             Id = id;
-            UserId = userId;
             Description = description;
+            this.User = App.User;
             Command = new BasicFinAppCommand(this);
         }
 
         public TransactionCategoryRegisterViewModel(TransactionCategory transactionCategory)
         {
             Id = transactionCategory.Id;
-            UserId = transactionCategory.UserId;
             Description = transactionCategory.Description;
-            user = transactionCategory.User;
+            User = transactionCategory.User;
             Command = new BasicFinAppCommand(this);
+        }
+
+        public void SetCategory(TransactionCategory category)
+        {
+            this.Id = category.Id;
+            this.Description = category.Description;
+
+            OnPropertyChanged(nameof(Description));
         }
 
         private TransactionCategory GetEntity()
@@ -51,11 +58,6 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
                 UserId = App.User.Id,
                 Description = Description
             };
-        }
-
-        public List<TransactionCategory> GetCategories() //TODO: USAR O DATABASE HELPER
-        {
-            return new List<TransactionCategory>();
         }
 
         public List<Transaction> GetTransactions() //TODO: MOVER ESSE MÉTODO PARA O DATABASE HELPER DAS TRANSACTIONS
@@ -74,6 +76,8 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
                     await TransactionCategoryDatabaseHelper.UpdateAsync(GetEntity());
 
                 MessageBox.Show("Categoria salva com sucesso!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Updated.Invoke(this, new EventArgs());
             }
             catch (FinAppValidationException rvex)
             {

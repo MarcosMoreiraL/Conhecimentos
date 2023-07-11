@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.Controls.Dashboard;
+﻿using FinanceiroApp.Library.Exceptions;
+using FinanceiroApp.WPF.Controls.Dashboard;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FinanceiroApp.WPF.ViewModel
 {
@@ -45,11 +47,19 @@ namespace FinanceiroApp.WPF.ViewModel
 
         public async void UpdateUser()
         {
-            App.SetUser(await UserDatabaseHelper.GetUserAsync(App.User.Id));
-            this.User = App.User;
-            OnPropertyChanged(nameof(User));
+            try
+            {
+                App.SetUser(await UserDatabaseHelper.GetUserAsync(App.User.Id));
+                this.User = App.User;
+                OnPropertyChanged(nameof(User));
 
-            UpdateWallets();
+                UpdateWallets();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Erro ao salvar categoria!", "DashboardViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public override void Action()

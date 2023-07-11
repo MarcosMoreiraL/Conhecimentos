@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.ViewModel.Categories;
+﻿using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,18 @@ namespace FinanceiroApp.WPF.Views.Categories
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as TransactionCategoryRegisterViewModel;
+            ViewModel.Updated += Updated;
         }
+
+        public TransactionCategoryRegister(TransactionCategory category)
+        {
+            InitializeComponent();
+            ViewModel = Resources["vm"] as TransactionCategoryRegisterViewModel;
+            ViewModel.Updated += Updated;
+
+            ViewModel.SetCategory(category);
+        }
+
+        public void Updated(object sender, EventArgs e) => this.Close();
     }
 }

@@ -68,24 +68,63 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers.Database
             using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
             {
                 if (await context.Users.AnyAsync(u => u.Id == id))
-                    return await context.Users.Include(u => u.Wallets).FirstOrDefaultAsync(u => u.Id == id);
+                    return await context.Users.Include(u => u.Wallets).Include(u => u.TransactionCategories).Include(u => u.Transactions).FirstOrDefaultAsync(u => u.Id == id);
             }
 
             return null;
         }
 
-        public static async Task<ObservableCollection<TransactionCategory>> GetCategoriesAsync()
+        public static async Task<ObservableCollection<TransactionCategory>> GetCategoriesAsync(int userId)
         {
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
+            {
+                if (await context.Users.AnyAsync(u => u.Id == userId))
+                {
+                    ObservableCollection<TransactionCategory> categories = new ObservableCollection<TransactionCategory>();
+
+                    foreach (TransactionCategory category in context.TransactionCategories.Where(c => c.UserId == userId))
+                        categories.Add(category);
+
+                    return categories;
+                }
+            }
+
             return null;
         }
 
-        public static async Task<ObservableCollection<Wallet>> GetWalletsAsync()
+        public static async Task<ObservableCollection<Wallet>> GetWalletsAsync(int userId)
         {
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
+            {
+                if (await context.Wallets.AnyAsync(w => w.UserId == userId))
+                {
+                    ObservableCollection<Wallet> wallets = new ObservableCollection<Wallet>();
+
+                    foreach (Wallet wallet in context.Wallets.Where(w => w.UserId == userId))
+                        wallets.Add(wallet);
+
+                    return wallets;
+                }
+            }
+
             return null;
         }
 
-        public static async Task<ObservableCollection<Transaction>> GetTransactionsAsync()
+        public static async Task<ObservableCollection<Transaction>> GetTransactionsAsync(int userId)
         {
+            using (Entity.FinanceiroAppDbContext context = App.DbContextFactory.Create())
+            {
+                if (await context.Transactions.AnyAsync(t => t.UserId == userId))
+                {
+                    ObservableCollection<Transaction> transactions = new ObservableCollection<Transaction>();
+
+                    foreach (Transaction transaction in context.Transactions.Where(t => t.UserId == userId))
+                        transactions.Add(transaction);
+
+                    return transactions;
+                }
+            }
+
             return null;
         }
     }
