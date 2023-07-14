@@ -26,7 +26,6 @@ namespace FinanceiroApp.WPF.Views.Main
         public Dashboard()
         {
             InitializeComponent();
-            txtTitle.Text = "Bem-vindo " + App.User.Name;
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
             lvWallets.ItemsSource = ViewModel.Wallets;
         }
@@ -37,7 +36,6 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
             updateUserWindow.ShowDialog();
-            txtTitle.Text = "Bem-vindo " + App.User.Name;
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)

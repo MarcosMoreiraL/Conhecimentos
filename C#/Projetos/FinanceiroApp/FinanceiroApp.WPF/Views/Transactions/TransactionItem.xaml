@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="FinanceiroApp.WPF.Views.Transactions.TransactionItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
+             xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Transactions"
+             mc:Ignorable="d" 
+             Height="50" Width="650">
+    <UserControl.Resources>
+        <vm:TransactionItemViewModel x:Key="vm"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock x:Name="txtDescricao" Text="Descrição" Width="250" TextAlignment="Center" FontSize="35"/>
+            <TextBlock x:Name="txtValor" Text="Valor" Width="150" TextAlignment="Center" FontSize="35"/>
+            <TextBlock x:Name="txtData" Text="Data" Width="150" TextAlignment="Center" FontSize="35"/>
+            <Button x:Name="btnEditar" Content="Editar" Width="50"/>
+            <Button x:Name="btnExcluir" Content="Excluir" Width="50"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

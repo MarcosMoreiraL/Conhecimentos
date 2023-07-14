@@ -6,8 +6,8 @@ namespace FinanceiroApp.Entity.Models
     {
         public enum TransactionType
         {
-            Income,
-            Expense
+            Income = 1,
+            Expense = -1
         }
 
         public int Id { get; set; }

@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         xmlns:controls="clr-namespace:FinanceiroApp.WPF.Controls.Dashboard"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
+        xmlns:transactions="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
         mc:Ignorable="d"
-        x:Name="window" Title="Dashboard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        x:Name="window" Title="Dashboard" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
@@ -19,10 +20,10 @@
         </Menu>
         <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">
             <Button x:Name="btnNewWallet" Content="Nova Carteira" Click="btnNewWallet_Click" Background="LightGreen"/>
-            <ListView x:Name="lvWallets" MinWidth="150" Height="{Binding Height, ElementName=window, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <ListView x:Name="lvWallets" MinWidth="150" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         </StackPanel>
-            <Grid DockPanel.Dock="Right">
-            <TextBlock x:Name="txtTitle" Text="Home" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid DockPanel.Dock="Right">
+            <transactions:Transactions/>
         </Grid>
     </DockPanel>
 </Window>
