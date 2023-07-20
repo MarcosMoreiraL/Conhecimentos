@@ -6,11 +6,35 @@
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Transactions"
         mc:Ignorable="d"
-        Title="TransactionRegister" Height="450" Width="800">
+        Title="TransactionRegister" Height="450" Width="450">
     <Window.Resources>
         <vm:TransactionRegisterViewModel x:Key="vm"/>
     </Window.Resources>
-    <Grid>
-        
+    <Grid DataContext="{StaticResource vm}">
+        <StackPanel x:Name="spTransactions" Orientation="Vertical">
+            <TextBlock Text="Nova Movimentação" FontSize="20" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Descricao"/>
+            <TextBox x:Name="txtDescription" Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Valor"/>
+            <TextBox x:Name="txtValue" Text="{Binding Transaction.Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Data"/>
+            <DatePicker x:Name="dtpDate" SelectedDate="{Binding Transaction.DateTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Categoria"/>
+            <ComboBox x:Name="cbCategory" ItemsSource="{Binding User.TransactionCategories}" SelectedValuePath="Id" DisplayMemberPath="Description" SelectedIndex="0" SelectedValue="{Binding Transaction.CategoryId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Carteira"/>
+            <ComboBox x:Name="cbWallet"  ItemsSource="{Binding User.Wallets}" SelectedValuePath="Id" DisplayMemberPath="Description" SelectedIndex="0" SelectedValue="{Binding Transaction.WalletId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Tipo de Transacao"/>
+            <ComboBox x:Name="cbType" SelectionChanged="cbType_SelectionChanged" SelectedValuePath="Tag">
+                <ComboBoxItem Content="Entrada" IsSelected="True" Tag="Income"/>
+                <ComboBoxItem Content="Saida" Tag="Expense"/>
+            </ComboBox>
+            <Button x:Name="btnSave" Content="Salvar" Command="{Binding Command}" Width="100" Height="40" Margin="0 10 0 0"/>
+        </StackPanel>
     </Grid>
 </Window>

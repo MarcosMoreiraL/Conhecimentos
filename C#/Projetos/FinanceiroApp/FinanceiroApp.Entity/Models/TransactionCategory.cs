@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,22 @@ namespace FinanceiroApp.Entity.Models
 
         public User User { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
+
+        public TransactionCategory Clone()
+        {
+            ObservableCollection<Transaction> transactions = new ObservableCollection<Transaction>();
+            
+            if (Transactions != null)
+                Transactions.ToList().ForEach(t => { transactions.Add(t.Clone()); });
+
+            return new TransactionCategory()
+            {
+                Id = Id,
+                UserId = UserId,
+                Description = Description,
+                User = User,
+                Transactions = transactions
+            };
+        }
     }
 }

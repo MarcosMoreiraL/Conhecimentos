@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using FinanceiroApp.Entity;
+using System.Collections.ObjectModel;
+using FinanceiroApp.Entity.Models;
 
 namespace FinanceiroApp.WPF
 {
@@ -34,18 +36,7 @@ namespace FinanceiroApp.WPF
             User = user;
         }
 
-        public static Entity.Models.User CloneUser()
-        {
-            return new Entity.Models.User()
-            {
-                Id = _user.Id,
-                Name = _user.Name,
-                Email = _user.Email,
-                Password = _user.Password,
-                TransactionCategories = _user.TransactionCategories,
-                Transactions = _user.Transactions
-            };
-        }
+        public static Entity.Models.User CloneUser() => _user.Clone();
 
         public App()
         {

@@ -1,5 +1,6 @@
 ﻿using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Categories;
+using FinanceiroApp.WPF.Views.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +41,14 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
         {
-
+            TransactionRegister tr = new TransactionRegister();
+            tr.ShowDialog();
         }
 
         private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
-            categories.Show();
+            categories.ShowDialog();
         }
 
         private void btnNewWallet_Click(object sender, RoutedEventArgs e)

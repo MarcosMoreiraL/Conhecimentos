@@ -27,7 +27,9 @@ namespace FinanceiroApp.WPF.Views.Transactions
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO: SE NÃO TIVER CATEGORIA OU CARTEIRA, NEM DEIXAR ABRIR A TELA
+            TransactionRegister tr = new TransactionRegister();
+            tr.ShowDialog();
         }
     }
 }

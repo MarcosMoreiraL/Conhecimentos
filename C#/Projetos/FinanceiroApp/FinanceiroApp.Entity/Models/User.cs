@@ -48,5 +48,29 @@ namespace FinanceiroApp.Entity.Models
             TransactionCategories = transactionCategories;
             Wallets = wallets; 
         }
+
+        public User Clone()
+        {
+            ObservableCollection<Wallet> wallets = new ObservableCollection<Wallet>();
+            ObservableCollection<TransactionCategory> transactionCategories = new ObservableCollection<TransactionCategory>();
+            ObservableCollection<Transaction> transactions = new ObservableCollection<Transaction>();
+
+            Wallets.ToList().ForEach(w => { wallets.Add(w.Clone()); });
+            TransactionCategories.ToList().ForEach(tc => { transactionCategories.Add(tc.Clone()); });
+
+            if (Transactions != null)
+                Transactions.ToList().ForEach(t => { transactions.Add(t.Clone()); });
+
+            return new User()
+            {
+                Id = Id,
+                Name = Name,
+                Email = Email,
+                Password = Password,
+                Wallets = wallets,
+                TransactionCategories = transactionCategories,
+                Transactions = transactions
+            };
+        }
     }
 }
