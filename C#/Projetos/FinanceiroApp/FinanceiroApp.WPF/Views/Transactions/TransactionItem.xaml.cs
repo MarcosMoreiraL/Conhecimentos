@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel.Transactions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace FinanceiroApp.WPF.Views.Transactions
     /// </summary>
     public partial class TransactionItem : UserControl
     {
+        TransactionItemViewModel ViewModel { get; set; }
+
         public TransactionItem()
         {
             InitializeComponent();
+            ViewModel = Resources["vm"] as TransactionItemViewModel ?? new TransactionItemViewModel();
+        }
+
+        public TransactionItem(Transaction t)
+        {
+            InitializeComponent();
+            ViewModel = Resources["vm"] as TransactionItemViewModel ?? new TransactionItemViewModel();
+            ViewModel.Transaction = t;
         }
     }
 }

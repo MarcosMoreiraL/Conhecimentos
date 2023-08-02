@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
-        xmlns:controls="clr-namespace:FinanceiroApp.WPF.Controls.Dashboard"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         xmlns:transactions="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
+        xmlns:wallets="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
         mc:Ignorable="d"
         x:Name="window" Title="Dashboard" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -16,14 +16,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
             <MenuItem x:Name="categoryMenuItem" Header="Categorias" Click="categoryMenuItem_Click"/>
-            <MenuItem x:Name="newTransactionMenuItem" Header="Nova Movimentação"/>
         </Menu>
-        <StackPanel x:Name="SpWallet" DockPanel.Dock="Left">
-            <Button x:Name="btnNewWallet" Content="Nova Carteira" Click="btnNewWallet_Click" Background="LightGreen"/>
-            <ListView x:Name="lvWallets" MinWidth="150" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        </StackPanel>
-        <Grid DockPanel.Dock="Right">
-            <transactions:Transactions/>
-        </Grid>
+        <wallets:Wallets x:Name="wallets" DockPanel.Dock="Left"/>
+        <transactions:Transactions x:Name="transactions" DockPanel.Dock="Right"/>
     </DockPanel>
 </Window>

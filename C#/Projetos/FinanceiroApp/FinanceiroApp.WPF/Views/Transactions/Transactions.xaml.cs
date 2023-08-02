@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FinanceiroApp.Library.Exceptions;
+using FinanceiroApp.WPF.ViewModel;
+using FinanceiroApp.WPF.ViewModel.Transactions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,16 +23,38 @@ namespace FinanceiroApp.WPF.Views.Transactions
     /// </summary>
     public partial class Transactions : UserControl
     {
+        public TransactionsViewModel ViewModel { get; set; }
+
         public Transactions()
         {
             InitializeComponent();
+            ViewModel = Resources["vm"] as TransactionsViewModel ?? new TransactionsViewModel();
         }
+
+        public void LoadTransactions(int walletId) => ViewModel.UpdateTransactions(walletId);
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: SE NÃO TIVER CATEGORIA OU CARTEIRA, NEM DEIXAR ABRIR A TELA
-            TransactionRegister tr = new TransactionRegister();
-            tr.ShowDialog();
+            try
+            {
+                if (!ViewModel.User.Wallets.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem carteiras!");
+
+                if (!ViewModel.User.TransactionCategories.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem categorias!");
+
+                TransactionRegister tr = new TransactionRegister();
+                tr.ShowDialog();
+            }
+            catch (FinAppValidationException rvex)
+            {
+                MessageBox.Show(rvex.Message, "Movimentações", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Erro ao carregar a movimentação!", "Movimentações", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

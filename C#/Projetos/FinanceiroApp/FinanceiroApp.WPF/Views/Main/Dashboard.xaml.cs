@@ -1,6 +1,7 @@
 ﻿using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.Views.Transactions;
+using FinanceiroApp.WPF.Views.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,21 +29,13 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
-            lvWallets.ItemsSource = ViewModel.Wallets;
+            wallets.WalletSelected += WalletSelected;
         }
-
-        public void UpdateTransactions(object sender, EventArgs e) => ViewModel.UpdateUser();
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
             Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
             updateUserWindow.ShowDialog();
-        }
-
-        private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
-        {
-            TransactionRegister tr = new TransactionRegister();
-            tr.ShowDialog();
         }
 
         private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
@@ -51,16 +44,16 @@ namespace FinanceiroApp.WPF.Views.Main
             categories.ShowDialog();
         }
 
-        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
-        {
-            Wallet.WalletRegister wr = new Wallet.WalletRegister(ViewModel.Updated);
-            wr.ShowDialog();
-        }
-
         private void categoryMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories tc = new Categories.TransactionCategories();
             tc.ShowDialog();
+        }
+
+        private void WalletSelected(object sender, EventArgs e)
+        {
+            int walletId = (sender as WalletItem).Id; //TODO: ARRUMAR PRA QUANDO EDITAR A CARTEIRA, JÁ VOLTAR A SELEÇÃO NELA MESMA
+            transactions.LoadTransactions(walletId);
         }
     }
 }

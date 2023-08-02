@@ -10,14 +10,14 @@
     <UserControl.Resources>
         <vm:TransactionsViewModel x:Key="vm"/>
     </UserControl.Resources>
-    <DockPanel>
+    <DockPanel DataContext="{StaticResource vm}">
         <Grid DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnNewTransaction" Content="Nova Movimentação" Width="150" Click="btnNewTransaction_Click"/>
             </StackPanel>
         </Grid>
         <Grid DockPanel.Dock="Bottom">
-            <ListView x:Name="lvTransactions" Width="650" BorderThickness="0"/>
+            <ListView x:Name="lvTransactions" Width="650" BorderThickness="0" ItemsSource="{Binding Transactions}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
         </Grid>
     </DockPanel>
 </UserControl>
