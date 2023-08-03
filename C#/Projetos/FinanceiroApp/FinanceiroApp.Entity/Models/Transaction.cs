@@ -33,7 +33,7 @@ namespace FinanceiroApp.Entity.Models
         public TransactionCategory Category { get; set; }
         public Wallet Wallet { get; set; }
 
-        public string DateString => DateTime.Now.ToShortDateString();
+        public string DateString => DateTime.ToShortDateString();
 
         public Transaction() { }
 

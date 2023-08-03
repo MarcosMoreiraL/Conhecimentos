@@ -1,4 +1,5 @@
 ﻿using FinanceiroApp.Entity.Models;
+using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Transactions;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
     public partial class TransactionItem : UserControl
     {
         TransactionItemViewModel ViewModel { get; set; }
+        public EventHandler Updated;
 
         public TransactionItem()
         {
@@ -35,6 +37,17 @@ namespace FinanceiroApp.WPF.Views.Transactions
             InitializeComponent();
             ViewModel = Resources["vm"] as TransactionItemViewModel ?? new TransactionItemViewModel();
             ViewModel.Transaction = t;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Updated = Updated;
+        }
+
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            TransactionRegister tr = new TransactionRegister(ViewModel.Transaction, ViewModel.Updated);
+            tr.ShowDialog();
         }
     }
 }

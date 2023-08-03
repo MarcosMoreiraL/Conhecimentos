@@ -28,6 +28,12 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
             Command = new BasicFinAppCommand(this);
         }
 
+        public void SetTransaction(Transaction transaction)
+        {
+            this.Transaction = transaction;
+            OnPropertyChanged(nameof(Transaction));
+        }
+
         public Transaction GetEntity()
         {
             return new Transaction()

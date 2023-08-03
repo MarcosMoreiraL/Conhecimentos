@@ -52,7 +52,7 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void WalletSelected(object sender, EventArgs e)
         {
-            int walletId = (sender as WalletItem).Id; //TODO: ARRUMAR PRA QUANDO EDITAR A CARTEIRA, JÁ VOLTAR A SELEÇÃO NELA MESMA
+            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).Id;
             transactions.LoadTransactions(walletId);
         }
     }

@@ -6,17 +6,17 @@
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Transactions"
              mc:Ignorable="d" 
-             Height="50" Width="650">
+             Height="50" Width="600" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <vm:TransactionItemViewModel x:Key="vm"/>
     </UserControl.Resources>
     <Grid DataContext="{StaticResource vm}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock x:Name="txtDescricao" Text="{Binding Transaction.Description}" Width="250" TextAlignment="Center" FontSize="20"/>
+            <TextBlock x:Name="txtDescricao" Text="{Binding Transaction.Description}" Width="200" TextAlignment="Center" FontSize="20"/>
             <TextBlock x:Name="txtValor" Text="{Binding Transaction.Value, StringFormat=C2}" Width="150" TextAlignment="Center" FontSize="20"/>
             <TextBlock x:Name="txtData" Text="{Binding Transaction.DateString}" Width="150" TextAlignment="Center" FontSize="20"/>
-            <Button x:Name="btnEditar" Content="Editar" Width="50"/>
-            <Button x:Name="btnExcluir" Content="Excluir" Width="50"/>
+            <Button x:Name="btnEditar" Content="Editar" Width="50" Click="btnEditar_Click"/>
+            <Button x:Name="btnExcluir" Content="Excluir" Width="50" Command="{Binding DeleteTransactionCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

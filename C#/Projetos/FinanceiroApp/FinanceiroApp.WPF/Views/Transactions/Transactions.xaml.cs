@@ -43,7 +43,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
                 if (!ViewModel.User.TransactionCategories.Any())
                     throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem categorias!");
 
-                TransactionRegister tr = new TransactionRegister();
+                TransactionRegister tr = new TransactionRegister(Updated);
                 tr.ShowDialog();
             }
             catch (FinAppValidationException rvex)
@@ -56,5 +56,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
                 MessageBox.Show("Erro ao carregar a movimentação!", "Movimentações", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void Updated(object? sender, EventArgs e) => ViewModel.UpdateUser();
     }
 }

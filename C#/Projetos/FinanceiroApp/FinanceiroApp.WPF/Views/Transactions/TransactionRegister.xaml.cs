@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.ViewModel;
+﻿using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Transactions;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,21 @@ namespace FinanceiroApp.WPF.Views.Transactions
     {
         TransactionRegisterViewModel ViewModel { get; set; }
 
-        public TransactionRegister()
+        public TransactionRegister(EventHandler updated)
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as TransactionRegisterViewModel ?? new TransactionRegisterViewModel();
-            ViewModel.Updated += Updated;
+            ViewModel.Updated += Saved;
+            ViewModel.Updated += updated;
+        }
+
+        public TransactionRegister(Transaction transaction, EventHandler updated)
+        {
+            InitializeComponent();
+            ViewModel = Resources["vm"] as TransactionRegisterViewModel ?? new TransactionRegisterViewModel();
+            ViewModel.SetTransaction(transaction);
+            ViewModel.Updated += Saved;
+            ViewModel.Updated += updated;
         }
 
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,6 +49,6 @@ namespace FinanceiroApp.WPF.Views.Transactions
             }
         }
 
-        private void Updated(object sender, EventArgs e) => this.Close();
+        private void Saved(object sender, EventArgs e) => this.Close();
     }
 }

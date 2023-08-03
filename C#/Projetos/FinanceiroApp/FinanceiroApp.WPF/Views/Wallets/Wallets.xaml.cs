@@ -39,6 +39,6 @@ namespace FinanceiroApp.WPF.Views.Wallets
             wr.ShowDialog();
         }
 
-        private void lvWallets_SelectionChanged(object sender, EventArgs e) => WalletSelected?.Invoke((sender as ListView)?.SelectedItem ?? new WalletItem(), e);
+        private void lvWallets_SelectionChanged(object sender, EventArgs e) => WalletSelected?.Invoke((sender as ListView)?.SelectedItem, e);
     }
 }

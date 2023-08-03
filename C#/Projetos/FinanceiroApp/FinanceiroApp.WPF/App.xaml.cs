@@ -9,6 +9,7 @@ using System.Windows;
 using FinanceiroApp.Entity;
 using System.Collections.ObjectModel;
 using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 
 namespace FinanceiroApp.WPF
 {
@@ -29,6 +30,12 @@ namespace FinanceiroApp.WPF
             {
                 _user = value;
             }
+        }
+
+        public static async Task<Entity.Models.User> UpdateUser()
+        {
+            User = await UserDatabaseHelper.GetUserAsync(App.User.Id);
+            return User;
         }
 
         public static void SetUser(Entity.Models.User user)

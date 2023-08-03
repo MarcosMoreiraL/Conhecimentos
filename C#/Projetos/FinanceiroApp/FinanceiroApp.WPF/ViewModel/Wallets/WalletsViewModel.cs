@@ -32,8 +32,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         {
             try
             {
-                App.SetUser(await UserDatabaseHelper.GetUserAsync(App.User.Id));
-                this.User = App.User;
+                this.User = await App.UpdateUser();
                 OnPropertyChanged(nameof(User));
 
                 UpdateWallets();

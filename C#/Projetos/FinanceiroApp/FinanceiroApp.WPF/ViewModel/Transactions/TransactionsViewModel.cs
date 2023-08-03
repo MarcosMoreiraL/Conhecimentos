@@ -18,18 +18,22 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
         public int CurrentWalletId { get; set; } = 0;
         public Entity.Models.User User { get; set; }
         public ObservableCollection<TransactionItem> Transactions { get; set; }
+        public EventHandler Updated;
+
         public TransactionsViewModel()
         {
             this.User = App.User;
             Transactions = new ObservableCollection<TransactionItem>();
+            Updated += UpdateView;
         }
+
+        private void UpdateView(object? sender, EventArgs e) => UpdateUser();
 
         public async void UpdateUser()
         {
             try
             {
-                App.SetUser(await UserDatabaseHelper.GetUserAsync(App.User.Id));
-                this.User = App.User;
+                this.User = await App.UpdateUser();
                 OnPropertyChanged(nameof(User));
 
                 UpdateTransactions(CurrentWalletId);
@@ -45,11 +49,16 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
         {
             try
             {
+                walletId = walletId == -1 ? CurrentWalletId : walletId;
+
                 Transactions.Clear();
                 IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions : User.Transactions.Where(t => t.WalletId == walletId);
 
                 foreach (Transaction t in transactions)
-                    Transactions.Add(new TransactionItem(t));
+                    Transactions.Add(new TransactionItem(t)
+                    {
+                        Updated = Updated
+                    });
 
                 CurrentWalletId = walletId;
 
