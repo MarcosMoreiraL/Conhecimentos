@@ -1,5 +1,7 @@
 ﻿using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Categories;
+using FinanceiroApp.WPF.Views.Transactions;
+using FinanceiroApp.WPF.Views.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,41 +28,32 @@ namespace FinanceiroApp.WPF.Views.Main
         public Dashboard()
         {
             InitializeComponent();
-            txtTitle.Text = "Bem-vindo " + App.User.Name;
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
-            lvWallets.ItemsSource = ViewModel.Wallets;
+            wallets.WalletSelected += WalletSelected;
         }
-
-        public void UpdateTransactions(object sender, EventArgs e) => ViewModel.UpdateUser();
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
             Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
             updateUserWindow.ShowDialog();
-            txtTitle.Text = "Bem-vindo " + App.User.Name;
-        }
-
-        private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
-            categories.Show();
-        }
-
-        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
-        {
-            Wallet.WalletRegister wr = new Wallet.WalletRegister(ViewModel.Updated);
-            wr.ShowDialog();
+            categories.ShowDialog();
         }
 
         private void categoryMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories tc = new Categories.TransactionCategories();
             tc.ShowDialog();
+        }
+
+        private void WalletSelected(object sender, EventArgs e)
+        {
+            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).Id;
+            transactions.LoadTransactions(walletId);
         }
     }
 }

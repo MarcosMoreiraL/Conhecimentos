@@ -1,7 +1,7 @@
 ﻿using FinanceiroApp.Entity.Models;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.ViewModel.Wallets;
-using FinanceiroApp.WPF.Views.Wallet;
+using FinanceiroApp.WPF.Views.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinanceiroApp.WPF.Controls.Dashboard
+namespace FinanceiroApp.WPF.Views.Wallets
 {
     /// <summary>
     /// Interaction logic for WalletItem.xaml
@@ -38,10 +38,10 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
             set { SetValue(WalletDescription, value); }
         }
 
-        public static readonly DependencyProperty WalletObject = DependencyProperty.Register("Wallet", typeof(Wallet), typeof(WalletItem));
-        public Wallet Wallet
+        public static readonly DependencyProperty WalletObject = DependencyProperty.Register("Wallet", typeof(Entity.Models.Wallet), typeof(WalletItem));
+        public Entity.Models.Wallet Wallet
         {
-            get { return (Wallet)GetValue(WalletObject); }
+            get { return (Entity.Models.Wallet)GetValue(WalletObject); }
             set { SetValue(WalletObject, value); }
         }
 
@@ -58,6 +58,8 @@ namespace FinanceiroApp.WPF.Controls.Dashboard
         {
             ViewModel.SetWallet(Wallet);
             ViewModel.Updated = Updated;
+
+            btnEditWallet.Visibility = btnDeleteWallet.Visibility = Wallet.Id == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void btnEditWallet_Click(object sender, RoutedEventArgs e)

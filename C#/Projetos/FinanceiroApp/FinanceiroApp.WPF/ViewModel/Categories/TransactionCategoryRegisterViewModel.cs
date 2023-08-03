@@ -75,18 +75,18 @@ namespace FinanceiroApp.WPF.ViewModel.Categories
                 else
                     await TransactionCategoryDatabaseHelper.UpdateAsync(GetEntity());
 
-                MessageBox.Show("Categoria salva com sucesso!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Categoria salva com sucesso!", "Nova Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Updated.Invoke(this, new EventArgs());
             }
             catch (FinAppValidationException rvex)
             {
-                MessageBox.Show(rvex.Message, "Categoria", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(rvex.Message, "Nova Categoria", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                MessageBox.Show("Erro ao salvar categoria!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao salvar categoria!", "Nova Categoria", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

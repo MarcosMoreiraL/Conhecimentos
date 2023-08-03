@@ -1,6 +1,5 @@
 ﻿using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
-using FinanceiroApp.WPF.Controls.Dashboard;
 using FinanceiroApp.WPF.ViewModel.Base;
 using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using System;

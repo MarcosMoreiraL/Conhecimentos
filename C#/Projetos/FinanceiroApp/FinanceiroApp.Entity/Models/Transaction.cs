@@ -6,8 +6,8 @@ namespace FinanceiroApp.Entity.Models
     {
         public enum TransactionType
         {
-            Income,
-            Expense
+            Income = 1,
+            Expense = -1
         }
 
         public int Id { get; set; }
@@ -27,11 +27,13 @@ namespace FinanceiroApp.Entity.Models
         [ForeignKey("Wallet")]
         public int WalletId { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
         public TransactionType Type { get; set; }
         public User User { get; set; }
         public TransactionCategory Category { get; set; }
         public Wallet Wallet { get; set; }
+
+        public string DateString => DateTime.ToShortDateString();
 
         public Transaction() { }
 
@@ -54,6 +56,24 @@ namespace FinanceiroApp.Entity.Models
             User = user;
             Category = category;
             Wallet = wallet;
+        }
+
+        public Transaction Clone()
+        {
+            return new Transaction()
+            {
+                Id = Id,
+                UserId = UserId,
+                Value = Value,
+                Description = Description,
+                CategoryId = CategoryId,
+                WalletId = WalletId,
+                DateTime = DateTime,
+                Type = Type,
+                User = User,
+                Category = Category,
+                Wallet = Wallet
+            };
         }
     }
 }

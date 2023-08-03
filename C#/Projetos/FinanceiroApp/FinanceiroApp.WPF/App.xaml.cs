@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using FinanceiroApp.Entity;
+using System.Collections.ObjectModel;
+using FinanceiroApp.Entity.Models;
+using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 
 namespace FinanceiroApp.WPF
 {
@@ -29,23 +32,18 @@ namespace FinanceiroApp.WPF
             }
         }
 
+        public static async Task<Entity.Models.User> UpdateUser()
+        {
+            User = await UserDatabaseHelper.GetUserAsync(App.User.Id);
+            return User;
+        }
+
         public static void SetUser(Entity.Models.User user)
         {
             User = user;
         }
 
-        public static Entity.Models.User CloneUser()
-        {
-            return new Entity.Models.User()
-            {
-                Id = _user.Id,
-                Name = _user.Name,
-                Email = _user.Email,
-                Password = _user.Password,
-                TransactionCategories = _user.TransactionCategories,
-                Transactions = _user.Transactions
-            };
-        }
+        public static Entity.Models.User CloneUser() => _user.Clone();
 
         public App()
         {
