@@ -8,16 +8,85 @@
         xmlns:transactions="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
         xmlns:wallets="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
         mc:Ignorable="d"
-        x:Name="window" Title="Dashboard" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        x:Name="window" Height="600" Width="880"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <DockPanel x:Name="dp" DataContext="{StaticResource vm}">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
-            <MenuItem x:Name="categoryMenuItem" Header="Categorias" Click="categoryMenuItem_Click"/>
-        </Menu>
-        <wallets:Wallets x:Name="wallets" DockPanel.Dock="Left"/>
-        <transactions:Transactions x:Name="transactions" DockPanel.Dock="Right"/>
-    </DockPanel>
+    <Border Background="#0077B6"
+            CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--TODO: COLOCAR O LOGO NA PRIMEIRA COLUNA-->
+                
+                <TextBlock Text="Controle Financeiro"
+                           Grid.Column="0"
+                           TextAlignment="Left"
+                           Margin="10 10 0 0"
+                           Foreground="White"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+                
+                <!--TODO: CONTEXTMENU NÃO FUNCIONA-->
+                <Button x:Name="btnProfile"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Grid.Column="1">
+                    <Image Source="../../Resources/Images/userIcon.png" 
+                           Focusable="False"/>
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="btnEditProfile"
+                                Header="Editar Perfil"
+                                Click="btnUpdateUser_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                
+            </Grid>
+
+            <DockPanel x:Name="dp" 
+                       DataContext="{StaticResource vm}"
+                       Grid.Row="1"
+                       Margin="15 5 15 5">
+
+                <StackPanel Orientation="Vertical">
+
+                    <Button x:Name="btnNewWallet"
+                            Content="Nova Carteira"
+                            Click="btnNewWallet_Click"/>
+
+                    <!--TODO: ARRUMAR O SCROLL-->
+                    <ItemsControl x:Name="icWallets" 
+                    DockPanel.Dock="Left"
+                    Width="200" 
+                    ItemsSource="{Binding Wallets}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+
+                <Grid DockPanel.Dock="Right" 
+                      Width="650">
+                    
+                    
+                </Grid>
+                
+            </DockPanel>
+        </Grid>
+    </Border>
+
+    <!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->
 </Window>

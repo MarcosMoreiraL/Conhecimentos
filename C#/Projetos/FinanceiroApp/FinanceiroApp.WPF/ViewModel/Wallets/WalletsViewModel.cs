@@ -19,6 +19,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         public ObservableCollection<WalletItem> Wallets { get; set; } = new ObservableCollection<WalletItem>();
 
         public EventHandler Updated;
+        public EventHandler WalletSelected;
 
         public WalletsViewModel()
         {
@@ -46,31 +47,33 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
 
         public void UpdateWallets()
         {
-            Wallets.Clear();
+            //Wallets.Clear();
 
-            Wallets.Add(new WalletItem()
-            {
-                Id = 0,
-                Description = "Todas",
-                Wallet = new Entity.Models.Wallet()
-                {
-                    Id = 0,
-                    Description = "Todas"
-                }
-            });
+            //Wallets.Add(new WalletItem()
+            //{
+            //    Id = 0,
+            //    Description = "Todas",
+            //    Wallet = new Entity.Models.Wallet()
+            //    {
+            //        Id = 0,
+            //        Description = "Todas"
+            //    },
+            //    WalletSelected = WalletSelected
+            //});
 
-            foreach (Wallet wallet in User.Wallets)
-            {
-                Wallets.Add(new WalletItem()
-                {
-                    Id = wallet.Id,
-                    Wallet = wallet,
-                    Description = wallet.Description,
-                    Updated = Updated
-                });
-            }
+            //foreach (Wallet wallet in User.Wallets)
+            //{
+            //    Wallets.Add(new WalletItem()
+            //    {
+            //        Id = wallet.Id,
+            //        Wallet = wallet,
+            //        Description = wallet.Description,
+            //        Updated = Updated,
+            //        WalletSelected = WalletSelected
+            //    });
+            //}
 
-            OnPropertyChanged(nameof(Wallets));
+            //OnPropertyChanged(nameof(Wallets));
         }
 
         public void UpdateView(object sender, EventArgs e) => UpdateUser();

@@ -24,13 +24,14 @@ namespace FinanceiroApp.WPF.Views.Wallets
     public partial class Wallets : UserControl
     {
         public int lastWalletId = 0;
-        public WalletsViewModel ViewModel { get; set; }
         public EventHandler WalletSelected;
+        public WalletsViewModel ViewModel { get; set; }
 
         public Wallets()
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as WalletsViewModel ?? new WalletsViewModel();
+            ViewModel.WalletSelected = WalletSelected;
         }
 
         private void btnNewWallet_Click(object sender, RoutedEventArgs e)
@@ -39,6 +40,6 @@ namespace FinanceiroApp.WPF.Views.Wallets
             wr.ShowDialog();
         }
 
-        private void lvWallets_SelectionChanged(object sender, EventArgs e) => WalletSelected?.Invoke((sender as ListView)?.SelectedItem, e);
+        private void lvWallets_SelectionChanged(object sender, SelectionChangedEventArgs e) => WalletSelected?.Invoke((sender as ListView)?.SelectedItem, e);
     }
 }

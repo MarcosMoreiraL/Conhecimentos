@@ -29,7 +29,7 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
-            wallets.WalletSelected += WalletSelected;
+            //TODO: USAR APENAS OS COMPONENTES MENORES E DEIXAR A DASHBOARD CUIDAR DE TUDO PRA NÃO EMBARALHAR OS EVENTOS
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
@@ -52,8 +52,14 @@ namespace FinanceiroApp.WPF.Views.Main
 
         private void WalletSelected(object sender, EventArgs e)
         {
-            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).Id;
-            transactions.LoadTransactions(walletId);
+            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
+            //transactions.LoadTransactions(walletId);
+        }
+
+        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
+        {
+            WalletRegister wr = new WalletRegister(ViewModel.Updated);
+            wr.ShowDialog();
         }
     }
 }
