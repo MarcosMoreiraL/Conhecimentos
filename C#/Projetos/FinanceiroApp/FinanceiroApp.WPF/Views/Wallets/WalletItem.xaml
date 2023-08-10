@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Wallets"
              mc:Ignorable="d" 
-             Height="125" Width="200"  Loaded="UserControl_Loaded"
+             Height="75" Width="200"  Loaded="UserControl_Loaded"
              Margin="0 0 0 5">
     <UserControl.Resources>
         <vm:WalletItemViewModel x:Key="vm"/>
@@ -19,7 +19,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
-            
+
             <StackPanel DataContext="{StaticResource vm}" 
                     Orientation="Horizontal"
                         Grid.Row="0">
@@ -28,7 +28,7 @@
                          GroupName="Wallets"
                          Checked="RadioButton_Checked"
                          Width="120"
-                         Height="100"
+                         Height="50"
                          Margin="20 0 0 0"
                          Style="{StaticResource MenuRadioButtonTheme}"/>
 
@@ -53,12 +53,6 @@
                 </Button>
 
             </StackPanel>
-            <TextBlock Text="Saldo: R$ 100,00"
-                       Grid.Row="1" 
-                       Focusable="False"
-                       HorizontalAlignment="Center"
-                       FontSize="15"
-                       FontWeight="Bold"/>
         </Grid>
     </Border>
 </UserControl>
