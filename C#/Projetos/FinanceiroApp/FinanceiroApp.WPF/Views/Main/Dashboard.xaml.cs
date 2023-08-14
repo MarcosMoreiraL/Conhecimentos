@@ -61,5 +61,7 @@ namespace FinanceiroApp.WPF.Views.Main
             WalletRegister wr = new WalletRegister(ViewModel.Updated);
             wr.ShowDialog();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
     }
 }

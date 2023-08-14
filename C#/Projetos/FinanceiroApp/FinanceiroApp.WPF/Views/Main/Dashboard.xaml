@@ -8,7 +8,7 @@
         xmlns:transactions="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
         xmlns:wallets="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
         mc:Ignorable="d"
-        x:Name="window" Height="600" Width="880"
+        x:Name="window" Height="600" Width="950"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -17,18 +17,18 @@
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <Border Background="#0077B6"
-            CornerRadius="20">
+    <Border Background="LightGray">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid Background="#1b263b">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
                 </Grid.ColumnDefinitions>
 
                 <!--TODO: COLOCAR O LOGO NA PRIMEIRA COLUNA-->
@@ -36,35 +36,43 @@
                 <TextBlock Text="Controle Financeiro"
                            Grid.Column="0"
                            TextAlignment="Left"
-                           Margin="10 10 0 0"
+                           Margin="10 10 0 10"
                            Foreground="White"
                            FontSize="20"
                            FontWeight="Bold"/>
 
                 <!--TODO: CONTEXTMENU NÃO FUNCIONA-->
-                <Button x:Name="btnProfile"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Grid.Column="1">
-                    <Image Source="../../Resources/Images/userIcon.png" 
-                           Focusable="False"/>
-                    <Button.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem x:Name="btnEditProfile"
-                                Header="Editar Perfil"
-                                Click="btnUpdateUser_Click"/>
-                        </ContextMenu>
-                    </Button.ContextMenu>
-                </Button>
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <Button x:Name="btnProfile"
+                            Background="Transparent"
+                            BorderThickness="0 0 0 0"
+>
+                        <Image Source="../../Resources/Images/userIcon.png" 
+                               Focusable="False"/>
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="btnEditProfile"
+                                          Header="Editar Perfil"
+                                          Click="btnUpdateUser_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+
+                </StackPanel>
 
             </Grid>
 
             <DockPanel x:Name="dp" 
                        DataContext="{StaticResource vm}"
-                       Grid.Row="1"
-                       Margin="15 5 15 5">
+                       Grid.Row="1">
 
-                <ScrollViewer DockPanel.Dock="Left" VerticalScrollBarVisibility="Hidden">
+                <ScrollViewer DockPanel.Dock="Left" 
+                              VerticalScrollBarVisibility="Hidden"
+                              Background="#1b263b"
+                              BorderThickness="0 0 0 0">
                     <Grid
                       Background="Transparent">
 
@@ -73,28 +81,83 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="btnNewWallet"
-                            Content="Nova Carteira"
-                            Click="btnNewWallet_Click" 
-                            Grid.Row="0" Margin="0,0,0,11"/>
+                        <Border BorderThickness="0 0 0 1" 
+                                BorderBrush="White"
+                                Margin="0 0 5 0">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Carteiras" 
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           FontSize="18"
+                                           Foreground="White"
+                                           Margin="5 0 0 0"/>
+
+                                <Button x:Name="btnNewWallet" 
+                                        Click="btnNewWallet_Click"
+                                        Grid.Column="1" 
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Width="25">
+                                    <Image Source="../../Resources/Images/addIcon.png" 
+                                               Focusable="False" 
+                                               Stretch="Uniform"/>
+                                </Button>
+                            </Grid>
+                        </Border>
 
                         <ItemsControl x:Name="icWallets" 
-                            DockPanel.Dock="Left"
-                            Width="200"
-                            ItemsSource="{Binding Wallets}"
-                            Grid.Row="1"/>
+                                      DockPanel.Dock="Left"
+                                      Width="200"
+                                      BorderThickness="0 0 0 0"
+                                      Grid.Row="1"
+                                      ItemsSource="{Binding Wallets, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </ScrollViewer>
 
                 <Grid DockPanel.Dock="Right" 
-                      Width="650">
+                      Width="750"
+                      Background="LightGray">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
 
 
                 </Grid>
-
             </DockPanel>
+
+            <Grid DockPanel.Dock="Bottom"
+                  Grid.Row="2"
+                  Background="#1b263b">
+
+                <Button x:Name="btnClose" 
+                            Click="btnClose_Click" 
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center" 
+                            Width="55"
+                            Margin="20 0 0 0">
+                    <Image Source="../../Resources/Images/closeIcon.png" 
+                               Focusable="False" 
+                               Stretch="Uniform"/>
+                </Button>
+            </Grid>
+
         </Grid>
     </Border>
 
     <!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->
+    <!--https://coolors.co/palette/0d1b2a-1b263b-415a77-778da9-e0e1dd-->
 </Window>

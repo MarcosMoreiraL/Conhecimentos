@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Wallets"
              mc:Ignorable="d" 
-             Height="75" Width="200"  Loaded="UserControl_Loaded"
+             Height="50" Width="200"  Loaded="UserControl_Loaded"
              Margin="0 0 0 5">
     <UserControl.Resources>
         <vm:WalletItemViewModel x:Key="vm"/>
     </UserControl.Resources>
     <Border Background="{Binding Path=Background, ElementName=rbWallet, UpdateSourceTrigger=PropertyChanged}" 
-            CornerRadius="20">
+            CornerRadius="10">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -22,22 +22,22 @@
 
             <StackPanel DataContext="{StaticResource vm}" 
                     Orientation="Horizontal"
-                        Grid.Row="0">
+                    Grid.Row="0" Grid.RowSpan="2">
                 <RadioButton x:Name="rbWallet"
-                         Content="{Binding Wallet.Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}"
-                         GroupName="Wallets"
-                         Checked="RadioButton_Checked"
-                         Width="120"
-                         Height="50"
-                         Margin="20 0 0 0"
-                         Style="{StaticResource MenuRadioButtonTheme}"/>
+                    Content="{Binding Wallet.Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}"
+                    GroupName="Wallets"
+                    Checked="RadioButton_Checked"
+                    Width="120"
+                    Height="30"
+                    Margin="15 0 0 0"
+                    Style="{StaticResource MenuRadioButtonTheme}"/>
 
                 <Button x:Name="btnEditWallet"
                     Background="Transparent"
                     BorderThickness="0"
                     Width="25" 
-                    Height="50"
-                    Margin="2 0 0 0"
+                    Height="30"
+                    Margin="5 0 0 0"
                     Click="btnEditWallet_Click">
                     <Image Source="../../Resources/Images/editIcon.png" Stretch="Uniform"/>
                 </Button>
@@ -46,7 +46,7 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Width="25" 
-                    Height="50"
+                    Height="30"
                     Margin="2 0 0 0"
                     Command="{Binding DeleteCommand}">
                     <Image Source="../../Resources/Images/deleteIcon.png" Stretch="Uniform"/>

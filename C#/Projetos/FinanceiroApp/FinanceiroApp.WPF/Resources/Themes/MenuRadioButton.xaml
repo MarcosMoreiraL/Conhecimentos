@@ -12,6 +12,7 @@
                               Background="{TemplateBinding Background}">
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
+                                       Foreground="White"
                                        VerticalAlignment="Center"
                                        FontSize="20"
                                        Focusable="False"
@@ -22,16 +23,21 @@
                 </Setter.Value>
             </Setter>
 
-            <Setter Property="Background" Value="#00B4D8"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
 
         </Style.Setters>
 
         <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#415a77"/>
+            </Trigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#90E0EF"/>
+                <Setter Property="Background" Value="#415a77"/>
             </Trigger>
         </Style.Triggers>
+        
+
     </Style>
     
 </ResourceDictionary>

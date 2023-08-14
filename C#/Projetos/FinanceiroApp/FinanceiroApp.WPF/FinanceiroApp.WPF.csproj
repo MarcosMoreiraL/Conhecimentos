@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\addIcon.png" />
+    <None Remove="Resources\Images\closeIcon.png" />
     <None Remove="Resources\Images\deleteIcon.png" />
     <None Remove="Resources\Images\editIcon.png" />
     <None Remove="Resources\Images\userIcon.png" />
@@ -57,6 +59,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\addIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\closeIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\deleteIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

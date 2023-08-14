@@ -37,6 +37,7 @@ namespace FinanceiroApp.WPF.Views.Wallets
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
+            ViewModel.Saved += updated;
             ViewModel.Saved += Saved;
         }
 
