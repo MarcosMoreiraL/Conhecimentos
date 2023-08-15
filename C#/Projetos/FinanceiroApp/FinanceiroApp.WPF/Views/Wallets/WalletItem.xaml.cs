@@ -50,7 +50,7 @@ namespace FinanceiroApp.WPF.Views.Wallets
         }
 
         public void SetWallet(Wallet wallet) => ViewModel.SetWallet(wallet);
-        private void RadioButton_Checked(object sender, RoutedEventArgs e) => WalletSelected?.Invoke(sender, e);
+        private void RadioButton_Checked(object sender, RoutedEventArgs e) => WalletSelected?.Invoke(this, e);
 
         private void btnEditWallet_Click(object sender, RoutedEventArgs e)
         {

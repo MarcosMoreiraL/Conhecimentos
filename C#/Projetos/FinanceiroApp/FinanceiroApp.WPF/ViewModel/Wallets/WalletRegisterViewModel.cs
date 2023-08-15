@@ -33,7 +33,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
 
         public void SetWallet(Wallet wallet)
         {
-            this.Wallet = wallet;
+            this.Wallet = wallet.Clone();
             OnPropertyChanged(nameof(Wallet));
         }
 

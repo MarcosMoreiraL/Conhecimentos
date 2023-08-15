@@ -29,7 +29,7 @@ namespace FinanceiroApp.WPF.Views.Wallets
             InitializeComponent();
             ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
             
-            ViewModel.SetWallet(wallet.Clone());
+            ViewModel.SetWallet(wallet);
             ViewModel.Saved += Saved;
         }
 

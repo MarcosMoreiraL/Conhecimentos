@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.ViewModel;
+﻿using FinanceiroApp.Library.Exceptions;
+using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.Views.Transactions;
 using FinanceiroApp.WPF.Views.Wallets;
@@ -50,16 +51,34 @@ namespace FinanceiroApp.WPF.Views.Main
             tc.ShowDialog();
         }
 
-        private void WalletSelected(object sender, EventArgs e)
-        {
-            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
-            //transactions.LoadTransactions(walletId);
-        }
-
         private void btnNewWallet_Click(object sender, RoutedEventArgs e)
         {
             WalletRegister wr = new WalletRegister(ViewModel.Updated);
             wr.ShowDialog();
+        }
+
+        private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!ViewModel.User.Wallets.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem carteiras!");
+
+                if (!ViewModel.User.TransactionCategories.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem categorias!");
+
+                TransactionRegister tr = new TransactionRegister(ViewModel.Updated);
+                tr.ShowDialog();
+            }
+            catch (FinAppValidationException rvex)
+            {
+                MessageBox.Show(rvex.Message, "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Erro ao carregar a movimentação!", "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();

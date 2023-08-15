@@ -15,25 +15,21 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
 {
     public class TransactionItemViewModel : FinAppViewModel
     {
-        private Transaction _transaction;
-        public DeleteTransactionCommand DeleteTransactionCommand { get; set; }
+        public Transaction Transaction { get; set; }
+
+        public DeleteTransactionCommand DeleteCommand { get; set; }
         public EventHandler Updated;
-
-        public Transaction Transaction
-        {
-            get => _transaction;
-
-            set
-            {
-                _transaction = value;
-                OnPropertyChanged(nameof(Transaction));
-            }
-        }
 
         public TransactionItemViewModel()
         {
-            _transaction = new Transaction();
-            DeleteTransactionCommand = new DeleteTransactionCommand(this);
+            Transaction = new Transaction();
+            DeleteCommand = new DeleteTransactionCommand(this);
+        }
+
+        public void SetTransaction(Transaction transaction)
+        {
+            this.Transaction = transaction;
+            OnPropertyChanged(nameof(Transaction));
         }
 
         public async void DeleteTransaction()

@@ -16,6 +16,9 @@ namespace FinanceiroApp.WPF.ViewModel
 {
     public class DashboardViewModel : FinAppViewModel
     {
+        public int CurrentWalletId { get; set; } = 0;
+        public decimal Balance { get; set; } = 0m;
+
         public FinanceiroApp.Entity.Models.User User { get; set; }
         public ObservableCollection<WalletItem> Wallets { get; set; }
         public ObservableCollection<TransactionItem> Transactions { get; set; }
@@ -27,6 +30,8 @@ namespace FinanceiroApp.WPF.ViewModel
         {
             this.User = App.User;
             this.Wallets = new ObservableCollection<WalletItem>();
+            this.Transactions = new ObservableCollection<TransactionItem>();
+            WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
             UpdateWallets();
         }
@@ -34,6 +39,11 @@ namespace FinanceiroApp.WPF.ViewModel
         #region Wallets
 
         public void UpdateWalletsControl(object sender, EventArgs e) => UpdateUser();
+        private void UpdateTransactionsControl(object? sender, EventArgs e)
+        {
+            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
+            UpdateTransactions(walletId);
+        }
 
         public async void UpdateUser()
         {
@@ -43,6 +53,7 @@ namespace FinanceiroApp.WPF.ViewModel
                 OnPropertyChanged(nameof(User));
 
                 UpdateWallets();
+                UpdateTransactions();
             }
             catch (Exception ex)
             {
@@ -71,7 +82,34 @@ namespace FinanceiroApp.WPF.ViewModel
 
         #region Transactions
 
+        public void UpdateTransactions(int walletId = -1)
+        {
+            try
+            {
+                walletId = walletId == -1 ? CurrentWalletId : walletId;
 
+                Transactions.Clear();
+                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions : User.Transactions.Where(t => t.WalletId == walletId);
+
+                foreach (Transaction t in transactions)
+                    Transactions.Add(new TransactionItem(t)
+                    {
+                        Updated = Updated
+                    });
+
+                CurrentWalletId = walletId;
+
+                Balance = transactions.Sum(t => t.RealValue);
+
+                OnPropertyChanged(nameof(Transactions));
+                OnPropertyChanged(nameof(Balance));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Erro ao carregar as movimentações!", "TransactionsViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         #endregion
 
