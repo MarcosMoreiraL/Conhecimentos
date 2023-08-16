@@ -23,7 +23,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
     /// </summary>
     public partial class TransactionItem : UserControl
     {
-        TransactionItemViewModel ViewModel { get; set; }
+        public TransactionItemViewModel ViewModel { get; set; }
         public EventHandler Updated;
 
         public TransactionItem()

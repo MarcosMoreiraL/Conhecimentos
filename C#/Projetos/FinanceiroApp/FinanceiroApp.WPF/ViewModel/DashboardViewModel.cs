@@ -1,6 +1,8 @@
 ﻿using FinanceiroApp.Entity.Models;
 using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel.Base;
+using FinanceiroApp.WPF.ViewModel.Command;
+using FinanceiroApp.WPF.ViewModel.Helpers;
 using FinanceiroApp.WPF.ViewModel.Helpers.Database;
 using FinanceiroApp.WPF.Views.Transactions;
 using FinanceiroApp.WPF.Views.Wallets;
@@ -17,32 +19,30 @@ namespace FinanceiroApp.WPF.ViewModel
     public class DashboardViewModel : FinAppViewModel
     {
         public int CurrentWalletId { get; set; } = 0;
-        public decimal Balance { get; set; } = 0m;
+        public decimal DisplayedTotal { get; set; } = 0m;
+        public decimal OverallTotal { get; set; } = 0m;
+
+        public TransactionFilter Filter { get; set; }
 
         public FinanceiroApp.Entity.Models.User User { get; set; }
         public ObservableCollection<WalletItem> Wallets { get; set; }
         public ObservableCollection<TransactionItem> Transactions { get; set; }
 
+        public FilterTransactionsCommand FilterTransactionsCommand { get; set; }
         public EventHandler Updated;
         public EventHandler WalletSelected;
 
         public DashboardViewModel()
         {
             this.User = App.User;
+            this.Filter = new TransactionFilter();
             this.Wallets = new ObservableCollection<WalletItem>();
             this.Transactions = new ObservableCollection<TransactionItem>();
+            FilterTransactionsCommand = new FilterTransactionsCommand(this);
+
             WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
             UpdateWallets();
-        }
-
-        #region Wallets
-
-        public void UpdateWalletsControl(object? sender, EventArgs e) => UpdateUser();
-        private void UpdateTransactionsControl(object? sender, EventArgs e)
-        {
-            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
-            UpdateTransactions(walletId);
         }
 
         public async void UpdateUser()
@@ -62,6 +62,20 @@ namespace FinanceiroApp.WPF.ViewModel
             }
         }
 
+        public void UpdateFilters(Filter.FilterTypes type, Filter.OrderTypes order)
+        {
+            this.Filter.FilterType = type;
+            this.Filter.OrderType = order;
+        }
+
+        #region Wallets
+
+        public void UpdateWalletsControl(object? sender, EventArgs e) => UpdateUser();
+        private void UpdateTransactionsControl(object? sender, EventArgs e)
+        {
+            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
+            UpdateTransactions(walletId);
+        }
         public void UpdateWallets()
         {
             Wallets.Clear();
@@ -89,7 +103,13 @@ namespace FinanceiroApp.WPF.ViewModel
                 walletId = walletId == -1 ? CurrentWalletId : walletId;
 
                 Transactions.Clear();
-                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions : User.Transactions.Where(t => t.WalletId == walletId);
+                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions.Where(t => t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) 
+                    : User.Transactions.Where(t => t.WalletId == walletId && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End));
+
+                if (Filter.FilterType == Helpers.Filter.FilterTypes.DateTime)
+                    transactions = Filter.OrderType == Helpers.Filter.OrderTypes.Ascending ? transactions.OrderBy(t => t.DateTime) : transactions.OrderByDescending(t => t.DateTime);
+                else if (Filter.FilterType == Helpers.Filter.FilterTypes.Number)
+                    transactions = Filter.OrderType == Helpers.Filter.OrderTypes.Ascending ? transactions.OrderBy(t => t.Value) : transactions.OrderByDescending(t => t.Value);
 
                 foreach (Transaction t in transactions)
                     Transactions.Add(new TransactionItem(t)
@@ -99,10 +119,12 @@ namespace FinanceiroApp.WPF.ViewModel
 
                 CurrentWalletId = walletId;
 
-                Balance = transactions.Sum(t => t.RealValue);
+                DisplayedTotal = transactions.Sum(t => t.RealValue);
+                OverallTotal = User.Transactions.Sum(t => t.RealValue);
 
                 OnPropertyChanged(nameof(Transactions));
-                OnPropertyChanged(nameof(Balance));
+                OnPropertyChanged(nameof(DisplayedTotal));
+                OnPropertyChanged(nameof(OverallTotal));
             }
             catch (Exception ex)
             {
