@@ -39,7 +39,7 @@ namespace FinanceiroApp.WPF.Views.Main
             updateUserWindow.ShowDialog();
         }
 
-        private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
+        private void btnCategories_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
             categories.ShowDialog();

@@ -44,20 +44,19 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
 
-                    <Button x:Name="btnProfile"
-                            Background="Transparent"
-                            BorderThickness="0 0 0 0"
->
-                        <Image Source="../../Resources/Images/userIcon.png" 
-                               Focusable="False"/>
-                        <Button.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem x:Name="btnEditProfile"
+                    <RibbonMenuButton x:Name="btnProfile"
+                                      Background="Transparent"
+                                      BorderThickness="0 0 0 0" 
+                                      LargeImageSource="/Resources/Images/userIcon.png"
+                                      VerticalAlignment="Center"
+                                      Height="40">
+                        <RibbonMenuItem x:Name="btnEditProfile"
                                           Header="Editar Perfil"
                                           Click="btnUpdateUser_Click"/>
-                            </ContextMenu>
-                        </Button.ContextMenu>
-                    </Button>
+                        <RibbonMenuItem x:Name="btnCategories"
+                                          Header="Categorias"
+                                          Click="btnCategories_Click"/>
+                    </RibbonMenuButton>
 
                 </StackPanel>
 
@@ -71,8 +70,7 @@
                               VerticalScrollBarVisibility="Hidden"
                               Background="#1b263b"
                               BorderThickness="0 0 0 0">
-                    <Grid
-                      Background="Transparent">
+                    <Grid Background="Transparent">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height=".08*"/>
@@ -105,9 +103,10 @@
                                         HorizontalAlignment="Center" 
                                         VerticalAlignment="Center" 
                                         Width="25">
+                                    
                                     <Image Source="../../Resources/Images/addIcon.png" 
-                                               Focusable="False" 
-                                               Stretch="Uniform"/>
+                                           Focusable="False" 
+                                           Stretch="Uniform"/>
                                 </Button>
                             </Grid>
                         </Border>
@@ -163,19 +162,19 @@
                   Style="{StaticResource MainGridTheme}">
 
                 <Button x:Name="btnClose" 
-                            Click="btnClose_Click" 
-                            Background="Transparent"
-                            BorderThickness="0"
-                            HorizontalAlignment="Right" 
-                            VerticalAlignment="Center" 
-                            Width="55"
-                            Margin="20 0 0 0">
+                        Click="btnClose_Click" 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Width="40"
+                        Margin="20 0 0 0">
+
                     <Image Source="../../Resources/Images/closeIcon.png" 
-                               Focusable="False" 
-                               Stretch="Uniform"/>
+                           Focusable="False" 
+                           Stretch="Uniform"/>
                 </Button>
             </Grid>
-
         </Grid>
     </Border>
 </Window>

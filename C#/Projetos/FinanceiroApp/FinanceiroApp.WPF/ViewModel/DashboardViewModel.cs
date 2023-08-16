@@ -38,7 +38,7 @@ namespace FinanceiroApp.WPF.ViewModel
 
         #region Wallets
 
-        public void UpdateWalletsControl(object sender, EventArgs e) => UpdateUser();
+        public void UpdateWalletsControl(object? sender, EventArgs e) => UpdateUser();
         private void UpdateTransactionsControl(object? sender, EventArgs e)
         {
             int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).ViewModel.Wallet.Id;
