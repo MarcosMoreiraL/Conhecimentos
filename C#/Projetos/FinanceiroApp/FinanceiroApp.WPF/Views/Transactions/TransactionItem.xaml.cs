@@ -36,7 +36,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as TransactionItemViewModel ?? new TransactionItemViewModel();
-            ViewModel.Transaction = t;
+            ViewModel.SetTransaction(t);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
             ViewModel.Updated = Updated;
         }
 
-        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        private void btnEditTransaction_Click(object sender, RoutedEventArgs e)
         {
             TransactionRegister tr = new TransactionRegister(ViewModel.Transaction, ViewModel.Updated);
             tr.ShowDialog();

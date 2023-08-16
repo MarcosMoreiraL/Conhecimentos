@@ -1,4 +1,5 @@
-﻿using FinanceiroApp.WPF.ViewModel;
+﻿using FinanceiroApp.Library.Exceptions;
+using FinanceiroApp.WPF.ViewModel;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.Views.Transactions;
 using FinanceiroApp.WPF.Views.Wallets;
@@ -29,7 +30,7 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
-            wallets.WalletSelected += WalletSelected;
+            //TODO: USAR APENAS OS COMPONENTES MENORES E DEIXAR A DASHBOARD CUIDAR DE TUDO PRA NÃO EMBARALHAR OS EVENTOS
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
@@ -38,7 +39,7 @@ namespace FinanceiroApp.WPF.Views.Main
             updateUserWindow.ShowDialog();
         }
 
-        private void btnViewTransactionCategories_Click(object sender, RoutedEventArgs e)
+        private void btnCategories_Click(object sender, RoutedEventArgs e)
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
             categories.ShowDialog();
@@ -50,10 +51,36 @@ namespace FinanceiroApp.WPF.Views.Main
             tc.ShowDialog();
         }
 
-        private void WalletSelected(object sender, EventArgs e)
+        private void btnNewWallet_Click(object sender, RoutedEventArgs e)
         {
-            int walletId = (sender as WalletItem) == null ? -1 : (sender as WalletItem).Id;
-            transactions.LoadTransactions(walletId);
+            WalletRegister wr = new WalletRegister(ViewModel.Updated);
+            wr.ShowDialog();
         }
+
+        private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!ViewModel.User.Wallets.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem carteiras!");
+
+                if (!ViewModel.User.TransactionCategories.Any())
+                    throw new FinanceiroApp.Library.Exceptions.FinAppValidationException("Não é possível criar uma movimentação para um usuário sem categorias!");
+
+                TransactionRegister tr = new TransactionRegister(ViewModel.Updated);
+                tr.ShowDialog();
+            }
+            catch (FinAppValidationException rvex)
+            {
+                MessageBox.Show(rvex.Message, "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Erro ao carregar a movimentação!", "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
     }
 }

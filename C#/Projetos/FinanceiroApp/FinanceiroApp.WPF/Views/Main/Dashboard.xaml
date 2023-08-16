@@ -5,19 +5,176 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
-        xmlns:transactions="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
-        xmlns:wallets="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
         mc:Ignorable="d"
-        x:Name="window" Title="Dashboard" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        x:Name="window" Height="600" Width="950"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <DockPanel x:Name="dp" DataContext="{StaticResource vm}">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem x:Name="editUserMenuItem" Header="Editar Perfil"/>
-            <MenuItem x:Name="categoryMenuItem" Header="Categorias" Click="categoryMenuItem_Click"/>
-        </Menu>
-        <wallets:Wallets x:Name="wallets" DockPanel.Dock="Left"/>
-        <transactions:Transactions x:Name="transactions" DockPanel.Dock="Right"/>
-    </DockPanel>
+    <Border Style="{StaticResource MainBorderTheme}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid Style="{StaticResource MainGridTheme}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--TODO: COLOCAR O LOGO NA PRIMEIRA COLUNA-->
+
+                <TextBlock Text="Controle Financeiro"
+                           Grid.Column="0"
+                           TextAlignment="Left"
+                           Margin="10 10 0 10"
+                           Foreground="White"
+                           FontSize="20"
+                           FontWeight="Bold"/>
+
+                <!--TODO: CONTEXTMENU NÃO FUNCIONA-->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <RibbonMenuButton x:Name="btnProfile"
+                                      Background="Transparent"
+                                      BorderThickness="0 0 0 0" 
+                                      LargeImageSource="/Resources/Images/userIcon.png"
+                                      VerticalAlignment="Center"
+                                      Height="40">
+                        <RibbonMenuItem x:Name="btnEditProfile"
+                                          Header="Editar Perfil"
+                                          Click="btnUpdateUser_Click"/>
+                        <RibbonMenuItem x:Name="btnCategories"
+                                          Header="Categorias"
+                                          Click="btnCategories_Click"/>
+                    </RibbonMenuButton>
+
+                </StackPanel>
+
+            </Grid>
+
+            <DockPanel x:Name="dp" 
+                       DataContext="{StaticResource vm}"
+                       Grid.Row="1">
+
+                <ScrollViewer DockPanel.Dock="Left" 
+                              VerticalScrollBarVisibility="Hidden"
+                              Background="#1b263b"
+                              BorderThickness="0 0 0 0">
+                    <Grid Background="Transparent">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height=".08*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border BorderThickness="0 0 0 1" 
+                                BorderBrush="White"
+                                Margin="0 0 5 0">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Carteiras" 
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           FontSize="18"
+                                           Foreground="White"
+                                           Margin="5 0 0 0"/>
+
+                                <Button x:Name="btnNewWallet" 
+                                        Click="btnNewWallet_Click"
+                                        Grid.Column="1" 
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Width="25">
+                                    
+                                    <Image Source="../../Resources/Images/addIcon.png" 
+                                           Focusable="False" 
+                                           Stretch="Uniform"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+
+                        <ItemsControl x:Name="icWallets" 
+                                      DockPanel.Dock="Left"
+                                      Width="200"
+                                      BorderThickness="0 0 0 0"
+                                      Grid.Row="1"
+                                      ItemsSource="{Binding Wallets, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </ScrollViewer>
+
+                <Grid DockPanel.Dock="Right" 
+                      Width="750"
+                      Background="LightGray">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" 
+                          HorizontalAlignment="Right">
+                        
+                        <Button x:Name="btnNewTransaction" 
+                                Content="Nova Movimentação" 
+                                Width="150" 
+                                Click="btnNewTransaction_Click"/>
+                    </Grid>
+
+                    <Border Style="{StaticResource MainBorderTheme}"
+                            Grid.Row="1">
+                        
+                        <ListView x:Name="lvTransactions" 
+                                  Width="750" 
+                                  BorderThickness="0" 
+                                  ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  Background="Transparent"/>
+                    </Border>
+
+                    <TextBlock Text="{Binding Balance, StringFormat=C2, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged}"
+                               Grid.Row="2"
+                               FontSize="20"
+                               HorizontalAlignment="Right"/>
+                </Grid>
+            </DockPanel>
+
+            <Grid DockPanel.Dock="Bottom"
+                  Grid.Row="2"
+                  Style="{StaticResource MainGridTheme}">
+
+                <Button x:Name="btnClose" 
+                        Click="btnClose_Click" 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Width="40"
+                        Margin="20 0 0 0">
+
+                    <Image Source="../../Resources/Images/closeIcon.png" 
+                           Focusable="False" 
+                           Stretch="Uniform"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

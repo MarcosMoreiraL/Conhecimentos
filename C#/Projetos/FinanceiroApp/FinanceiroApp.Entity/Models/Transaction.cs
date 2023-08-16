@@ -33,7 +33,8 @@ namespace FinanceiroApp.Entity.Models
         public TransactionCategory Category { get; set; }
         public Wallet Wallet { get; set; }
 
-        public string DateString => DateTime.ToShortDateString();
+        public string DateString => DateTime.ToString("dd/MM/yy");
+        public decimal RealValue => Type == TransactionType.Income ? Value : -Value;
 
         public Transaction() { }
 

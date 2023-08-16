@@ -24,29 +24,8 @@ namespace FinanceiroApp.WPF.Views.Wallets
     /// </summary>
     public partial class WalletItem : UserControl
     {
-        public static readonly DependencyProperty WalletId = DependencyProperty.Register("Id", typeof(int), typeof(WalletItem));
-        public int Id
-        {
-            get { return (int)GetValue(WalletId); }
-            set { SetValue(WalletId, value); }
-        }
-
-        public static readonly DependencyProperty WalletDescription = DependencyProperty.Register("Description", typeof(string), typeof(WalletItem));
-        public string Description
-        {
-            get { return (string)GetValue(WalletDescription); }
-            set { SetValue(WalletDescription, value); }
-        }
-
-        public static readonly DependencyProperty WalletObject = DependencyProperty.Register("Wallet", typeof(Entity.Models.Wallet), typeof(WalletItem));
-        public Entity.Models.Wallet Wallet
-        {
-            get { return (Entity.Models.Wallet)GetValue(WalletObject); }
-            set { SetValue(WalletObject, value); }
-        }
-
         public WalletItemViewModel ViewModel { get; set; }
-        public EventHandler Updated;
+        public EventHandler WalletSelected;
 
         public WalletItem()
         {
@@ -54,18 +33,32 @@ namespace FinanceiroApp.WPF.Views.Wallets
             ViewModel = Resources["vm"] as WalletItemViewModel ?? new WalletItemViewModel();
         }
 
+        public WalletItem(Wallet wallet, EventHandler updated, EventHandler walletSelected)
+        {
+            InitializeComponent();
+
+            WalletSelected = walletSelected;
+
+            ViewModel = Resources["vm"] as WalletItemViewModel ?? new WalletItemViewModel();
+            ViewModel.SetWallet(wallet);
+            ViewModel.Updated = updated;
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.SetWallet(Wallet);
-            ViewModel.Updated = Updated;
-
-            btnEditWallet.Visibility = btnDeleteWallet.Visibility = Wallet.Id == 0 ? Visibility.Collapsed : Visibility.Visible;
+            btnEditWallet.Visibility = btnDeleteWallet.Visibility = ViewModel.Wallet.Id == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        public void SetWallet(Wallet wallet) => ViewModel.SetWallet(wallet);
+        private void RadioButton_Checked(object sender, RoutedEventArgs e) => WalletSelected?.Invoke(this, e);
 
         private void btnEditWallet_Click(object sender, RoutedEventArgs e)
         {
-            WalletRegister wr = new WalletRegister(Updated, Wallet);
+            WalletRegister wr = new WalletRegister(ViewModel.Wallet);
             wr.ShowDialog();
+
+            if(wr.DialogResult ?? false)
+                ViewModel.Updated.Invoke(this, new EventArgs());
         }
     }
 }

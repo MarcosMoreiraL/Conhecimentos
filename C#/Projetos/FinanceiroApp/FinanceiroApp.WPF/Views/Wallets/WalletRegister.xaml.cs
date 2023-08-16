@@ -24,24 +24,27 @@ namespace FinanceiroApp.WPF.Views.Wallets
     {
         private WalletRegisterViewModel ViewModel { get; set; }
 
-        public WalletRegister(EventHandler updated, Entity.Models.Wallet wallet)
+        public WalletRegister(Wallet wallet)
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
             
             ViewModel.SetWallet(wallet);
             ViewModel.Saved += Saved;
-            ViewModel.Saved += updated;
         }
 
         public WalletRegister(EventHandler updated)
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as WalletRegisterViewModel ?? new WalletRegisterViewModel();
-            ViewModel.Saved += Saved;
             ViewModel.Saved += updated;
+            ViewModel.Saved += Saved;
         }
 
-        public void Saved(object sender, EventArgs e) => this.Close();
+        public void Saved(object sender, EventArgs e)
+        {
+            this.DialogResult = true;
+            this.Close();
+        }
     }
 }

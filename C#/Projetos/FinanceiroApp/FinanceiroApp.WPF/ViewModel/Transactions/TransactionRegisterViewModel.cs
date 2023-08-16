@@ -30,7 +30,7 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
 
         public void SetTransaction(Transaction transaction)
         {
-            this.Transaction = transaction;
+            this.Transaction = transaction.Clone();
             OnPropertyChanged(nameof(Transaction));
         }
 

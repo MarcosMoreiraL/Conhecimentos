@@ -15,6 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\addIcon.png" />
+    <None Remove="Resources\Images\closeIcon.png" />
+    <None Remove="Resources\Images\deleteIcon.png" />
+    <None Remove="Resources\Images\editIcon.png" />
+    <None Remove="Resources\Images\userIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
     <PackageReference Include="MySql.Data" Version="8.0.32" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
@@ -48,6 +56,24 @@
 
   <ItemGroup>
     <Folder Include="Controls\Dashboard\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\addIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\closeIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\deleteIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\editIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\userIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

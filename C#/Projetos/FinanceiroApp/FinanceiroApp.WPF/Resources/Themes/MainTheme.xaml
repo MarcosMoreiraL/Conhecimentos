@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type Border}"
+           x:Key="MainBorderTheme">
+
+        <Style.Setters>
+            <Setter Property="Background" Value="LightGray"/>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type Grid}"
+           x:Key="MainGridTheme">
+
+        <Style.Setters>
+            <Setter Property="Background" Value="#1B263B"/>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type Button}"
+           x:Key="MainButtonTheme">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>
+
+<!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->
+<!--https://coolors.co/palette/0d1b2a-1b263b-415a77-778da9-e0e1dd-->
