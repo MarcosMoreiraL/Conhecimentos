@@ -58,7 +58,7 @@ namespace FinanceiroApp.WPF.ViewModel
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                MessageBox.Show("Erro ao salvar carteira!", "WalletsViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao carregar as informações do usuário!", "DashboardViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -130,7 +130,7 @@ namespace FinanceiroApp.WPF.ViewModel
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                MessageBox.Show("Erro ao carregar as movimentações!", "TransactionsViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Erro ao carregar as movimentações!", "DashboardViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
