@@ -91,22 +91,22 @@ namespace FinanceiroApp.WPF.Views.Main
                 switch (orderType)
                 {
                     case "MinValue":
-                        ViewModel.UpdateFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Ascending);
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Ascending);
                         break;
                     case "MaxValue":
-                        ViewModel.UpdateFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Descending);
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Descending);
                         break;
 
 
                     case "MinDate":
-                        ViewModel.UpdateFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Ascending);
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Ascending);
                         break;
                     case "MaxDate":
-                        ViewModel.UpdateFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Descending);
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Descending);
                         break;
 
                     default:
-                        ViewModel.UpdateFilters(Filter.FilterTypes.None, Filter.OrderTypes.Descending);
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.None, Filter.OrderTypes.Descending);
                         break;
                 }
             }
@@ -115,9 +115,7 @@ namespace FinanceiroApp.WPF.Views.Main
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ComboBox)?.SelectedValue != null && ViewModel != null)
-            {
-
-            }
+                ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, Enum.Parse<TransactionFilter.TransactionTypesFilter>((sender as ComboBox).SelectedValue.ToString() ?? "None"));
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();

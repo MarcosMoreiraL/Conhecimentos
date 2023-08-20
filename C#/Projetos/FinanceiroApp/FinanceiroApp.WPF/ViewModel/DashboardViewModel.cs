@@ -62,10 +62,11 @@ namespace FinanceiroApp.WPF.ViewModel
             }
         }
 
-        public void UpdateFilters(Filter.FilterTypes type, Filter.OrderTypes order)
+        public void UpdateTransactionFilters(Filter.FilterTypes filterType, Filter.OrderTypes order, TransactionFilter.TransactionTypesFilter transactionType = TransactionFilter.TransactionTypesFilter.None)
         {
-            this.Filter.FilterType = type;
+            this.Filter.FilterType = filterType;
             this.Filter.OrderType = order;
+            this.Filter.Type = transactionType;
         }
 
         #region Wallets
@@ -103,8 +104,8 @@ namespace FinanceiroApp.WPF.ViewModel
                 walletId = walletId == -1 ? CurrentWalletId : walletId;
 
                 Transactions.Clear();
-                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions.Where(t => t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) 
-                    : User.Transactions.Where(t => t.WalletId == walletId && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End));
+                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions.Where(t => t.DateTime >= Filter.Begin && t.DateTime <= Filter.End && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())))
+                    : User.Transactions.Where(t => t.WalletId == walletId && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())));
 
                 if (Filter.FilterType == Helpers.Filter.FilterTypes.DateTime)
                     transactions = Filter.OrderType == Helpers.Filter.OrderTypes.Ascending ? transactions.OrderBy(t => t.DateTime) : transactions.OrderByDescending(t => t.DateTime);

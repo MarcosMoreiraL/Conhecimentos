@@ -166,7 +166,8 @@
                                   Width="80"
                                   Margin="5 0 0 0"
                                   VerticalAlignment="Center"
-                                  SelectionChanged="cbType_SelectionChanged">
+                                  SelectionChanged="cbType_SelectionChanged"
+                                  SelectedValuePath="Tag">
                             <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
                             <ComboBoxItem Content="Entrada" Tag="Income"/>
                             <ComboBoxItem Content="Saída" Tag="Expense"/>

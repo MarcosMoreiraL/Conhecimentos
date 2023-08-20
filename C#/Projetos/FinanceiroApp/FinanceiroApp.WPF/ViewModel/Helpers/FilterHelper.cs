@@ -55,27 +55,35 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 
     public class TransactionFilter : Filter
     {
-        public TransactionType TransactionType { get; set; }
+        public enum TransactionTypesFilter
+        {
+            None,
+            Income,
+            Expense
+        }
+
+        public TransactionTypesFilter Type { get; set; } = TransactionTypesFilter.None;
 
         public TransactionFilter() : base()
         {
             this.Begin = DateTime.Now.AddDays(-7);
             this.End = DateTime.Now;
-            this.TransactionType = TransactionType.Income;
+            this.Type = TransactionTypesFilter.None;
             this.FilterType = Filter.FilterTypes.DateTime;
             this.OrderType = Filter.OrderTypes.Ascending;
         }
 
-        public TransactionFilter(DateTime begin, DateTime end, TransactionType type) : base(begin, end) 
+        public TransactionFilter(DateTime begin, DateTime end, TransactionTypesFilter type) : base(begin, end) 
         { 
-            this.TransactionType = type;
+            this.Type = type;
             this.FilterType = Filter.FilterTypes.DateTime;
             this.OrderType = Filter.OrderTypes.Ascending;
+            this.Type = type;
         }
 
-        public TransactionFilter(DateTime begin, DateTime end, FilterTypes filterType, OrderTypes orderType, TransactionType type) : base(begin, end, filterType, orderType)
+        public TransactionFilter(DateTime begin, DateTime end, FilterTypes filterType, OrderTypes orderType, TransactionTypesFilter type) : base(begin, end, filterType, orderType)
         {
-            this.TransactionType = type;
+            this.Type = type;
         }
     }
 }
