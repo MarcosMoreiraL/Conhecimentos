@@ -1,5 +1,6 @@
 ﻿using FinanceiroApp.Library.Exceptions;
 using FinanceiroApp.WPF.ViewModel;
+using FinanceiroApp.WPF.ViewModel.Helpers;
 using FinanceiroApp.WPF.ViewModel.Categories;
 using FinanceiroApp.WPF.Views.Transactions;
 using FinanceiroApp.WPF.Views.Wallets;
@@ -79,6 +80,42 @@ namespace FinanceiroApp.WPF.Views.Main
                 Logger.Log(ex);
                 MessageBox.Show("Erro ao carregar a movimentação!", "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void cbOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if((sender as ComboBox)?.SelectedValue != null && ViewModel != null)
+            {
+                string orderType = ((sender as ComboBox)?.SelectedValue as ComboBoxItem).Tag.ToString() ?? "None";
+
+                switch (orderType)
+                {
+                    case "MinValue":
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Ascending);
+                        break;
+                    case "MaxValue":
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.Number, Filter.OrderTypes.Descending);
+                        break;
+
+
+                    case "MinDate":
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Ascending);
+                        break;
+                    case "MaxDate":
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.DateTime, Filter.OrderTypes.Descending);
+                        break;
+
+                    default:
+                        ViewModel.UpdateTransactionFilters(Filter.FilterTypes.None, Filter.OrderTypes.Descending);
+                        break;
+                }
+            }
+        }
+
+        private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ComboBox)?.SelectedValue != null && ViewModel != null)
+                ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, Enum.Parse<TransactionFilter.TransactionTypesFilter>((sender as ComboBox).SelectedValue.ToString() ?? "None"));
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();

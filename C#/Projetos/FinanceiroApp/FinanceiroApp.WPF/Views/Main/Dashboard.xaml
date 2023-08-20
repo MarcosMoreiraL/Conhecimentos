@@ -15,7 +15,7 @@
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <Border Style="{StaticResource MainBorderTheme}">
+    <Border DataContext="{StaticResource vm}" Style="{StaticResource MainBorderTheme}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -62,8 +62,7 @@
 
             </Grid>
 
-            <DockPanel x:Name="dp" 
-                       DataContext="{StaticResource vm}"
+            <DockPanel x:Name="dp"
                        Grid.Row="1">
 
                 <ScrollViewer DockPanel.Dock="Left" 
@@ -130,15 +129,59 @@
                         <RowDefinition Height="0.1*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" 
-                          HorizontalAlignment="Right">
-                        
-                        <Button x:Name="btnNewTransaction" 
-                                Content="Nova Movimentação" 
-                                Width="150" 
-                                Click="btnNewTransaction_Click"/>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="0 0 0 0"
+                                Grid.Row="0">
 
+                        <DatePicker x:Name="dtpBegin"
+                                    SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <DatePicker x:Name="dtpEnd"
+                                    Margin=" 10 0 0 0"
+                                    SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                        <TextBlock Text="Ordenar Por" 
+                                   VerticalAlignment="Center"
+                                   FontSize="15"
+                                   Margin="10 0 0 0"/>
+
+                        <ComboBox x:Name="cbOrder" 
+                                  Width="100"
+                                  Margin="5 0 0 0"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="cbOrder_SelectionChanged">
+                            <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
+                            <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
+                            <ComboBoxItem Content="Menor Valor" Tag="MinValue"/>
+                            <ComboBoxItem Content="Maior Valor" Tag="MaxValue"/>
+                        </ComboBox>
+
+                        <TextBlock Text="Tipo" 
+                                   VerticalAlignment="Center"
+                                   FontSize="15"
+                                   Margin="10 0 0 0"/>
+
+                        <ComboBox x:Name="cbType" 
+                                  Width="80"
+                                  Margin="5 0 0 0"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="cbType_SelectionChanged"
+                                  SelectedValuePath="Tag">
+                            <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
+                            <ComboBoxItem Content="Entrada" Tag="Income"/>
+                            <ComboBoxItem Content="Saída" Tag="Expense"/>
+                        </ComboBox>
+
+                        <Button x:Name="btnFilter"
+                                Content="Pesquisar"
+                                FontSize="15"
+                                VerticalAlignment="Center"
+                                Margin="20 0 0 0"
+                                Command="{Binding FilterTransactionsCommand}"/>
+
+                    </StackPanel>
+                    
                     <Border Style="{StaticResource MainBorderTheme}"
                             Grid.Row="1">
                         
@@ -150,10 +193,26 @@
                                   Background="Transparent"/>
                     </Border>
 
-                    <TextBlock Text="{Binding Balance, StringFormat=C2, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged}"
+
+                    <Grid Grid.Row="2">
+
+                        <!--Colocar o total do que está exibido na tela e o total geral, para comparação-->
+                        <TextBlock Text="{Binding OverallTotal, StringFormat=C2, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged}"
                                Grid.Row="2"
                                FontSize="20"
-                               HorizontalAlignment="Right"/>
+                               HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="{Binding DisplayedTotal, StringFormat=C2, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged}"
+                               Grid.Row="2"
+                               FontSize="20"
+                               HorizontalAlignment="Center"/>
+
+                        <Button x:Name="btnNewTransaction" 
+                                Content="Nova Movimentação" 
+                                Width="150" 
+                                Click="btnNewTransaction_Click"
+                                HorizontalAlignment="Right"/>
+                    </Grid>
                 </Grid>
             </DockPanel>
 

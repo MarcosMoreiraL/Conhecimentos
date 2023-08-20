@@ -24,6 +24,7 @@ namespace FinanceiroApp.WPF.ViewModel.Transactions
         public TransactionRegisterViewModel()
         {
             Transaction = new Transaction();
+            this.Transaction.Type = Transaction.TransactionType.Income;
             User = App.CloneUser();
             Command = new BasicFinAppCommand(this);
         }
