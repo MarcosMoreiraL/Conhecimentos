@@ -23,6 +23,34 @@
 
         </Style.Setters>
     </Style>
+
+    <Style TargetType="{x:Type DatePicker}"
+           x:Key="MainDatePickerTheme">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBox}"
+           x:Key="MainComboboxTheme">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type RibbonMenuButton}"
+           x:Key="MainRbButtonTheme">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type RibbonMenuItem}"
+           x:Key="MainRbItemTheme">
+        <Style.Setters>
+
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>
 
 <!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->
