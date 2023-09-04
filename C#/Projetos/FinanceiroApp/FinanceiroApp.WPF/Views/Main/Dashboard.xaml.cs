@@ -119,5 +119,10 @@ namespace FinanceiroApp.WPF.Views.Main
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+
+        private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

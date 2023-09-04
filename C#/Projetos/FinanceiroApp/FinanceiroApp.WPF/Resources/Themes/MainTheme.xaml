@@ -1,56 +1,96 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="{x:Type Border}"
-           x:Key="MainBorderTheme">
+    <SolidColorBrush x:Key="mainBackgroundColor" Color="#1e1f26"/>
+    <SolidColorBrush x:Key="secondaryBackgroundColor" Color="#283655"/>
+    <SolidColorBrush x:Key="mainForegroundColor" Color="White"/>
 
+    <!--Padrão escuro-->
+    <SolidColorBrush x:Key="mainBlack" Color="#1e1f26"/>
+    <SolidColorBrush x:Key="darkBlue1" Color="#283655"/>
+    <SolidColorBrush x:Key="darkBlue2" Color="#4d648d"/>
+    <SolidColorBrush x:Key="darkBlue3" Color="#d0e1f9"/>
+    <SolidColorBrush x:Key="mainWhite" Color="#ffffff"/>
+
+
+    <!--Padrão claro-->
+    <SolidColorBrush x:Key="mainBlue" Color="#3b7dd8"/>
+    <SolidColorBrush x:Key="lightBlue1" Color="#4a91f2"/>
+    <SolidColorBrush x:Key="lightBlue2" Color="#64a1f4"/>
+    <SolidColorBrush x:Key="lightBlue3" Color="#8dbdff"/>
+    <SolidColorBrush x:Key="lightBlue4" Color="#bfd6f6"/>
+
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuRadioButtonTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Focusable="False"
+                                       Margin="5 0 0 0"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
         </Style.Setters>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource lightBlue2}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource lightBlue2}"/>
+            </Trigger>
+        </Style.Triggers>
+
     </Style>
 
-    <Style TargetType="{x:Type Grid}"
-           x:Key="MainGridTheme">
-
+    <Style TargetType="{x:Type Border}"
+           x:Key="MainBorderTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="#1B263B"/>
+            <Setter Property="Background" Value="{StaticResource mainBackgroundColor}"/>
+            <Setter Property="BorderThickness" Value="0 0 0 0"/>
         </Style.Setters>
     </Style>
 
     <Style TargetType="{x:Type Button}"
-           x:Key="MainButtonTheme">
-        <Style.Setters>
-
-        </Style.Setters>
+           x:Key="mainButtonTheme">
+        <Setter Property="Background" Value="LightBlue"/>
     </Style>
 
-    <Style TargetType="{x:Type DatePicker}"
-           x:Key="MainDatePickerTheme">
-        <Style.Setters>
-
-        </Style.Setters>
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="TextBlockStyle">
+        <Setter Property="Foreground" Value="{StaticResource mainWhite}"/>
+        <Setter Property="FontSize" Value="15"/>
     </Style>
 
-    <Style TargetType="{x:Type ComboBox}"
-           x:Key="MainComboboxTheme">
-        <Style.Setters>
-
-        </Style.Setters>
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="titleTextBlockStyle"
+           BasedOn="{StaticResource TextBlockStyle}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
-    <Style TargetType="{x:Type RibbonMenuButton}"
-           x:Key="MainRbButtonTheme">
-        <Style.Setters>
-
-        </Style.Setters>
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="subTitleTextBlockStyle"
+           BasedOn="{StaticResource TextBlockStyle}">
+        <Setter Property="FontSize" Value="18"/>
     </Style>
 
-    <Style TargetType="{x:Type RibbonMenuItem}"
-           x:Key="MainRbItemTheme">
-        <Style.Setters>
-
-        </Style.Setters>
-    </Style>
 </ResourceDictionary>
 
 <!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->

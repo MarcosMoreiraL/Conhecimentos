@@ -9,49 +9,48 @@
              Height="50" Width="750" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <vm:TransactionItemViewModel x:Key="vm"/>
+        <Style x:Key="txtValueStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="IndianRed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Transaction.Type, UpdateSourceTrigger=PropertyChanged}" Value="Expense">
+                    <Setter Property="Foreground" Value="IndianRed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Transaction.Type, UpdateSourceTrigger=PropertyChanged}" Value="Income">
+                    <Setter Property="Foreground" Value="LightGreen"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Border DataContext="{StaticResource vm}">
-        <Border.Style>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="Background" Value="Red"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Transaction.Type, UpdateSourceTrigger=PropertyChanged}" Value="Expense">
-                        <Setter Property="Background" Value="Red"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Transaction.Type, UpdateSourceTrigger=PropertyChanged}" Value="Income">
-                        <Setter Property="Background" Value="Green"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
-
         <StackPanel Orientation="Horizontal">
             <TextBlock x:Name="txtDescricao" 
                        Text="{Binding Transaction.Description}" 
                        Width="350" 
                        TextAlignment="Left" 
                        VerticalAlignment="Center" 
-                       FontSize="30"/>
-            
-            <TextBlock x:Name="txtValor" 
-                       Text="{Binding Transaction.Value, StringFormat=C2, ConverterCulture=pt-BR}" 
-                       Width="150" 
-                       TextAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       FontSize="30"/>
-            
+                       Style="{StaticResource titleTextBlockStyle}"/>
+
             <TextBlock x:Name="txtData" 
                        Text="{Binding Transaction.DateString}" 
                        Width="150" 
                        TextAlignment="Center" 
                        VerticalAlignment="Center" 
-                       FontSize="30"/>
-            
+                       Style="{StaticResource titleTextBlockStyle}"/>
+
+            <TextBlock x:Name="txtValor" 
+                       Text="{Binding Transaction.Value, StringFormat=C2, ConverterCulture=pt-BR}" 
+                       Width="150" 
+                       TextAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Style="{StaticResource txtValueStyle}"/>
+
             <Button x:Name="btnEditTransaction"
                     Background="Transparent"
                     BorderThickness="0"
-                    Width="40" 
-                    Height="40"
+                    Width="30" 
+                    Height="30"
                     HorizontalAlignment="Right"
                     Margin="10 0 0 0"
                     Click="btnEditTransaction_Click">
@@ -61,8 +60,8 @@
             <Button x:Name="btnDeleteTransaction"
                     Background="Transparent"
                     BorderThickness="0"
-                    Width="40" 
-                    Height="40"
+                    Width="30" 
+                    Height="30"
                     HorizontalAlignment="Right"
                     Margin="5 0 0 0"
                     Command="{Binding DeleteCommand}">

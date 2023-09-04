@@ -66,7 +66,7 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 
         public TransactionFilter() : base()
         {
-            this.Begin = DateTime.Now.AddDays(-7);
+            this.Begin = DateTime.Now.AddDays(-30);
             this.End = DateTime.Now;
             this.Type = TransactionTypesFilter.None;
             this.FilterType = Filter.FilterTypes.DateTime;
