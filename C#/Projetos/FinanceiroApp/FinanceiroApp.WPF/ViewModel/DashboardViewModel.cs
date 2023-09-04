@@ -27,6 +27,7 @@ namespace FinanceiroApp.WPF.ViewModel
         public FinanceiroApp.Entity.Models.User User { get; set; }
         public ObservableCollection<WalletItem> Wallets { get; set; }
         public ObservableCollection<TransactionItem> Transactions { get; set; }
+        public ObservableCollection<TransactionCategory> Categories { get; set; }
 
         public FilterTransactionsCommand FilterTransactionsCommand { get; set; }
         public EventHandler Updated;
@@ -38,11 +39,14 @@ namespace FinanceiroApp.WPF.ViewModel
             this.Filter = new TransactionFilter();
             this.Wallets = new ObservableCollection<WalletItem>();
             this.Transactions = new ObservableCollection<TransactionItem>();
+            this.Categories = new ObservableCollection<TransactionCategory>();
             FilterTransactionsCommand = new FilterTransactionsCommand(this);
 
             WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
+
             UpdateWallets();
+            UpdateCategories();
         }
 
         public async void UpdateUser()
@@ -54,6 +58,7 @@ namespace FinanceiroApp.WPF.ViewModel
 
                 UpdateWallets();
                 UpdateTransactions();
+                UpdateCategories();
             }
             catch (Exception ex)
             {
@@ -62,11 +67,26 @@ namespace FinanceiroApp.WPF.ViewModel
             }
         }
 
-        public void UpdateTransactionFilters(Filter.FilterTypes filterType, Filter.OrderTypes order, TransactionFilter.TransactionTypesFilter transactionType = TransactionFilter.TransactionTypesFilter.None)
+        public void UpdateTransactionFilters(Filter.FilterTypes filterType, Filter.OrderTypes order, TransactionFilter.TransactionTypesFilter transactionType = TransactionFilter.TransactionTypesFilter.None, int categoryId = -1)
         {
             this.Filter.FilterType = filterType;
             this.Filter.OrderType = order;
             this.Filter.Type = transactionType;
+            this.Filter.CategoryId = categoryId;
+        }
+
+        private void UpdateCategories()
+        {
+            Categories.Clear();
+            Categories.Add(new TransactionCategory()
+            {
+                Id = -1,
+                Description = "Todas",
+                UserId = User.Id
+            });
+
+            foreach (TransactionCategory category in User.TransactionCategories.OrderBy(c => c.Description))
+                Categories.Add(category);
         }
 
         #region Wallets
@@ -83,7 +103,7 @@ namespace FinanceiroApp.WPF.ViewModel
 
             Wallets.Add(new WalletItem(new Entity.Models.Wallet()
             {
-                Id = 0,
+                Id = -1,
                 Description = "Todas"
             }, Updated, WalletSelected));
 
@@ -101,11 +121,9 @@ namespace FinanceiroApp.WPF.ViewModel
         {
             try
             {
-                walletId = walletId == -1 ? CurrentWalletId : walletId;
-
                 Transactions.Clear();
-                IEnumerable<Transaction> transactions = walletId == 0 ? User.Transactions.Where(t => t.DateTime >= Filter.Begin && t.DateTime <= Filter.End && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())))
-                    : User.Transactions.Where(t => t.WalletId == walletId && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())));
+                IEnumerable<Transaction> transactions = User.Transactions.Where(t => (walletId == -1 || t.WalletId == walletId) && (Filter.CategoryId == -1 || t.CategoryId == Filter.CategoryId) 
+                && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())));
 
                 if (Filter.FilterType == Helpers.Filter.FilterTypes.DateTime)
                     transactions = Filter.OrderType == Helpers.Filter.OrderTypes.Ascending ? transactions.OrderBy(t => t.DateTime) : transactions.OrderByDescending(t => t.DateTime);

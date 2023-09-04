@@ -127,55 +127,116 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3.5*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <DatePicker x:Name="dtpBegin"
-                                    Width="110"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Grid.Column="0"
-                                    SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-                        <DatePicker x:Name="dtpEnd"
-                                    Width="110"
-                                    Margin="110 0 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Grid.Column="0"
-                                    SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-                        <TextBlock Text="Ordenar" 
+                        <StackPanel Name="spDate"
+                                    Orientation="Horizontal"
+                                    Grid.Row="0"
+                                    Grid.Column="0">
+                            
+                            <TextBlock Text="Início" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   Margin="230 0 0 0"
-                                   Grid.Column="0"
+                                   Margin="10 0 0 0"
                                    Style="{StaticResource TextBlockStyle}"/>
 
-                        <ComboBox x:Name="cbOrder" 
+                            <DatePicker x:Name="dtpBegin"
+                                    Width="110"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Margin="10 0 0 0"
+                                    SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                            <TextBlock Text="Término" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+
+                            <DatePicker x:Name="dtpEnd"
+                                    Width="110"
+                                    Margin="10 0 0 0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                            <TextBlock Text="Ordenar" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"
+                                   Style="{StaticResource TextBlockStyle}"/>
+
+                            <ComboBox x:Name="cbOrder" 
                                   Width="100"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  Margin="300 0 0 0"
-                                  Grid.Column="0"
+                                  Margin="10 0 0 0"
                                   SelectionChanged="cbOrder_SelectionChanged">
-                            <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
-                            <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
-                            <ComboBoxItem Content="Menor Valor" Tag="MinValue"/>
-                            <ComboBoxItem Content="Maior Valor" Tag="MaxValue"/>
-                        </ComboBox>
+                                <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
+                                <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
+                                <ComboBoxItem Content="Menor Valor" Tag="MinValue"/>
+                                <ComboBoxItem Content="Maior Valor" Tag="MaxValue"/>
+                            </ComboBox>
+                        </StackPanel>
 
-                        <Button x:Name="btnFilter"
+                        <StackPanel Name="spFilter"
+                                    Orientation="Horizontal"
+                                    Grid.Row="1"
+                                    Grid.Column="0">
+
+                            <TextBlock Text="Tipo" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle}"
+                                   Margin="10 0 0 0"/>
+
+                            <ComboBox x:Name="cbType" 
+                                  Width="80"
+                                  Margin="10 0 0 0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="cbType_SelectionChanged"
+                                  SelectedValuePath="Tag">
+                                <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
+                                <ComboBoxItem Content="Entrada" Tag="Income"/>
+                                <ComboBoxItem Content="Saída" Tag="Expense"/>
+                            </ComboBox>
+
+                            <TextBlock Text="Categoria" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource TextBlockStyle}"
+                                       Margin="30 0 0 0"/>
+
+                            <ComboBox x:Name="cbCategory" 
+                                  Width="160"
+                                  Margin="10 0 0 0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  SelectionChanged="cbCategory_SelectionChanged"
+                                  SelectedValuePath="Id"
+                                  DisplayMemberPath="Description"
+                                  SelectedIndex="0"
+                                  ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+                                  Grid.Column="0">
+                            </ComboBox>
+
+                            <Button x:Name="btnFilter"
                                 Content="Pesquisar"
                                 FontSize="15"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Margin="420 0 0 0"
-                                Grid.Column="0"
+                                Margin="105 0 0 0"
                                 Command="{Binding FilterTransactionsCommand}"/>
+                        </StackPanel>
 
                         <Button x:Name="btnNewTransaction" 
                                 Content="Nova Movimentação" 
@@ -196,57 +257,20 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
 
                     <Grid Grid.Row="2">
-
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.5*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Tipo" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Style="{StaticResource TextBlockStyle}"
-                                   Margin="10 0 0 0"
-                                   Width="50"/>
-
-                        <ComboBox x:Name="cbType" 
-                                  Width="80"
-                                  Margin="65,0,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  SelectionChanged="cbType_SelectionChanged"
-                                  SelectedValuePath="Tag">
-                            <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
-                            <ComboBoxItem Content="Entrada" Tag="Income"/>
-                            <ComboBoxItem Content="Saída" Tag="Expense"/>
-                        </ComboBox>
-
-                        <TextBlock Text="Categoria" 
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource TextBlockStyle}"
-                                       Margin="0,0,0,0"/>
-
-                        <ComboBox x:Name="cbCategory" 
-                                  Width="160"
-                                  Margin="300,0,0,0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  SelectionChanged="cbCategory_SelectionChanged"
-                                  SelectedValuePath="categoryId"
-                                  ItemsSource="{Binding User.TransactionCategories, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="0">
-                        </ComboBox>
-
                         <TextBlock Text="{Binding DisplayedTotal, StringFormat=Total Exibido: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
-                                   Style="{StaticResource TextBlockStyle}"
+                                   Style="{StaticResource subTitleTextBlockStyle}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    Margin="10 0 0 0"
                                    Grid.Column="1"/>
                         
                         <TextBlock Text="{Binding OverallTotal, StringFormat=Total Geral: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
-                                   Style="{StaticResource TextBlockStyle}"
+                                   Style="{StaticResource subTitleTextBlockStyle}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Margin="0 0 10 0"

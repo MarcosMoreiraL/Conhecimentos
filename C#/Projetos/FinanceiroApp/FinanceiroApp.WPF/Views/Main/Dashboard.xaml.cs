@@ -118,11 +118,12 @@ namespace FinanceiroApp.WPF.Views.Main
                 ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, Enum.Parse<TransactionFilter.TransactionTypesFilter>((sender as ComboBox).SelectedValue.ToString() ?? "None"));
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
-
         private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if ((sender as ComboBox)?.SelectedValue != null && ViewModel != null)
+                ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, ViewModel.Filter.Type, int.Parse((sender as ComboBox).SelectedValue.ToString() ?? "-1"));
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
     }
 }
