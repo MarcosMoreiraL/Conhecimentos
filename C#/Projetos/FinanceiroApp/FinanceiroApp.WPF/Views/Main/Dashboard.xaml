@@ -118,7 +118,7 @@
 
                 <Grid DockPanel.Dock="Right" 
                       Width="750"
-                      Background="{StaticResource darkBlue1}">
+                      Background="{StaticResource secondaryBackgroundColor}">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.25*"/>
@@ -250,9 +250,10 @@
 
                     <ListView x:Name="lvTransactions" 
                               Width="750" 
-                              BorderThickness="0" 
+                              BorderThickness="0 1 0 1" 
+                              BorderBrush="{StaticResource mainBackgroundColor}"
                               Grid.Row="1"
-                              Background="{StaticResource darkBlue2}"
+                              Background="{StaticResource secondaryBackgroundColor}"
                               ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}" 
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
 
