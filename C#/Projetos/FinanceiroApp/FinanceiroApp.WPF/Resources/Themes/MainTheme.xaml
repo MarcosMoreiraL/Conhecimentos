@@ -1,29 +1,87 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="{x:Type Border}"
-           x:Key="MainBorderTheme">
+    <SolidColorBrush x:Key="mainBackgroundColor" Color="#03045e"/>
+    <SolidColorBrush x:Key="secondaryBackgroundColor" Color="#0077b6"/>
+    <SolidColorBrush x:Key="mainForegroundColor" Color="#caf0f8"/>
+    <SolidColorBrush x:Key="white" Color="White"/>
 
+    <!--Paleta de cores-->
+    <SolidColorBrush x:Key="blue1" Color="#03045e"/>
+    <SolidColorBrush x:Key="blue2" Color="#0077b6"/>
+    <SolidColorBrush x:Key="blue3" Color="#00b4d8"/>
+    <SolidColorBrush x:Key="blue4" Color="#90e0ef"/>
+    <SolidColorBrush x:Key="blue5" Color="#caf0f8"/>
+
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="MenuRadioButtonTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              Background="{TemplateBinding Background}">
+
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Focusable="False"
+                                       Margin="5 0 0 0"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
         </Style.Setters>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource secondaryBackgroundColor}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource secondaryBackgroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+
     </Style>
 
-    <Style TargetType="{x:Type Grid}"
-           x:Key="MainGridTheme">
-
+    <Style TargetType="{x:Type Border}"
+           x:Key="MainBorderTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="#1B263B"/>
+            <Setter Property="Background" Value="{StaticResource mainBackgroundColor}"/>
+            <Setter Property="BorderThickness" Value="0 0 0 0"/>
         </Style.Setters>
     </Style>
 
     <Style TargetType="{x:Type Button}"
-           x:Key="MainButtonTheme">
-        <Style.Setters>
-
-        </Style.Setters>
+           x:Key="mainButtonTheme">
+        <Setter Property="Background" Value="LightBlue"/>
     </Style>
-</ResourceDictionary>
 
-<!--https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8-->
-<!--https://coolors.co/palette/0d1b2a-1b263b-415a77-778da9-e0e1dd-->
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="TextBlockStyle">
+        <Setter Property="Foreground" Value="{StaticResource mainForegroundColor}"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="titleTextBlockStyle"
+           BasedOn="{StaticResource TextBlockStyle}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="subTitleTextBlockStyle"
+           BasedOn="{StaticResource TextBlockStyle}">
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+
+</ResourceDictionary>

@@ -55,6 +55,7 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 
     public class TransactionFilter : Filter
     {
+        public int CategoryId { get; set; }
         public enum TransactionTypesFilter
         {
             None,
@@ -66,24 +67,27 @@ namespace FinanceiroApp.WPF.ViewModel.Helpers
 
         public TransactionFilter() : base()
         {
-            this.Begin = DateTime.Now.AddDays(-7);
+            this.Begin = DateTime.Now.AddDays(-30);
             this.End = DateTime.Now;
             this.Type = TransactionTypesFilter.None;
             this.FilterType = Filter.FilterTypes.DateTime;
             this.OrderType = Filter.OrderTypes.Ascending;
+            this.CategoryId = -1;
         }
 
-        public TransactionFilter(DateTime begin, DateTime end, TransactionTypesFilter type) : base(begin, end) 
-        { 
+        public TransactionFilter(DateTime begin, DateTime end, TransactionTypesFilter type, int categoryId) : base(begin, end)
+        {
             this.Type = type;
             this.FilterType = Filter.FilterTypes.DateTime;
             this.OrderType = Filter.OrderTypes.Ascending;
             this.Type = type;
+            this.CategoryId = categoryId;
         }
 
-        public TransactionFilter(DateTime begin, DateTime end, FilterTypes filterType, OrderTypes orderType, TransactionTypesFilter type) : base(begin, end, filterType, orderType)
+        public TransactionFilter(DateTime begin, DateTime end, FilterTypes filterType, OrderTypes orderType, TransactionTypesFilter type, int categoryId) : base(begin, end, filterType, orderType)
         {
             this.Type = type;
+            this.CategoryId = categoryId;
         }
     }
 }
