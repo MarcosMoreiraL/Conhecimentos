@@ -7,23 +7,23 @@
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         mc:Ignorable="d"
         x:Name="window" Height="600" Width="950"
-        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True">
+        Background="Transparent">
     <Window.Resources>
         <vm:DashboardViewModel x:Key="vm"/>
     </Window.Resources>
-    <Border DataContext="{StaticResource vm}" Style="{StaticResource MainBorderTheme}">
+    <Border DataContext="{StaticResource vm}"
+            Background="{StaticResource MaterialDesignDarkBackground}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
 
-            <Grid>
+            <Grid Background="{StaticResource PrimaryHueDarkBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="0.4*"/>
@@ -34,13 +34,20 @@
                 <TextBlock Text="Controle Financeiro"
                            Grid.Column="0"
                            TextAlignment="Left"
+                           HorizontalAlignment="Left"
                            Margin="10 10 0 10"
                            Style="{StaticResource titleTextBlockStyle}"/>
 
-                <!--TODO: CONTEXTMENU NÃO FUNCIONA-->
                 <StackPanel Grid.Column="1" 
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
+
+                    <TextBlock Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, FallbackValue=Usuario}"
+                           TextAlignment="Left"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="0 0 10 0"
+                           Style="{StaticResource titleTextBlockStyle}"/>
 
                     <RibbonMenuButton x:Name="btnProfile"
                                       Background="Transparent"
@@ -90,11 +97,10 @@
                             <Button x:Name="btnNewWallet" 
                                         Click="btnNewWallet_Click"
                                         Grid.Column="1" 
-                                        Background="Transparent"
                                         BorderThickness="0"
                                         HorizontalAlignment="Center" 
                                         VerticalAlignment="Center" 
-                                        Width="25">
+                                        Width="50">
 
                                 <Image Source="../../Resources/Images/addIcon.png" 
                                            Focusable="False" 
@@ -118,7 +124,7 @@
 
                 <Grid DockPanel.Dock="Right" 
                       Width="750"
-                      Background="{StaticResource secondaryBackgroundColor}">
+                      Background="{StaticResource MaterialDesignDarkBackground}">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.25*"/>
@@ -131,7 +137,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3.5*"/>
                             <ColumnDefinition Width="*"/>
@@ -141,7 +147,7 @@
                                     Orientation="Horizontal"
                                     Grid.Row="0"
                                     Grid.Column="0">
-                            
+
                             <TextBlock Text="Início" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
@@ -153,6 +159,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Margin="10 0 0 0"
+                                    Style="{StaticResource mainDatePickerStyle}"
                                     SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                             <TextBlock Text="Término" 
@@ -166,6 +173,7 @@
                                     Margin="10 0 0 0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
+                                    Style="{StaticResource mainDatePickerStyle}"
                                     SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                             <TextBlock Text="Ordenar" 
@@ -179,6 +187,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   Margin="10 0 0 0"
+                                  Style="{StaticResource mainComboboxStyle}"
                                   SelectionChanged="cbOrder_SelectionChanged">
                                 <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
                                 <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
@@ -203,6 +212,7 @@
                                   Margin="10 0 0 0"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
+                                  Style="{StaticResource mainComboboxStyle}"
                                   SelectionChanged="cbType_SelectionChanged"
                                   SelectedValuePath="Tag">
                                 <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
@@ -225,6 +235,7 @@
                                   SelectedValuePath="Id"
                                   DisplayMemberPath="Description"
                                   SelectedIndex="0"
+                                  Style="{StaticResource mainComboboxStyle}"
                                   ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
                                   Grid.Column="0">
                             </ComboBox>
@@ -234,16 +245,15 @@
                                 FontSize="15"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Margin="105 0 0 0"
+                                Margin="90 0 0 0"
                                 Command="{Binding FilterTransactionsCommand}"/>
                         </StackPanel>
 
                         <Button x:Name="btnNewTransaction" 
                                 Content="Nova Movimentação" 
-                                Width="150" 
-                                HorizontalAlignment="Right"
+                                Width="160" 
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Margin="10 0 0 0"
                                 Grid.Column="1"
                                 Click="btnNewTransaction_Click"/>
                     </Grid>
@@ -269,7 +279,7 @@
                                    VerticalAlignment="Center"
                                    Margin="10 0 0 0"
                                    Grid.Column="1"/>
-                        
+
                         <TextBlock Text="{Binding OverallTotal, StringFormat=Total Geral: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
                                    Style="{StaticResource subTitleTextBlockStyle}"
                                    HorizontalAlignment="Right"
@@ -281,25 +291,12 @@
             </DockPanel>
 
             <Grid DockPanel.Dock="Bottom"
-                  Grid.Row="2">
+                  Grid.Row="2"
+                  Background="{StaticResource PrimaryHueDarkBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="134*"/>
                     <ColumnDefinition Width="341*"/>
                 </Grid.ColumnDefinitions>
-
-                <Button x:Name="btnClose" 
-                        Click="btnClose_Click" 
-                        Background="Transparent"
-                        BorderThickness="0"
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Center" 
-                        Width="40"
-                        Margin="642,0,0,0" Grid.Column="1">
-
-                    <Image Source="../../Resources/Images/closeIcon.png" 
-                           Focusable="False" 
-                           Stretch="Uniform"/>
-                </Button>
             </Grid>
         </Grid>
     </Border>
