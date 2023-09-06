@@ -31,13 +31,14 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             InitializeComponent();
             ViewModel = Resources["vm"] as DashboardViewModel ?? new DashboardViewModel();
-            //TODO: USAR APENAS OS COMPONENTES MENORES E DEIXAR A DASHBOARD CUIDAR DE TUDO PRA NÃO EMBARALHAR OS EVENTOS
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
             Controls.User.UpdateUserWindow updateUserWindow = new Controls.User.UpdateUserWindow();
             updateUserWindow.ShowDialog();
+
+            ViewModel.UpdateUser();
         }
 
         private void btnCategories_Click(object sender, RoutedEventArgs e)

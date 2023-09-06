@@ -6,20 +6,53 @@
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Categories"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Categories"
         mc:Ignorable="d"
-        Title="TransactionCategoryRegister" Height="250" Width="400">
+        Title="TransactionCategoryRegister" 
+        Height="250" 
+        Width="400"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        BorderThickness="5">
     <Window.Resources>
         <ResourceDictionary>
             <vm:TransactionCategoryRegisterViewModel x:Key="vm"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
-        <TextBlock x:Name="txtTitle" Text="Nova Categoria de Movimentação" FontWeight="Bold" FontSize="23" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top" Width="380"/>
-        <StackPanel Orientation="Vertical" Margin="0,63,0,81">
-            <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="27" VerticalAlignment="Top" Width="380"/>
+    <Grid DataContext="{StaticResource vm}"
+          Background="{StaticResource MaterialDesignDarkBackground}">
 
-            <TextBlock Text="Descrição" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtDescription" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
+        <Button x:Name="btnClose"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Width="20" 
+                Height="20" 
+                Margin="0 0 0 10"
+                Click="btnClose_Click"/>
+
+        <TextBlock x:Name="txtTitle" 
+                   Text="Nova Categoria de Movimentação" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   Margin="0,20,0,0" 
+                   Style="{StaticResource titleTextBlockStyle}"/>
+        
+        <StackPanel Orientation="Vertical" 
+                    VerticalAlignment="Center"
+                    Margin="5 0 5 0">
+            <TextBlock Text="Descrição" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="txtDescription" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top"/>
         </StackPanel>
-        <Button x:Name="btnSaveCategory" Command="{Binding Command}" Content="Salvar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,172,0,0" Height="52" VerticalAlignment="Top" />
+        
+        <Button x:Name="btnSaveCategory" 
+                Command="{Binding Command}" 
+                Content="Salvar" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Width="100" 
+                Height="40" 
+                Margin="0,0,0,10" />
     </Grid>
 </Window>

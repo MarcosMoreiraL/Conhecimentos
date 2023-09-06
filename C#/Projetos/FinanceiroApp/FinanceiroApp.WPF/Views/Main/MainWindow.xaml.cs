@@ -50,5 +50,7 @@ namespace FinanceiroApp.WPF.Views.Main
         }
 
         private void Saved(object sender, EventArgs e) => SwitchToLogin(sender, e);
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
     }
 }

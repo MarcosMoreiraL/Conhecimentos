@@ -46,5 +46,7 @@ namespace FinanceiroApp.WPF.Views.Wallets
             this.DialogResult = true;
             this.Close();
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => this.Close();
     }
 }

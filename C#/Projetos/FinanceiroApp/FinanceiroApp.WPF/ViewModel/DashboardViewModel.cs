@@ -45,8 +45,7 @@ namespace FinanceiroApp.WPF.ViewModel
             WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
 
-            UpdateWallets();
-            UpdateCategories();
+            UpdateUser();
         }
 
         public async void UpdateUser()
@@ -66,7 +65,7 @@ namespace FinanceiroApp.WPF.ViewModel
                 MessageBox.Show("Erro ao carregar as informações do usuário!", "DashboardViewModel", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        //TODO: REFACTOR DA CHAMADA DESSA FUNÇÃO
         public void UpdateTransactionFilters(Filter.FilterTypes filterType, Filter.OrderTypes order, TransactionFilter.TransactionTypesFilter transactionType = TransactionFilter.TransactionTypesFilter.None, int categoryId = -1)
         {
             this.Filter.FilterType = filterType;

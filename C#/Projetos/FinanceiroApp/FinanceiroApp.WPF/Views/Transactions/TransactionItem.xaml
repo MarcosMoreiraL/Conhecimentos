@@ -26,15 +26,22 @@
     <Border DataContext="{StaticResource vm}">
         <StackPanel Orientation="Horizontal">
             <TextBlock x:Name="txtDescricao" 
-                       Text="{Binding Transaction.Description}" 
-                       Width="350" 
+                       Text="{Binding Transaction.Description, FallbackValue=Descricao}" 
+                       Width="250" 
                        TextAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Style="{StaticResource titleTextBlockStyle}"/>
+
+            <TextBlock x:Name="txtCategory" 
+                       Text="{Binding Transaction.Category.Description, FallbackValue=Categoria}" 
+                       Width="150" 
+                       TextAlignment="Center" 
                        VerticalAlignment="Center" 
                        Style="{StaticResource titleTextBlockStyle}"/>
 
             <TextBlock x:Name="txtData" 
                        Text="{Binding Transaction.DateString}" 
-                       Width="150" 
+                       Width="100" 
                        TextAlignment="Center" 
                        VerticalAlignment="Center" 
                        Style="{StaticResource titleTextBlockStyle}"/>
@@ -47,7 +54,6 @@
                        Style="{StaticResource txtValueStyle}"/>
 
             <Button x:Name="btnEditTransaction"
-                    Background="Transparent"
                     BorderThickness="0"
                     Width="30" 
                     Height="30"
@@ -58,7 +64,6 @@
             </Button>
 
             <Button x:Name="btnDeleteTransaction"
-                    Background="Transparent"
                     BorderThickness="0"
                     Width="30" 
                     Height="30"

@@ -6,35 +6,98 @@
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Transactions"
         mc:Ignorable="d"
-        Title="TransactionRegister" Height="450" Width="450">
+        Title="TransactionRegister" 
+        Height="480" 
+        Width="450"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="5">
     <Window.Resources>
         <vm:TransactionRegisterViewModel x:Key="vm"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
-        <StackPanel x:Name="spTransactions" Orientation="Vertical">
-            <TextBlock Text="Nova Movimentação" FontSize="20" HorizontalAlignment="Center"/>
+    <Grid DataContext="{StaticResource vm}"
+          Background="{StaticResource MaterialDesignDarkBackground}">
+        <Button x:Name="btnClose"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Width="20" 
+                Height="20" 
+                Margin="0 0 0 10"
+                Click="btnClose_Click"/>
 
-            <TextBlock Text="Descricao"/>
-            <TextBox x:Name="txtDescription" Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel x:Name="spTransactions" 
+                    Orientation="Vertical"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    Margin="5 0 5 0">
+            
+            <TextBlock Text="Nova Movimentação" 
+                       Style="{StaticResource titleTextBlockStyle}"
+                       HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Valor"/>
-            <TextBox x:Name="txtValue" Text="{Binding Transaction.Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Descricao" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            
+            <TextBox x:Name="txtDescription" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock Text="Data"/>
-            <DatePicker x:Name="dtpDate" SelectedDate="{Binding Transaction.DateTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Valor" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Margin="0 10 0 0"/>
+            <TextBox x:Name="txtValue" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     Text="{Binding Transaction.Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock Text="Categoria"/>
-            <ComboBox x:Name="cbCategory" ItemsSource="{Binding User.TransactionCategories}" SelectedValuePath="Id" DisplayMemberPath="Description" SelectedIndex="0" SelectedValue="{Binding Transaction.CategoryId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Data" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Margin="0 10 0 0"/>
+            <DatePicker x:Name="dtpDate" 
+                        Style="{StaticResource mainDatePickerStyle}"
+                        SelectedDate="{Binding Transaction.DateTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock Text="Carteira"/>
-            <ComboBox x:Name="cbWallet"  ItemsSource="{Binding User.Wallets}" SelectedValuePath="Id" DisplayMemberPath="Description" SelectedIndex="0" SelectedValue="{Binding Transaction.WalletId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Text="Categoria" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Margin="0 10 0 0"/>
+            <ComboBox x:Name="cbCategory" 
+                      Style="{StaticResource mainComboboxStyle}"
+                      ItemsSource="{Binding User.TransactionCategories}" 
+                      DisplayMemberPath="Description" 
+                      SelectedValuePath="Id" 
+                      SelectedIndex="0" 
+                      SelectedValue="{Binding Transaction.CategoryId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock Text="Tipo de Transacao"/>
-            <ComboBox x:Name="cbType" SelectionChanged="cbType_SelectionChanged" SelectedValuePath="Tag">
+            <TextBlock Text="Carteira" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Margin="0 10 0 0"/>
+            <ComboBox x:Name="cbWallet" 
+                      Style="{StaticResource mainComboboxStyle}"
+                      ItemsSource="{Binding User.Wallets}" 
+                      DisplayMemberPath="Description" 
+                      SelectedValuePath="Id" 
+                      SelectedIndex="0" 
+                      SelectedValue="{Binding Transaction.WalletId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+            <TextBlock Text="Tipo de Transacao" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Margin="0 10 0 0"/>
+
+            <ComboBox x:Name="cbType" 
+                      Style="{StaticResource mainComboboxStyle}"
+                      SelectionChanged="cbType_SelectionChanged" 
+                      SelectedValuePath="Tag">
                 <ComboBoxItem Content="Entrada" IsSelected="True" Tag="Income"/>
                 <ComboBoxItem Content="Saida" Tag="Expense"/>
             </ComboBox>
-            <Button x:Name="btnSave" Content="Salvar" Command="{Binding Command}" Width="100" Height="40" Margin="0 10 0 0"/>
         </StackPanel>
+        
+        <Button x:Name="btnSave" 
+                Content="Salvar" 
+                Command="{Binding Command}" 
+                Width="100" 
+                Height="40" 
+                Margin="0 0 0 10"
+                VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

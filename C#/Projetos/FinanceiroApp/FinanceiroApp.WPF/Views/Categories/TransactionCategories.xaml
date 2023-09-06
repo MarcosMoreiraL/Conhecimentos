@@ -6,24 +6,58 @@
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Categories"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Categories"
         mc:Ignorable="d"
-        Title="Categories" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Categories" 
+        Height="450" 
+        Width="400" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="5">
     <Window.Resources>
         <vm:TransactionCategoriesViewModel x:Key="vm"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
+    <Grid DataContext="{StaticResource vm}"
+          Background="{StaticResource MaterialDesignDarkBackground}">
         <Grid.Resources>
             <DataTemplate x:Key="ColumnOptions">
-                <StackPanel Orientation="Horizontal" Width="120">
-                    <Button Name="btnEdit" Content="Editar" Click="btnEdit_Click" Width="60"/>
-                    <Button Name="btnDelete" Content="Excluir" Click="btnDelete_Click" Width="60"/>
+                <StackPanel Orientation="Horizontal" 
+                            Width="120">
+                    <Button Name="btnEdit" 
+                            Click="btnEdit_Click" 
+                            Width="30"
+                            Margin="0 0 5 0"/>
+
+                    <Button Name="btnDelete" 
+                            Click="btnDelete_Click" 
+                            Width="30"/>
                 </StackPanel>
             </DataTemplate>
         </Grid.Resources>
-        <Button x:Name="btnNewTransactionCategory" Content="Nova Categoria" Click="btnNewTransactionCategory_Click" HorizontalAlignment="Left" Margin="10,10,0,385" Width="108"/>
-        <DataGrid x:Name="dgCategories" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,54,10,10" MouseDoubleClick="dgCategories_MouseDoubleClick">
+
+        <Button x:Name="btnClose"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Width="20" 
+                Height="20" 
+                Margin="0 0 0 10"
+                Click="btnClose_Click"/>
+
+        <Button x:Name="btnNewTransactionCategory" 
+                Content="Nova Categoria" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Margin="10 10 0 0"
+                Width="130"
+                Click="btnNewTransactionCategory_Click"/>
+        
+        <DataGrid x:Name="dgCategories" 
+                  ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,54,10,10" MouseDoubleClick="dgCategories_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nome" Width="*" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTemplateColumn Width="120" CellTemplate="{StaticResource ColumnOptions}"/>
+                <DataGridTextColumn Header="Nome" 
+                                    Width="*" 
+                                    Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Width="120" 
+                                        CellTemplate="{StaticResource ColumnOptions}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

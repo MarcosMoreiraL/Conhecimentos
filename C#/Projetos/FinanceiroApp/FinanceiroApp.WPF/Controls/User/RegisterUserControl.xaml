@@ -6,26 +6,71 @@
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Controls.User"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.User"
              mc:Ignorable="d" 
-             Height="430" Width="400" d:Height="430" d:Width="400">
+             Height="430" 
+             Width="400">
     <UserControl.Resources>
         <vm:RegisterViewModel x:Key="vm"/>
     </UserControl.Resources>
-    <Grid x:Name="gridRegister" DataContext="{StaticResource vm}">
-        <Button x:Name="btnVoltar" Content="Voltar" FontSize="15" Margin="10,10,328,0" Height="48" VerticalAlignment="Top" Click="btnVoltar_Click"/>
-        <TextBlock x:Name="txtTitle" Text="Registrar" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Margin="0,22,0,0" Height="36" VerticalAlignment="Top"/>
-        <StackPanel Orientation="Vertical" Margin="0,63,0,87">
-            <TextBlock Text="Nome de Usuário" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtUsername" Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
+    <Grid x:Name="gridRegister" 
+          DataContext="{StaticResource vm}">
+        
+        <Button x:Name="btnVoltar" 
+                Width="50"
+                Height="30" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" 
+                Margin="10 10 0 0"
+                Click="btnVoltar_Click"/>
+        
+        <TextBlock x:Name="txtTitle" 
+                   Text="Registrar" 
+                   Style="{StaticResource titleTextBlockStyle}"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   Margin="0,20,0,0" />
+        
+        <StackPanel Orientation="Vertical" 
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 50">
+            
+            <TextBlock Text="Nome de Usuário" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            
+            <TextBox x:Name="txtUsername" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock Text="Email" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtEmailRegister" Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"  Width="380" Height="28" VerticalAlignment="Top"/>
+            <TextBlock Text="Email" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            
+            <TextBox x:Name="txtEmailRegister" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            <TextBlock x:Name="tbNewPassword" Text="Senha" FontSize="15" Height="27"/>
-            <PasswordBox x:Name="txtNewPassword" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top" PasswordChanged="txtNewPassword_PasswordChanged"/>
+            <TextBlock x:Name="tbNewPassword" 
+                       Text="Senha" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            
+            <PasswordBox x:Name="txtNewPassword" 
+                         Style="{StaticResource mainPasswordBoxStyle}"
+                         PasswordChanged="txtNewPassword_PasswordChanged"/>
 
-            <TextBlock x:Name="tbConfirmPassword" Text="Confirmação de Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="txtConfirmPassword" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top" PasswordChanged="txtConfirmPassword_PasswordChanged"/>
+            <TextBlock x:Name="tbConfirmPassword" 
+                       Text="Confirmação de Senha" 
+                       Style="{StaticResource TextBlockStyle}"/>
+            
+            <PasswordBox x:Name="txtConfirmPassword" 
+                         Style="{StaticResource mainPasswordBoxStyle}"
+                         PasswordChanged="txtConfirmPassword_PasswordChanged"/>
         </StackPanel>
-        <Button x:Name="btnRegister" Command="{Binding Command}" Content="Cadastrar" FontSize="15" HorizontalAlignment="Center" Width="150" Margin="0,352,0,0" Height="52" VerticalAlignment="Top" />
+        
+        <Button x:Name="btnRegister" 
+                Command="{Binding Command}" 
+                Content="Cadastrar" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Width="150" 
+                Height="40" 
+                Margin="0 0 0 50"/>
     </Grid>
 </UserControl>
