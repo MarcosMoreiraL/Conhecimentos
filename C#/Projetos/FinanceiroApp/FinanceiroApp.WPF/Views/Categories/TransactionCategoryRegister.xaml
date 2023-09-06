@@ -11,6 +11,7 @@
         Width="400"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         BorderThickness="5">
     <Window.Resources>
         <ResourceDictionary>

@@ -52,6 +52,7 @@
                      Height="28" 
                      Text="{Binding Wallet.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         </StackPanel>
+        
         <Button x:Name="btnSaveWallet"
                 Content="Salvar" 
                 HorizontalAlignment="Center" 

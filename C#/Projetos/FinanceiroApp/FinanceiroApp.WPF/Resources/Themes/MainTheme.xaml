@@ -100,4 +100,16 @@
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignDarkForeground}"/>
     </Style>
 
+    <Style TargetType="{x:Type PasswordBox}"
+           BasedOn="{StaticResource MaterialDesignPasswordBox}"
+           x:Key="mainPasswordBoxStyle">
+        <Setter Property="Foreground" Value="{StaticResource MaterialDesignDarkForeground}"/>
+    </Style>
+
+    <Style TargetType="{x:Type CheckBox}"
+           BasedOn="{StaticResource MaterialDesignCheckBox}"
+           x:Key="mainCheckBoxStyle">
+        <Setter Property="Foreground" Value="{StaticResource MaterialDesignDarkForeground}"/>
+    </Style>
+
 </ResourceDictionary>

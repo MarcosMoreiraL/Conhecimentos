@@ -6,27 +6,71 @@
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.User"
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Controls.User"
              mc:Ignorable="d" 
-             Height="430" Width="400" d:Height="430" d:Width="400">
+             Height="430" 
+             Width="400">
     <UserControl.Resources>
         <vm:LoginViewModel x:Key="vm"/>
     </UserControl.Resources>
-    <Grid x:Name="gridLogin" DataContext="{StaticResource vm}">
-        <TextBlock Text="Login" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top"/>
-        <StackPanel Orientation="Vertical" Margin="0,48,0,124">
-            <TextBlock x:Name="txtErrors" FontSize="15" Foreground="Red" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Height="34" Width="380"/>
+    <Grid x:Name="gridLogin" 
+          DataContext="{StaticResource vm}">
+        <TextBlock Text="Login" 
+                   Style="{StaticResource titleTextBlockStyle}"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   Margin="0 10 0 0"/>
+        
+        <StackPanel Orientation="Vertical" 
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 180">
+            
+            <TextBlock x:Name="txtErrors" 
+                       FontSize="15" 
+                       Foreground="Red" 
+                       TextAlignment="Center" 
+                       Visibility="Collapsed" 
+                       HorizontalAlignment="Center" 
+                       Height="34" 
+                       Width="380"/>
 
-            <TextBlock Text="Email" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtEmail" Text="{Binding User.Email}" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top" KeyDown="txtEmail_KeyDown"/>
+            <TextBlock Text="Email" 
+                       Style="{StaticResource TextBlockStyle}"
+                       HorizontalAlignment="Left"  
+                       VerticalAlignment="Top"/>
+            
+            <TextBox x:Name="txtEmail" 
+                     Text="{Binding User.Email}" 
+                     Style="{StaticResource mainTextBoxStyle}"
+                     KeyDown="txtEmail_KeyDown"/>
 
-            <TextBlock Text="Senha" FontSize="15" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="txtPassword" PasswordChanged="txtPassword_PasswordChanged" HorizontalAlignment="Center" Width="380" Height="28" VerticalAlignment="Top">
+            <TextBlock Text="Senha" 
+                       Style="{StaticResource TextBlockStyle}"
+                       Height="27" />
+            
+            <PasswordBox x:Name="txtPassword" 
+                         PasswordChanged="txtPassword_PasswordChanged" 
+                         Style="{StaticResource mainPasswordBoxStyle}">
                 <PasswordBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding Command}"/>
                 </PasswordBox.InputBindings>
             </PasswordBox>
         </StackPanel>
 
-        <Button Name="btnRegisterMode" Content="Registrar" FontSize="15" HorizontalAlignment="Center" Margin="0,347,0,0" Width="66" Height="27" VerticalAlignment="Top" Click="btnRegisterMode_Click"/>
-        <Button Name="btnLogin" Command="{Binding Command}" Content="Login" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Height="52" Margin="0,277,0,0" Width="150" />
+        <Button Name="btnLogin" 
+                Content="Login" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom" 
+                Height="40" 
+                Width="150" 
+                Margin="0 0 0 100"
+                Command="{Binding Command}" />
+
+        <Button Name="btnRegisterMode" 
+                Content="Registrar" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                Width="100" 
+                Height="30" 
+                Margin="0 0 0 50"
+                Click="btnRegisterMode_Click"/>
     </Grid>
 </UserControl>

@@ -8,14 +8,29 @@
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         mc:Ignorable="d"
-        Title="Login" Height="440" Width="410" d:Height="440" d:Width="410" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Login" 
+        Height="440" 
+        Width="410" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
     <Window.Resources>
         <vm:MainWindowViewModel x:Key="vm"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
+    <Grid DataContext="{StaticResource vm}"
+          Background="{StaticResource MaterialDesignDarkBackground}">
         <Grid.Resources>
             <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         </Grid.Resources>
+
+        <Button x:Name="btnClose"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Width="20" 
+                Height="20" 
+                Margin="0 0 0 10"
+                Click="btnClose_Click"/>
+
         <userControls:LoginControl x:Name="loginControl" Visibility="Visible"/>
         <userControls:RegisterUserControl x:Name="registerControl" Visibility="Collapsed"/>
     </Grid>

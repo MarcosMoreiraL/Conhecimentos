@@ -45,8 +45,7 @@ namespace FinanceiroApp.WPF.ViewModel
             WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
 
-            UpdateWallets();
-            UpdateCategories();
+            UpdateUser();
         }
 
         public async void UpdateUser()

@@ -41,5 +41,7 @@ namespace FinanceiroApp.WPF.Controls.User
             txtCurPassword.Password = string.Empty;
             txtNewPassword.Password = string.Empty;
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => this.Close();
     }
 }
