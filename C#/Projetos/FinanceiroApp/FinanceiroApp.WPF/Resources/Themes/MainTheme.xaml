@@ -94,4 +94,10 @@
         <Setter Property="Foreground" Value="{StaticResource MaterialDesignDarkForeground}"/>
     </Style>
 
+    <Style TargetType="{x:Type TextBox}"
+           BasedOn="{StaticResource MaterialDesignTextBox}"
+           x:Key="mainTextBoxStyle">
+        <Setter Property="Foreground" Value="{StaticResource MaterialDesignDarkForeground}"/>
+    </Style>
+
 </ResourceDictionary>

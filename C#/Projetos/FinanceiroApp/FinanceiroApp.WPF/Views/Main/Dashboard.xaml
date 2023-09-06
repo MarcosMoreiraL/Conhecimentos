@@ -61,6 +61,9 @@
                         <RibbonMenuItem x:Name="btnCategories"
                                           Header="Categorias"
                                           Click="btnCategories_Click"/>
+                        <RibbonMenuItem x:Name="btnClose"
+                                          Header="Fechar"
+                                          Click="btnClose_Click"/>
                     </RibbonMenuButton>
 
                 </StackPanel>

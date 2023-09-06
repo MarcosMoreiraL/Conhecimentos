@@ -50,5 +50,7 @@ namespace FinanceiroApp.WPF.Views.Transactions
         }
 
         private void Saved(object sender, EventArgs e) => this.Close();
+
+        private void btnClose_Click(object sender, RoutedEventArgs e) => this.Close();
     }
 }
