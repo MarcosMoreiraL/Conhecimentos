@@ -72,9 +72,6 @@ namespace FinanceiroApp.WPF.Views.Categories
                 ViewModel.DeleteCategory(((sender as Button).DataContext as TransactionCategory).Id);
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void btnClose_Click(object sender, RoutedEventArgs e) => this.Close();
     }
 }
