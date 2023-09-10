@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Main"
         xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel"
         mc:Ignorable="d"
-        x:Name="window" Height="600" Width="950"
+        x:Name="window" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -26,7 +27,7 @@
             <Grid Background="{StaticResource PrimaryHueDarkBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
                 <!--TODO: COLOCAR O LOGO NA PRIMEIRA COLUNA-->
@@ -43,11 +44,11 @@
                             HorizontalAlignment="Right">
 
                     <TextBlock Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, FallbackValue=Usuario}"
-                           TextAlignment="Left"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="0 0 10 0"
-                           Style="{StaticResource titleTextBlockStyle}"/>
+                               TextAlignment="Left"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="0 0 10 0"
+                               Style="{StaticResource titleTextBlockStyle}"/>
 
                     <RibbonMenuButton x:Name="btnProfile"
                                       Background="Transparent"
@@ -58,9 +59,6 @@
                         <RibbonMenuItem x:Name="btnEditProfile"
                                           Header="Editar Perfil"
                                           Click="btnUpdateUser_Click"/>
-                        <RibbonMenuItem x:Name="btnCategories"
-                                          Header="Categorias"
-                                          Click="btnCategories_Click"/>
                         <RibbonMenuItem x:Name="btnClose"
                                           Header="Fechar"
                                           Click="btnClose_Click"/>
@@ -81,8 +79,7 @@
                     </Grid.RowDefinitions>
 
                     <Border BorderThickness="0 0 0 1" 
-                                BorderBrush="White"
-                                Margin="0 0 5 0">
+                            BorderBrush="White">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -91,31 +88,29 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Text="Carteiras" 
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           Style="{StaticResource subTitleTextBlockStyle}"
-                                           Margin="5 0 0 0"/>
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Style="{StaticResource subTitleTextBlockStyle}"
+                                       Margin="5 0 0 0"/>
 
                             <Button x:Name="btnNewWallet" 
-                                        Click="btnNewWallet_Click"
-                                        Grid.Column="1" 
-                                        BorderThickness="0"
-                                        HorizontalAlignment="Center" 
-                                        VerticalAlignment="Center" 
-                                        Width="50">
-
-                                <Image Source="../../Resources/Images/addIcon.png" 
-                                           Focusable="False" 
-                                           Stretch="Uniform"/>
+                                    Content="{materialIcons:MaterialIconExt Kind=WalletAdd,Size=20}"
+                                    Grid.Column="1" 
+                                    BorderThickness="0"
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Center" 
+                                    Width="50"
+                                    Margin="0 0 5 0"
+                                    Click="btnNewWallet_Click">
                             </Button>
                         </Grid>
                     </Border>
 
                     <ScrollViewer DockPanel.Dock="Left" 
-                              VerticalScrollBarVisibility="Hidden"
-                              BorderThickness="0 0 0 0"
-                              Grid.Row="1">
+                                  VerticalScrollBarVisibility="Hidden"
+                                  BorderThickness="0 0 0 0"
+                                  Grid.Row="1">
                         <ItemsControl x:Name="icWallets" 
                                       DockPanel.Dock="Left"
                                       Width="200"
@@ -125,180 +120,203 @@
                     </ScrollViewer>
                 </Grid>
 
-                <Grid DockPanel.Dock="Right" 
-                      Width="750"
-                      Background="{StaticResource MaterialDesignDarkBackground}">
+                <Border DockPanel.Dock="Right"
+                        BorderBrush="White"
+                        BorderThickness="1 0 0 0">
+                    
+                    <Grid Background="{StaticResource MaterialDesignDarkBackground}">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.25*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.15*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="0.25*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.15*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3.5*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="0"
+                                BorderBrush="White"
+                                BorderThickness="0 0 0 1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                        <StackPanel Name="spDate"
-                                    Orientation="Horizontal"
-                                    Grid.Row="0"
-                                    Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width=".15*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Início" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="10 0 0 0"
-                                   Style="{StaticResource TextBlockStyle}"/>
+                                <StackPanel Name="spDate"
+                                            Orientation="Horizontal"
+                                            Grid.Row="0"
+                                            Grid.Column="0">
 
-                            <DatePicker x:Name="dtpBegin"
-                                    Width="110"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Margin="10 0 0 0"
-                                    Style="{StaticResource mainDatePickerStyle}"
-                                    SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    <TextBlock Text="Início" 
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="10 0 0 0"
+                                               Style="{StaticResource TextBlockStyle}"/>
 
-                            <TextBlock Text="Término" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="30 0 0 0"
-                                   Style="{StaticResource TextBlockStyle}"/>
+                                    <DatePicker x:Name="dtpBegin"
+                                                Width="110"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="10 0 0 0"
+                                                Style="{StaticResource mainDatePickerStyle}"
+                                                SelectedDate="{Binding Filter.Begin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                            <DatePicker x:Name="dtpEnd"
-                                    Width="110"
-                                    Margin="10 0 0 0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource mainDatePickerStyle}"
-                                    SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    <TextBlock Text="Término" 
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="30 0 0 0"
+                                               Style="{StaticResource TextBlockStyle}"/>
 
-                            <TextBlock Text="Ordenar" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="30 0 0 0"
-                                   Style="{StaticResource TextBlockStyle}"/>
+                                    <DatePicker x:Name="dtpEnd"
+                                                Width="110"
+                                                Margin="10 0 0 0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource mainDatePickerStyle}"
+                                                SelectedDate="{Binding Filter.End, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                            <ComboBox x:Name="cbOrder" 
-                                  Width="100"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  Margin="10 0 0 0"
-                                  Style="{StaticResource mainComboboxStyle}"
-                                  SelectionChanged="cbOrder_SelectionChanged">
-                                <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
-                                <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
-                                <ComboBoxItem Content="Menor Valor" Tag="MinValue"/>
-                                <ComboBoxItem Content="Maior Valor" Tag="MaxValue"/>
-                            </ComboBox>
-                        </StackPanel>
+                                    <TextBlock Text="Ordenar" 
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="30 0 0 0"
+                                               Style="{StaticResource TextBlockStyle}"/>
 
-                        <StackPanel Name="spFilter"
-                                    Orientation="Horizontal"
-                                    Grid.Row="1"
-                                    Grid.Column="0">
+                                    <ComboBox x:Name="cbOrder" 
+                                              Width="100"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Margin="10 0 0 0"
+                                              Style="{StaticResource mainComboboxStyle}"
+                                              SelectionChanged="cbOrder_SelectionChanged">
+                                        <ComboBoxItem Content="Menor Data" Tag="MinDate" IsSelected="True"/>
+                                        <ComboBoxItem Content="Maior Data" Tag="MaxDate"/>
+                                        <ComboBoxItem Content="Menor Valor" Tag="MinValue"/>
+                                        <ComboBoxItem Content="Maior Valor" Tag="MaxValue"/>
+                                    </ComboBox>
+                                </StackPanel>
 
-                            <TextBlock Text="Tipo" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Style="{StaticResource TextBlockStyle}"
-                                   Margin="10 0 0 0"/>
+                                <StackPanel Name="spFilter"
+                                            Orientation="Horizontal"
+                                            Grid.Row="1"
+                                            Grid.Column="0">
 
-                            <ComboBox x:Name="cbType" 
-                                  Width="80"
-                                  Margin="10 0 0 0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  Style="{StaticResource mainComboboxStyle}"
-                                  SelectionChanged="cbType_SelectionChanged"
-                                  SelectedValuePath="Tag">
-                                <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
-                                <ComboBoxItem Content="Entrada" Tag="Income"/>
-                                <ComboBoxItem Content="Saída" Tag="Expense"/>
-                            </ComboBox>
+                                    <TextBlock Text="Tipo" 
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource TextBlockStyle}"
+                                               Margin="10 0 0 0"/>
 
-                            <TextBlock Text="Categoria" 
+                                    <ComboBox x:Name="cbType" 
+                                              Width="80"
+                                              Margin="10 0 0 0"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Style="{StaticResource mainComboboxStyle}"
+                                              SelectionChanged="cbType_SelectionChanged"
+                                              SelectedValuePath="Tag">
+                                        <ComboBoxItem Content="Todos" Tag="None" IsSelected="True"/>
+                                        <ComboBoxItem Content="Entrada" Tag="Income"/>
+                                        <ComboBoxItem Content="Saída" Tag="Expense"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="Categoria" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource TextBlockStyle}"
+                                               Margin="30 0 0 0"/>
+
+                                    <ComboBox x:Name="cbCategory" 
+                                              Width="160"
+                                              Margin="10 0 0 0"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              SelectionChanged="cbCategory_SelectionChanged"
+                                              SelectedValuePath="Id"
+                                              DisplayMemberPath="Description"
+                                              SelectedIndex="0"
+                                              Style="{StaticResource mainComboboxStyle}"
+                                              ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+                                              Grid.Column="0">
+                                    </ComboBox>
+
+                                    <Button x:Name="btnCategories"
+                                            Content="{materialIcons:MaterialIconExt Kind=Folder, Size=15}"
+                                            Width="50"
+                                            Margin="15 0 0 0"
+                                            Click="btnCategories_Click"/>
+
+                                    <Button x:Name="btnFilter"
+                                            Content="{materialIcons:MaterialIconExt Kind=Search,Size=25}"
+                                            Width="100"
+                                            Margin="50 0 0 0"
+                                            Command="{Binding FilterTransactionsCommand}"/>
+                                </StackPanel>
+
+                                <Button x:Name="btnNewTransaction" 
+                                        Content="{materialIcons:MaterialIconExt Kind=AttachMoney,Size=25}" 
+                                        Width="80" 
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 5 0"
+                                        Grid.Column="1"
+                                        Click="btnNewTransaction_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <ListView x:Name="lvTransactions"
+                                  BorderThickness="0 1 0 1" 
+                                  BorderBrush="{StaticResource mainBackgroundColor}"
+                                  Grid.Row="1"
+                                  MouseDoubleClick="lvTransactions_MouseDoubleClick"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  Background="{StaticResource secondaryBackgroundColor}"
+                                  ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding DisplayedTotal, StringFormat=Total Exibido: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
+                                       Style="{StaticResource subTitleTextBlockStyle}"
+                                       ToolTip="Total das movimentações exibidas na tela"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10 0 0 0"
+                                       Grid.Column="1"/>
+
+                            <TextBlock Text="{Binding WalletTotal, StringFormat=Saldo da Carteira: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
+                                       Style="{StaticResource subTitleTextBlockStyle}"
+                                       ToolTip="Total das movimentações exibidas na tela"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       Style="{StaticResource TextBlockStyle}"
-                                       Margin="30 0 0 0"/>
+                                       Margin="10 0 0 0"
+                                       Grid.Column="1"/>
 
-                            <ComboBox x:Name="cbCategory" 
-                                  Width="160"
-                                  Margin="10 0 0 0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  SelectionChanged="cbCategory_SelectionChanged"
-                                  SelectedValuePath="Id"
-                                  DisplayMemberPath="Description"
-                                  SelectedIndex="0"
-                                  Style="{StaticResource mainComboboxStyle}"
-                                  ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="0">
-                            </ComboBox>
-
-                            <Button x:Name="btnFilter"
-                                Content="Pesquisar"
-                                FontSize="15"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="90 0 0 0"
-                                Command="{Binding FilterTransactionsCommand}"/>
-                        </StackPanel>
-
-                        <Button x:Name="btnNewTransaction" 
-                                Content="Nova Movimentação" 
-                                Width="160" 
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Grid.Column="1"
-                                Click="btnNewTransaction_Click"/>
+                            <TextBlock Text="{Binding OverallTotal, StringFormat=Saldo Geral: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
+                                       Style="{StaticResource subTitleTextBlockStyle}"
+                                       ToolTip="Total de todas as movimentações do usuário"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Margin="0 0 10 0"
+                                       Grid.Column="1"/>
+                        </Grid>
                     </Grid>
-
-                    <ListView x:Name="lvTransactions" 
-                              Width="750" 
-                              BorderThickness="0 1 0 1" 
-                              BorderBrush="{StaticResource mainBackgroundColor}"
-                              Grid.Row="1"
-                              Background="{StaticResource secondaryBackgroundColor}"
-                              ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="1.5*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{Binding DisplayedTotal, StringFormat=Total Exibido: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
-                                   Style="{StaticResource subTitleTextBlockStyle}"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Margin="10 0 0 0"
-                                   Grid.Column="1"/>
-
-                        <TextBlock Text="{Binding OverallTotal, StringFormat=Total Geral: \{0:C2\}, ConverterCulture=pt-BR, UpdateSourceTrigger=PropertyChanged, FallbackValue=R$ 0\,00}"
-                                   Style="{StaticResource subTitleTextBlockStyle}"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Margin="0 0 10 0"
-                                   Grid.Column="1"/>
-                    </Grid>
-                </Grid>
+                </Border>
             </DockPanel>
 
             <Grid DockPanel.Dock="Bottom"
                   Grid.Row="2"
                   Background="{StaticResource PrimaryHueDarkBrush}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="134*"/>
-                    <ColumnDefinition Width="341*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
         </Grid>

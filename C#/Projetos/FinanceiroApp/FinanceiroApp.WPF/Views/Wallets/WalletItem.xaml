@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Wallets"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Wallets"
              mc:Ignorable="d" 
@@ -27,31 +28,26 @@
                     Content="{Binding Wallet.Description, UpdateSourceTrigger=PropertyChanged, FallbackValue=Carteira}"
                     GroupName="Wallets"
                     Checked="RadioButton_Checked"
-                    Width="120"
+                    Width="105"
                     Height="30"
-                    Margin="15 0 0 0"
+                    Margin="5 0 0 0"
                     Style="{StaticResource MenuRadioButtonTheme}"/>
 
                 <Button x:Name="btnEditWallet"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Width="25" 
-                    Height="30"
+                    Content="{materialIcons:MaterialIconExt Kind=Edit, Size=10}"
+                    Width="40" 
+                    Height="40"
                     Margin="5 0 0 0"
                     Click="btnEditWallet_Click">
-                    <Image Source="../../Resources/Images/editIcon.png" Stretch="Uniform"/>
                 </Button>
 
                 <Button x:Name="btnDeleteWallet"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Width="25" 
-                    Height="30"
+                    Content="{materialIcons:MaterialIconExt Kind=Delete, Size=10}"
+                    Width="40" 
+                    Height="40"
                     Margin="2 0 0 0"
                     Command="{Binding DeleteCommand}">
-                    <Image Source="../../Resources/Images/deleteIcon.png" Stretch="Uniform"/>
                 </Button>
-
             </StackPanel>
         </Grid>
     </Border>

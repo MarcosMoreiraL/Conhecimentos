@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Controls.User"
              xmlns:converter="clr-namespace:FinanceiroApp.WPF.Converter"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.User"
@@ -24,11 +25,12 @@
         </Grid.Resources>
 
         <Button x:Name="btnClose"
+                Content="{materialIcons:MaterialIconExt Kind=Close}"
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Top"
-                Width="20" 
-                Height="20" 
-                Margin="0 0 0 10"
+                Width="50" 
+                Height="30" 
+                Margin="0 5 5 0"
                 Click="btnClose_Click"/>
 
         <TextBlock x:Name="txtTitle" 
@@ -89,10 +91,11 @@
         </StackPanel>
         
         <Button x:Name="btnUndoChanges" 
+                Content="{materialIcons:MaterialIconExt Kind=Undo}"
                 Margin="10 0 0 10" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom"
-                Width="30" 
+                Width="50" 
                 Height="30" 
                 Click="btnUndoChanges_Click" 
                 Command="{Binding UndoChangesCommand}"/>
