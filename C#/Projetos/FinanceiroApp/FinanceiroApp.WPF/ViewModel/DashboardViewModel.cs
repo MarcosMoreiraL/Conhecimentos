@@ -19,7 +19,9 @@ namespace FinanceiroApp.WPF.ViewModel
     public class DashboardViewModel : FinAppViewModel
     {
         public int CurrentWalletId { get; set; } = 0;
+        public int CurrentCategoryId { get; set; } = 0;
         public decimal DisplayedTotal { get; set; } = 0m;
+        public decimal WalletTotal { get; set; } = 0m;
         public decimal OverallTotal { get; set; } = 0m;
 
         public TransactionFilter Filter { get; set; }
@@ -44,9 +46,11 @@ namespace FinanceiroApp.WPF.ViewModel
 
             WalletSelected += UpdateTransactionsControl;
             Updated += UpdateWalletsControl;
+            CurrentWalletId = -1;
+            CurrentCategoryId = -1;
 
-            if(this.User != null)
-                UpdateUser();
+            UpdateWallets();
+            UpdateCategories();
         }
 
         public async void UpdateUser()
@@ -75,7 +79,7 @@ namespace FinanceiroApp.WPF.ViewModel
             this.Filter.CategoryId = categoryId;
         }
 
-        private void UpdateCategories()
+        public void UpdateCategories()
         {
             Categories.Clear();
             Categories.Add(new TransactionCategory()
@@ -87,6 +91,8 @@ namespace FinanceiroApp.WPF.ViewModel
 
             foreach (TransactionCategory category in User.TransactionCategories.OrderBy(c => c.Description))
                 Categories.Add(category);
+
+            OnPropertyChanged(nameof(Categories));
         }
 
         #region Wallets
@@ -109,7 +115,7 @@ namespace FinanceiroApp.WPF.ViewModel
 
             foreach (Wallet wallet in User.Wallets)
                 Wallets.Add(new WalletItem(wallet, Updated, WalletSelected));
-
+            
             OnPropertyChanged(nameof(Wallets));
         }
 
@@ -117,10 +123,12 @@ namespace FinanceiroApp.WPF.ViewModel
 
         #region Transactions
 
-        public void UpdateTransactions(int walletId = -1)
+        public void UpdateTransactions(int walletId = 0)
         {
             try
             {
+                walletId = walletId == 0 ? CurrentWalletId : walletId;
+
                 Transactions.Clear();
                 IEnumerable<Transaction> transactions = User.Transactions.Where(t => (walletId == -1 || t.WalletId == walletId) && (Filter.CategoryId == -1 || t.CategoryId == Filter.CategoryId) 
                 && (t.DateTime >= Filter.Begin && t.DateTime <= Filter.End) && (Filter.Type.ToString().Equals("None") || t.Type.ToString().Equals(Filter.Type.ToString())));
@@ -139,10 +147,12 @@ namespace FinanceiroApp.WPF.ViewModel
                 CurrentWalletId = walletId;
 
                 DisplayedTotal = transactions.Sum(t => t.RealValue);
+                WalletTotal = walletId == -1 ? DisplayedTotal : User.Transactions.Where(t => t.WalletId == CurrentWalletId).Sum(t => t.RealValue);
                 OverallTotal = User.Transactions.Sum(t => t.RealValue);
 
                 OnPropertyChanged(nameof(Transactions));
                 OnPropertyChanged(nameof(DisplayedTotal));
+                OnPropertyChanged(nameof(WalletTotal));
                 OnPropertyChanged(nameof(OverallTotal));
             }
             catch (Exception ex)

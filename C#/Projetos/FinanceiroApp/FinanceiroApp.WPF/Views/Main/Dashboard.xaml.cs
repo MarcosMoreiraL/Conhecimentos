@@ -45,6 +45,9 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             Categories.TransactionCategories categories = new Categories.TransactionCategories();
             categories.ShowDialog();
+
+            ViewModel.UpdateCategories();
+            cbCategory.SelectedValue = ViewModel.CurrentCategoryId;
         }
 
         private void categoryMenuItem_Click(object sender, RoutedEventArgs e)
@@ -57,6 +60,8 @@ namespace FinanceiroApp.WPF.Views.Main
         {
             WalletRegister wr = new WalletRegister(ViewModel.Updated);
             wr.ShowDialog();
+
+            cbCategory.SelectedValue = ViewModel.CurrentCategoryId;
         }
 
         private void btnNewTransaction_Click(object sender, RoutedEventArgs e)
@@ -71,6 +76,8 @@ namespace FinanceiroApp.WPF.Views.Main
 
                 TransactionRegister tr = new TransactionRegister(ViewModel.Updated);
                 tr.ShowDialog();
+
+                cbCategory.SelectedValue = ViewModel.CurrentCategoryId;
             }
             catch (FinAppValidationException rvex)
             {
@@ -80,6 +87,19 @@ namespace FinanceiroApp.WPF.Views.Main
             {
                 Logger.Log(ex);
                 MessageBox.Show("Erro ao carregar a movimentação!", "Dashboard", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void lvTransactions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if((sender as ListView).SelectedItem != null)
+            {
+                TransactionItem transaction = (sender as ListView).SelectedItem as TransactionItem;
+                TransactionRegister tr = new TransactionRegister(transaction.ViewModel.Transaction, transaction.ViewModel.Updated);
+                tr.ShowDialog();
+
+                ViewModel.UpdateTransactions();
+                cbCategory.SelectedValue = ViewModel.CurrentCategoryId;
             }
         }
 
@@ -122,7 +142,12 @@ namespace FinanceiroApp.WPF.Views.Main
         private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ComboBox)?.SelectedValue != null && ViewModel != null)
-                ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, ViewModel.Filter.Type, int.Parse((sender as ComboBox).SelectedValue.ToString() ?? "-1"));
+            {
+                int categoryId = int.Parse((sender as ComboBox).SelectedValue.ToString() ?? "-1");
+                ViewModel.UpdateTransactionFilters(ViewModel.Filter.FilterType, ViewModel.Filter.OrderType, ViewModel.Filter.Type, categoryId);
+                
+                ViewModel.CurrentCategoryId = categoryId;
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();

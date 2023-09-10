@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              xmlns:local="clr-namespace:FinanceiroApp.WPF.Views.Transactions"
              xmlns:vm="clr-namespace:FinanceiroApp.WPF.ViewModel.Transactions"
              mc:Ignorable="d" 
-             Height="50" Width="750" Loaded="UserControl_Loaded">
+             Height="50" Width="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <vm:TransactionItemViewModel x:Key="vm"/>
         <Style x:Key="txtValueStyle" TargetType="{x:Type TextBlock}">
@@ -27,7 +28,7 @@
         <StackPanel Orientation="Horizontal">
             <TextBlock x:Name="txtDescricao" 
                        Text="{Binding Transaction.Description, FallbackValue=Descricao}" 
-                       Width="250" 
+                       Width="260" 
                        TextAlignment="Left" 
                        VerticalAlignment="Center" 
                        Style="{StaticResource titleTextBlockStyle}"/>
@@ -54,23 +55,21 @@
                        Style="{StaticResource txtValueStyle}"/>
 
             <Button x:Name="btnEditTransaction"
-                    BorderThickness="0"
-                    Width="30" 
-                    Height="30"
+                    Content="{materialIcons:MaterialIconExt Kind=Edit}"
+                    Width="50" 
+                    Height="45"
                     HorizontalAlignment="Right"
                     Margin="10 0 0 0"
                     Click="btnEditTransaction_Click">
-                <Image Source="../../Resources/Images/editIcon.png" Stretch="Uniform"/>
             </Button>
 
             <Button x:Name="btnDeleteTransaction"
-                    BorderThickness="0"
-                    Width="30" 
-                    Height="30"
+                    Content="{materialIcons:MaterialIconExt Kind=Delete}"
+                    Width="50" 
+                    Height="45"
                     HorizontalAlignment="Right"
-                    Margin="5 0 0 0"
+                    Margin="10 0 0 0"
                     Command="{Binding DeleteCommand}">
-                <Image Source="../../Resources/Images/deleteIcon.png" Stretch="Uniform"/>
             </Button>
         </StackPanel>
     </Border>

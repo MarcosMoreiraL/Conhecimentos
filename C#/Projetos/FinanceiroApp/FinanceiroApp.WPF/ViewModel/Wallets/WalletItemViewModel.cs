@@ -23,6 +23,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         public WalletItemViewModel(Wallet wallet)
         {
             Wallet = wallet;
+            DeleteCommand = new DeleteWalletCommand(this);
         }
 
         public void SetWallet(Wallet wallet)
@@ -35,7 +36,7 @@ namespace FinanceiroApp.WPF.ViewModel.Wallets
         {
             try
             {
-                if(MessageBox.Show($"Tem certeza de que deseja exluir a carteira {Wallet.Description}?", "Excluir Carteira", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if(MessageBox.Show($"Tem certeza de que deseja exluir a carteira {Wallet.Description}? Todas as movimentações serão excluídas.", "Excluir Carteira", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     //TODO: VERIFICAR SE EXISTEM TRANSAÇÕES UTILIZANDO ESSA CARTEIRA
 
